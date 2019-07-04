@@ -1,0 +1,57 @@
+[user]
+    name = Rémi Labeyrie
+    email = rlabeyrie@gmail.com
+
+[diff]
+    ;tool = vimdiff3
+    mnemonicPrefix = true
+    renames = true
+
+[core]
+    pager = cat
+    whitespace = -trailing-space
+
+[push]
+    default = simple
+
+[color]
+    ui = auto
+
+[alias]
+    st = status
+    ci = commit
+    lg = log --graph --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset'
+    oops = commit --amend --no-edit
+
+[fetch]
+    ;recurseSubmodules = on-demand
+
+[grep]
+    extendedRegexp = true
+
+[log]
+    abbrevCommit = true
+
+[merge]
+    conflictStyle = diff3
+    log = true
+
+[rerere]
+    autoupdate = true
+    enabled = true
+
+[status]
+    submoduleSummary = true
+    showUntrackedFiles = all
+
+[color "branch"]
+    upstream = cyan
+
+[tag]
+    sort = version:refname
+
+[pull]
+    rebase = preserve
+
+[push]
+    default = upstream
