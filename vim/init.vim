@@ -35,12 +35,15 @@ let g:PaperColor_Theme_Options = {
   \       'override' : {
   \         'cursorline' : ['#080808', '233'],
   \         'linenumber_bg' : ['#080808', '233'],
+  \         'cursorcolumn' : ['#080808', '233'],
+  \         'visual_fg' : ['NONE', 'NONE'],
+  \         'visual_bg' : ['#8787af', '237']
   \       }
   \     }
   \   }
   \ }
-
 colorscheme PaperColor
+set colorcolumn=120
 
 " Status line
 let g:lightline = { 'colorscheme': 'PaperColor' }
