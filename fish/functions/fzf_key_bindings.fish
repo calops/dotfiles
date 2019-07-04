@@ -1,0 +1,1 @@
+/home/calops/.fzf/shell/key-bindings.fish
