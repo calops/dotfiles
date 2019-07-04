@@ -29,6 +29,17 @@ let mapleader = ","
 
 " Colors
 set background=dark
+let g:PaperColor_Theme_Options = {
+  \   'theme': {
+  \     'default.dark': {
+  \       'override' : {
+  \         'cursorline' : ['#080808', '233'],
+  \         'linenumber_bg' : ['#080808', '233'],
+  \       }
+  \     }
+  \   }
+  \ }
+
 colorscheme PaperColor
 
 " Status line
@@ -83,3 +94,18 @@ let g:NERDSpaceDelims = 1
 let g:NERDCompactSexyComs = 1
 let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
+
+" Completion
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <Tab>
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<Tab>" :
+            \ coc#refresh()
+
+" Special chars
+set listchars=tab:→\ ,nbsp:␣,trail:~,precedes:«,extends:»
+set list
