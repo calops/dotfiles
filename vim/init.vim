@@ -1,6 +1,7 @@
 " Plugins
 call plug#begin('~/.config/nvim/plugged')
 
+Plug 'cespare/vim-toml'
 Plug 'chaoren/vim-wordmotion'
 Plug 'itchyny/lightline.vim'
 Plug 'janko-m/vim-test'
@@ -10,8 +11,9 @@ Plug 'junegunn/vim-easy-align'
 Plug 'kshenoy/vim-signature'
 Plug 'mhinz/vim-signify'
 Plug 'michaeljsmith/vim-indent-object'
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc.nvim', {'do': 'yarnpkg install --frozen-lockfile'}
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'tpope/vim-fugitive'
