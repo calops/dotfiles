@@ -30,7 +30,7 @@ call plug#end()
 let mapleader = ","
 
 " Colors
-set background=dark
+set background=light
 let g:PaperColor_Theme_Options = {
   \   'theme': {
   \     'default.dark': {
