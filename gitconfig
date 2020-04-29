@@ -1,6 +1,6 @@
 [user]
     name = Rémi Labeyrie
-    email = rlabeyrie@gmail.com
+    email = rlabeyrie@payplug.com
 
 [diff]
     ;tool = vimdiff3
@@ -8,8 +8,12 @@
     renames = true
 
 [core]
-    pager = cat
+    pager = delta --light
     whitespace = -trailing-space
+    excludesfile = /home/calops/.gitignore
+
+[interactive]
+    diffFilter = delta --light --color-only
 
 [push]
     default = simple
@@ -35,6 +39,19 @@
 [merge]
     conflictStyle = diff3
     log = true
+    tool = vimdiff
+
+[mergetool]
+    prompt = true
+
+[mergetool "vimdiff"]
+    cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+
+[difftool]
+    prompt = false
+
+[diff]
+    tool = vimdiff
 
 [rerere]
     autoupdate = true

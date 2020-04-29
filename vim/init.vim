@@ -23,6 +23,7 @@ Plug 'w0rp/ale'
 Plug 'wellle/targets.vim'
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'Yggdroot/indentLine'
+Plug 'dag/vim-fish'
 
 call plug#end()
 
@@ -86,6 +87,8 @@ nmap ga <Plug>(EasyAlign)
 " Linter
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 'never'
+let g:ale_linters = {'python': [ 'pylama' ]}
+let g:ale_python_pylama_options = '-i E501'
 
 " Tests
 nnoremap <silent> <leader>tt :TestNearest<CR>
