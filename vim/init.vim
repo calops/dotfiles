@@ -1,29 +1,36 @@
-" Plugins
 call plug#begin('~/.config/nvim/plugged')
 
+" Languages
 Plug 'cespare/vim-toml'
+Plug 'dag/vim-fish'
+Plug 'rust-lang/rust.vim'
+
+" Vim-fu
 Plug 'chaoren/vim-wordmotion'
-Plug 'itchyny/lightline.vim'
-Plug 'janko-m/vim-test'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'kshenoy/vim-signature'
-Plug 'mhinz/vim-signify'
 Plug 'michaeljsmith/vim-indent-object'
-Plug 'neoclide/coc.nvim', {'do': 'yarnpkg install --frozen-lockfile'}
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'w0rp/ale'
 Plug 'wellle/targets.vim'
-Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
+
+" Aesthetics
+Plug 'itchyny/lightline.vim'
+Plug 'NLKNguyen/papercolor-theme'
 Plug 'Yggdroot/indentLine'
-Plug 'dag/vim-fish'
+
+" Dev tools
+Plug 'janko-m/vim-test'
+Plug 'mhinz/vim-signify'
+Plug 'neoclide/coc.nvim', {'do': 'yarnpkg install --frozen-lockfile'}
+Plug 'tpope/vim-fugitive'
+
+" File browsing
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 
 call plug#end()
 
@@ -93,12 +100,6 @@ set cursorline
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
-" Linter
-let g:ale_lint_on_save = 1
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_linters = {'python': [ 'pylama' ]}
-let g:ale_python_pylama_options = '-i E501'
-
 " Tests
 nnoremap <silent> <leader>tt :TestNearest<CR>
 nnoremap <silent> <leader>tf :TestFile<CR>
@@ -156,6 +157,7 @@ endfunction
 
 autocmd CursorHold * silent call CocActionAsync('highlight')
 highlight CocHighlightText cterm=bold,underline gui=bold,underline
+highlight CocErrorHighlight ctermbg=lightred guibg=lightred
 
 command! -nargs=0 Format :call CocAction('format')
 command! -nargs=? Fold :call CocAction('fold', <f-args>)
@@ -169,6 +171,8 @@ nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
 nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
 " Special chars
 set listchars=tab:→\ ,nbsp:␣,trail:~,precedes:«,extends:»

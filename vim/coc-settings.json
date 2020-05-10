@@ -1,6 +1,7 @@
 {
-    "coc.preferences.diagnostic.displayByAle": true,
+    "coc.preferences.jumpCommand": "tab drop",
+    "coc.preferences.diagnostic.displayByAle": false,
+
     "html.enable": true,
-    "python.jediEnabled": true,
-    "coc.preferences.jumpCommand": "tab drop"
+    "python.jediEnabled": true
 }
