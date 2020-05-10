@@ -1,7 +1,9 @@
 {
     "coc.preferences.jumpCommand": "tab drop",
-    "coc.preferences.diagnostic.displayByAle": false,
 
     "html.enable": true,
-    "python.jediEnabled": true
+    "python.jediEnabled": true,
+
+    "rust-analyzer.procMacro.enable": true,
+    "rust-analyzer.cargo.loadOutDirsFromCheck": true
 }
