@@ -14,7 +14,7 @@ set -gx EDITOR nvim
 set -gx BAT_PAGER less -iRx4
 
 set -gx FZF_DEFAULT_COMMAND fd --type file --color=always
-set -gx FZF_DEFAULT_OPTS --ansi
 set -gx FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
+set -gx FZF_DEFAULT_OPTS "--ansi --preview-window 'right:50%' --preview 'bat --color=always --style=grid --line-range :300 {}'"
 
 starship init fish | source
