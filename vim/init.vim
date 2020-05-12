@@ -19,6 +19,8 @@ Plug 'wellle/targets.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'Yggdroot/indentLine'
+Plug 'camspiers/animate.vim'
+Plug 'camspiers/lens.vim'
 
 " Dev tools
 Plug 'janko-m/vim-test'
@@ -188,3 +190,6 @@ tnoremap <silent> <C-k> <C-\><C-n>:FloatermPrev<CR>
 tnoremap <silent> <C-j> <C-\><C-n>:FloatermNext<CR>
 nnoremap <silent> <C-f> :FloatermToggle<CR>
 tnoremap <silent> <C-f> <C-\><C-n>:FloatermToggle<CR>
+
+" Animations
+let g:animate#duration = 100.0
