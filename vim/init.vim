@@ -25,6 +25,7 @@ Plug 'janko-m/vim-test'
 Plug 'mhinz/vim-signify'
 Plug 'neoclide/coc.nvim', {'do': 'yarnpkg install --frozen-lockfile'}
 Plug 'tpope/vim-fugitive'
+Plug 'voldikss/vim-floaterm'
 
 " File browsing
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -141,8 +142,6 @@ nmap <silent> <TAB> <Plug>(coc-range-select)
 xmap <silent> <TAB> <Plug>(coc-range-select)
 
 nmap <leader>rn <Plug>(coc-rename)
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>qf  <Plug>(coc-fix-current)
 nmap <leader>ac  <Plug>(coc-codeaction)
 
@@ -177,3 +176,15 @@ autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 " Special chars
 set listchars=tab:→\ ,nbsp:␣,trail:~,precedes:«,extends:»
 set list
+
+" Tabs
+nnoremap <silent> <C-t> :tabnew<CR>
+nnoremap <silent> <C-Tab> :tabnext<CR>
+nnoremap <silent> <C-S-Tab> :tabprevious<CR>
+
+" Floating terminal
+nnoremap <silent> <leader>fn :FloatermNew<CR>
+tnoremap <silent> <C-k> <C-\><C-n>:FloatermPrev<CR>
+tnoremap <silent> <C-j> <C-\><C-n>:FloatermNext<CR>
+nnoremap <silent> <C-f> :FloatermToggle<CR>
+tnoremap <silent> <C-f> <C-\><C-n>:FloatermToggle<CR>
