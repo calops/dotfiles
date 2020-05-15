@@ -21,6 +21,7 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'Yggdroot/indentLine'
 Plug 'camspiers/animate.vim'
 Plug 'camspiers/lens.vim'
+Plug 'ryanoasis/vim-devicons'
 
 " Dev tools
 Plug 'janko-m/vim-test'
