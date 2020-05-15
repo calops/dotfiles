@@ -8,7 +8,7 @@
     renames = true
 
 [core]
-    pager = delta --light
+    pager = delta --light --hunk-style=plain
     whitespace = -trailing-space
     excludesfile = /home/calops/.gitignore
 
