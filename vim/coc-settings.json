@@ -2,7 +2,9 @@
     "coc.preferences.jumpCommand": "tab drop",
 
     "html.enable": true,
+
     "python.jediEnabled": true,
+    "python.linting.flake8Enabled": true,
 
     "rust-analyzer.procMacro.enable": true,
     "rust-analyzer.cargo.loadOutDirsFromCheck": true
