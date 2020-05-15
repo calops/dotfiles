@@ -4,6 +4,7 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'cespare/vim-toml'
 Plug 'dag/vim-fish'
 Plug 'rust-lang/rust.vim'
+Plug 'vim-python/python-syntax'
 
 " Vim-fu
 Plug 'chaoren/vim-wordmotion'
@@ -19,8 +20,6 @@ Plug 'wellle/targets.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'Yggdroot/indentLine'
-Plug 'camspiers/animate.vim'
-Plug 'camspiers/lens.vim'
 Plug 'ryanoasis/vim-devicons'
 
 " Dev tools
@@ -192,5 +191,5 @@ tnoremap <silent> <C-j> <C-\><C-n>:FloatermNext<CR>
 nnoremap <silent> <C-f> :FloatermToggle<CR>
 tnoremap <silent> <C-f> <C-\><C-n>:FloatermToggle<CR>
 
-" Animations
-let g:animate#duration = 100.0
+" Python
+let g:python_highlight_all = 1
