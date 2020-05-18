@@ -1,6 +1,4 @@
 {
-    "coc.preferences.jumpCommand": "tab drop",
-
     "html.enable": true,
 
     "python.jediEnabled": true,
