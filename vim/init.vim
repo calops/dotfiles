@@ -32,6 +32,7 @@ Plug 'voldikss/vim-floaterm'
 " Utils
 Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 Plug 'alok/notational-fzf-vim'
+Plug 'mattn/calendar-vim'
 
 " File browsing
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -85,8 +86,10 @@ nnoremap <leader>h :History<CR>
 nnoremap <leader>rg :Rg<Space>
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(yellow)%h%C(red)%d%C(reset) - %C(bold green)(%ar)%C(reset) %s %C(blue)<%an>%C(reset)"'
 let g:fzf_preview_window = 'right:50%'
-
 let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+
+let g:nv_window_command = 'call FloatingFZF()'
+let g:nv_search_paths = ['~/wiki']
 
 function! FloatingFZF()
   let buf = nvim_create_buf(v:false, v:true)
@@ -225,4 +228,3 @@ let g:python_highlight_all = 1
 " Vimwiki
 let g:vimwiki_listsyms = ' ○◐●✓'
 let g:vimwiki_list = [{'path': '~/wiki/', 'syntax': 'markdown', 'ext': '.md'}]
-let g:nv_search_paths = ['~/wiki']
