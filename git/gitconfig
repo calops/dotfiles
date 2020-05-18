@@ -68,7 +68,7 @@
     sort = version:refname
 
 [pull]
-    rebase = preserve
+    rebase = true
 
 [push]
     default = upstream
