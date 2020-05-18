@@ -25,9 +25,13 @@ Plug 'ryanoasis/vim-devicons'
 " Dev tools
 Plug 'janko-m/vim-test'
 Plug 'mhinz/vim-signify'
-Plug 'neoclide/coc.nvim', {'do': 'yarnpkg install --frozen-lockfile'}
+Plug 'neoclide/coc.nvim', { 'do': 'yarnpkg install --frozen-lockfile' }
 Plug 'tpope/vim-fugitive'
 Plug 'voldikss/vim-floaterm'
+
+" Utils
+Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
+Plug 'alok/notational-fzf-vim'
 
 " File browsing
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -80,6 +84,30 @@ nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>h :History<CR>
 nnoremap <leader>rg :Rg<Space>
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(yellow)%h%C(red)%d%C(reset) - %C(bold green)(%ar)%C(reset) %s %C(blue)<%an>%C(reset)"'
+let g:fzf_preview_window = 'right:50%'
+
+let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+
+function! FloatingFZF()
+  let buf = nvim_create_buf(v:false, v:true)
+  call setbufvar(buf, '&signcolumn', 'no')
+
+  let height = float2nr(20)
+  let width = float2nr(200)
+  let horizontal = float2nr((&columns - width) / 2)
+  let vertical = 1
+
+  let opts = {
+        \ 'relative': 'editor',
+        \ 'row': vertical,
+        \ 'col': horizontal,
+        \ 'width': width,
+        \ 'height': height,
+        \ 'style': 'minimal'
+        \ }
+
+  call nvim_open_win(buf, v:true, opts)
+endfunction
 
 " File browser
 nnoremap <silent> <leader>n :NERDTreeToggle<CR>
@@ -193,3 +221,8 @@ tnoremap <silent> <C-f> <C-\><C-n>:FloatermToggle<CR>
 
 " Python
 let g:python_highlight_all = 1
+
+" Vimwiki
+let g:vimwiki_listsyms = ' ○◐●✓'
+let g:vimwiki_list = [{'path': '~/wiki/', 'syntax': 'markdown', 'ext': '.md'}]
+let g:nv_search_paths = ['~/wiki']
