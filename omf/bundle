@@ -1,5 +1,0 @@
-package bang-bang
-package fzf
-package git@github.com:franciscolourenco/done.git
-theme default
-theme spacefish
