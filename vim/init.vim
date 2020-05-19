@@ -33,6 +33,7 @@ Plug 'voldikss/vim-floaterm'
 Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 Plug 'alok/notational-fzf-vim'
 Plug 'mattn/calendar-vim'
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
 " File browsing
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
