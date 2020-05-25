@@ -5,6 +5,7 @@ Plug 'cespare/vim-toml'
 Plug 'dag/vim-fish'
 Plug 'rust-lang/rust.vim'
 Plug 'vim-python/python-syntax'
+Plug 'Vimjas/vim-python-pep8-indent'
 
 " Vim-fu
 Plug 'chaoren/vim-wordmotion'
@@ -96,10 +97,10 @@ function! FloatingFZF()
   let buf = nvim_create_buf(v:false, v:true)
   call setbufvar(buf, '&signcolumn', 'no')
 
-  let height = float2nr(20)
+  let height = max([float2nr(20), &lines / 2])
   let width = float2nr(200)
   let horizontal = float2nr((&columns - width) / 2)
-  let vertical = 1
+  let vertical = float2nr((&lines - height) / 2)
 
   let opts = {
         \ 'relative': 'editor',
