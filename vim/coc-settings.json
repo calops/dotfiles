@@ -2,7 +2,10 @@
     "html.enable": true,
 
     "python.jediEnabled": true,
+    "python.venvPath": "~/.virtualenvs",
     "python.linting.flake8Enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.pylintUseMinimalCheckers": false,
 
     "rust-analyzer.procMacro.enable": true,
     "rust-analyzer.cargo.loadOutDirsFromCheck": true
