@@ -8,6 +8,7 @@ alias la="ll -la"
 alias lt="ls -T"
 alias copy="xclip -selection clipboard"
 
+set -gx PATH ~/.local/bin $PATH
 set -gx PATH ~/.cargo/bin $PATH
 set -gx PATH ~/.pyenv/bin $PATH
 
