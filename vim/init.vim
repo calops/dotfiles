@@ -230,3 +230,7 @@ let g:python_highlight_all = 1
 " Vimwiki
 let g:vimwiki_listsyms = ' ○◐●✓'
 let g:vimwiki_list = [{'path': '~/wiki/', 'syntax': 'markdown', 'ext': '.md'}]
+
+" Splits
+set splitbelow
+set splitright
