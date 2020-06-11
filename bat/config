@@ -1,0 +1,5 @@
+--theme="Monokai Extended Light"
+--italic-text=always
+--pager="--RAW-CONTROL-CHARS --quit-if-one-screen --mouse"
+--style=grid
+--color=always
