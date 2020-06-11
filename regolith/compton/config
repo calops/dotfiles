@@ -74,7 +74,6 @@ shadow-exclude = [
     "name = 'Docky'",
     "name = 'Kupfer'",
     "name = 'xfce4-notifyd'",
-    "name *= 'Polybar'",
     "name *= 'VLC'",
     "name *= 'compton'",
     "name *= 'cpt_frame_window'",
