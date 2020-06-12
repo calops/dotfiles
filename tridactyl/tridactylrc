@@ -1,0 +1,26 @@
+guiset_quiet gui none
+guiset_quiet navbar always
+guiset_quiet hoverlink left
+guiset_quiet statuspanel left
+
+colorscheme dark
+
+set searchengine google
+set editorcmd alacritty -e nvim
+
+setpref browser.uidensity 1
+
+bind / fillcmdline find 
+bind ? fillcmdline find -? 
+bind n findnext
+bind N findnext -1
+bind ,<space> nohlsearch
+bind ;m composite hint -pipe img src | js -p tri.excmds.open('images.google.com/searchbyimage?image_url=' + JS_ARG)
+bind ;M composite hint -pipe img src | jsb -p tri.excmds.tabopen('images.google.com/searchbyimage?image_url=' + JS_ARG)
+bind gd tabdetach
+bind gD composite tabduplicate | tabdetach
+
+bindurl www.google.com f hint -Jc .rc > .r > a
+bindurl www.google.com F hint -Jbc .rc>.r>a
+
+autocmd TriStart .* source_quiet ~/.config/tridactyl/tridactylrc
