@@ -78,11 +78,13 @@ shadow-exclude = [
     "name *= 'compton'",
     "name *= 'cpt_frame_window'",
     "name *= 'wrapper-2.0'",
+    "name *= 'Polybar tray window'",
     "class_g = 'Conky'",
     "class_g = 'Kupfer'",
     "class_g = 'Synapse'",
     "class_g ?= 'Notify-osd'",
     "class_g ?= 'Cairo-dock'",
+    "class_g ?= 'tray'",
     "_GTK_FRAME_EXTENTS@:c"
 ];
 # Avoid drawing shadow on all shaped windows (see also: --detect-rounded-corners)
@@ -123,7 +125,7 @@ blur-background-exclude = [
 # Fade windows during opacity changes.
 fading = true;
 # The time between steps in a fade in milliseconds. (default 10).
-fade-delta = 3;
+fade-delta = 5;
 # Opacity change between steps while fading in. (default 0.028).
 fade-in-step = 0.03;
 # Opacity change between steps while fading out. (default 0.03).
