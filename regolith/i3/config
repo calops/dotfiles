@@ -29,6 +29,17 @@ set_from_resource $ws17 i3-wm.workspace.17.name "17"
 set_from_resource $ws18 i3-wm.workspace.18.name "18"
 set_from_resource $ws19 i3-wm.workspace.19.name "19"
 
+workspace 1 output primary
+workspace 2 output primary
+workspace 3 output primary
+workspace 4 output primary
+workspace 5 output primary
+workspace 6 output primary
+workspace 7 output primary
+workspace 8 output primary
+workspace 9 output primary
+workspace 10 output primary
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -197,7 +208,7 @@ bindsym $mod+Shift+b exec /usr/bin/gnome-session-quit --reboot
 bindsym $mod+Shift+p exec /usr/bin/gnome-session-quit --power-off
 
 ## Session // Lock Screen // <Super> Escape ##
-bindsym $mod+Escape exec gnome-screensaver-command --lock
+bindsym $mod+Escape exec i3lock && xset s activate
 
 ## Session // Sleep // <Super><Shift> s ##
 bindsym $mod+Shift+s exec systemctl suspend
@@ -388,7 +399,7 @@ set_from_resource $i3-wm.i3xrocks.config i3-wm.i3xrocks.config "/etc/regolith/i3
 # The following exec calls run programs in the background when i3 starts.
 
 # Start the installed regolith-compositor
-exec --no-startup-id /usr/bin/compton -f --config $HOME/.config/regolith/compton/config
+exec --no-startup-id /usr/bin/compton --dbus -f --config $HOME/.config/regolith/compton/config
 
 # Start Rofication for notifications
 exec --no-startup-id /usr/share/rofication/rofication-daemon.py
