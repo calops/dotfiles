@@ -10,7 +10,7 @@
 [core]
     pager = delta --light --hunk-style=plain
     whitespace = -trailing-space
-    excludesfile = /home/calops/.gitignore
+    excludesfile = ~/.gitignore
 
 [interactive]
     diffFilter = delta --light --color-only
