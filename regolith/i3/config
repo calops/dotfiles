@@ -208,7 +208,7 @@ bindsym $mod+Shift+b exec /usr/bin/gnome-session-quit --reboot
 bindsym $mod+Shift+p exec /usr/bin/gnome-session-quit --power-off
 
 ## Session // Lock Screen // <Super> Escape ##
-bindsym $mod+Escape exec i3lock && xset s activate
+bindsym $mod+Escape exec i3lock --clock --blur=10
 
 ## Session // Sleep // <Super><Shift> s ##
 bindsym $mod+Shift+s exec systemctl suspend
@@ -412,3 +412,5 @@ exec --no-startup-id /usr/bin/unclutter -b
 
 # Polybar
 exec --no-startup-id $HOME/.config/polybar/launch.sh
+
+exec --no-startup-id /usr/bin/nm-applet
