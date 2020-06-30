@@ -266,10 +266,11 @@ augroup vimrc_help
 augroup END
 
 " coc-git
-nmap [g <Plug>(coc-git-prevchunk)
-nmap ]g <Plug>(coc-git-nextchunk)
-nmap gs <Plug>(coc-git-chunkinfo)
-nmap gc <Plug>(coc-git-commit)
+nmap <leader>gp <Plug>(coc-git-prevchunk)
+nmap <leader>gp <Plug>(coc-git-nextchunk)
+nmap <leader>gs <Plug>(coc-git-chunkinfo)
+nmap <leader>ga :CocCommand git.chunkStage<CR>
+nmap <leader>gu :CocCommand git.chunkUndo<CR>
 omap ig <Plug>(coc-git-chunk-inner)
 xmap ig <Plug>(coc-git-chunk-inner)
 omap ag <Plug>(coc-git-chunk-outer)
