@@ -13,20 +13,23 @@ Plug 'junegunn/vim-easy-align'
 Plug 'kshenoy/vim-signature'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'wellle/targets.vim'
 
 " Aesthetics
-Plug 'itchyny/lightline.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'NLKNguyen/papercolor-theme'
-Plug 'Yggdroot/indentLine'
 Plug 'ryanoasis/vim-devicons'
+Plug 'Yggdroot/indentLine'
 
 " Dev tools
+Plug 'antoinemadec/coc-fzf'
 Plug 'janko-m/vim-test'
-Plug 'mhinz/vim-signify'
 Plug 'neoclide/coc.nvim', { 'do': 'yarnpkg install --frozen-lockfile' }
+Plug 'rhysd/git-messenger.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'voldikss/vim-floaterm'
 
@@ -58,18 +61,6 @@ let g:PaperColor_Theme_Options = {
   \ }
 colorscheme PaperColor
 set colorcolumn=120
-
-" Status line
-let g:lightline = {
-  \   'colorscheme': 'PaperColor',
-  \   'active': {
-  \     'left': [ [ 'mode', 'paste' ],
-  \               [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
-  \   },
-  \   'component_function': {
-  \     'cocstatus': 'coc#status'
-  \   },
-  \ }
 
 " Mouse
 set mouse=a
@@ -206,8 +197,6 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
-autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
-
 " Special chars
 set listchars=tab:→\ ,nbsp:␣,trail:~,precedes:«,extends:»
 set list
@@ -230,3 +219,58 @@ let g:python_highlight_all = 1
 " Splits
 set splitbelow
 set splitright
+
+" coc.nvim
+let g:coc_global_extensions = [
+  \   "coc-vimlsp",
+  \   "coc-git",
+  \   "coc-highlight",
+  \   "coc-tag",
+  \   "coc-html",
+  \   "coc-fish",
+  \   "coc-python",
+  \   "coc-rust-analyzer",
+  \   "coc-sh",
+  \   "coc-css",
+  \   "coc-json"
+  \ ]
+
+" airline
+let g:airline_theme = 'papercolor'
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_min_count = 2
+let g:airline#extensions#tabline#tab_min_count = 2
+
+let g:airline#extensions#fzf#enabled = 1
+let g:airline#extensions#obsession#enabled = 1
+
+let g:airline#extensions#coc#enabled = 1
+let g:airline#extensions#coc#error_symbol = ' '
+let g:airline#extensions#coc#warning_symbol = ' '
+
+let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+let g:airline_symbols.branch = ''
+let g:airline_symbols.maxlinenr = ' ㏑'
+let g:airline_symbols.readonly = ' '
+
+" vim help
+augroup vimrc_help
+  autocmd!
+  autocmd BufEnter *.txt if &buftype == 'help' | wincmd L | vert resize 80 | set winfixwidth | endif
+augroup END
+
+" coc-git
+nmap [g <Plug>(coc-git-prevchunk)
+nmap ]g <Plug>(coc-git-nextchunk)
+nmap gs <Plug>(coc-git-chunkinfo)
+nmap gc <Plug>(coc-git-commit)
+omap ig <Plug>(coc-git-chunk-inner)
+xmap ig <Plug>(coc-git-chunk-inner)
+omap ag <Plug>(coc-git-chunk-outer)
+xmap ag <Plug>(coc-git-chunk-outer)
