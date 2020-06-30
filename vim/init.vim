@@ -79,7 +79,7 @@ let g:coc_fzf_preview = 'right:50%'
 let g:coc_fzf_opts = [ '--preview="bat --line-range :300 {}"' ]
 
 function! Centered_floating_window(border)
-    let width = min([&columns - 4, max([80, &columns - 30])])
+    let width = min([&columns - 4, max([120, &columns - 30])])
     let height = min([&lines - 4, max([20, &lines - 20])])
     let top = ((&lines - height) / 2) - 1
     let left = (&columns - width) / 2
