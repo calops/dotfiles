@@ -29,14 +29,6 @@ Plug 'mhinz/vim-signify'
 Plug 'neoclide/coc.nvim', { 'do': 'yarnpkg install --frozen-lockfile' }
 Plug 'tpope/vim-fugitive'
 Plug 'voldikss/vim-floaterm'
-Plug 'antoinemadec/coc-fzf'
-Plug 'rhysd/git-messenger.vim'
-
-" Utils
-Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
-Plug 'alok/notational-fzf-vim'
-Plug 'mattn/calendar-vim'
-Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
 " File browsing
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -94,9 +86,6 @@ let g:fzf_preview_window = 'right:50%'
 let g:fzf_layout = { 'window': 'call Centered_floating_window(v:true)' }
 let g:coc_fzf_preview = 'right:50%'
 let g:coc_fzf_opts = [ '--preview="bat --line-range :300 {}"' ]
-
-let g:nv_window_command = 'call Centered_floating_window(v:true)'
-let g:nv_search_paths = ['~/wiki']
 
 function! Centered_floating_window(border)
     let width = min([&columns - 4, max([80, &columns - 30])])
@@ -237,10 +226,6 @@ tnoremap <silent> <C-f> <C-\><C-n>:FloatermToggle<CR>
 
 " Python
 let g:python_highlight_all = 1
-
-" Vimwiki
-let g:vimwiki_listsyms = ' ○◐●✓'
-let g:vimwiki_list = [{'path': '~/wiki/', 'syntax': 'markdown', 'ext': '.md'}]
 
 " Splits
 set splitbelow
