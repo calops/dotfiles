@@ -236,7 +236,7 @@ let g:coc_global_extensions = [
   \ ]
 
 " airline
-let g:airline_theme = 'papercolor'
+let g:airline_theme = 'cool'
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_min_count = 2
@@ -258,6 +258,22 @@ endif
 let g:airline_symbols.branch = ''
 let g:airline_symbols.maxlinenr = ' ㏑'
 let g:airline_symbols.readonly = ' '
+let g:airline_symbols.notexists = '?'
+
+let g:airline_mode_map = {
+    \ '__' : '--',
+    \ 'n'  : 'N',
+    \ 'i'  : 'I',
+    \ 'R'  : 'R',
+    \ 'c'  : 'C',
+    \ 'v'  : 'V',
+    \ 'V'  : 'V-L',
+    \ '' : 'V-B',
+    \ 's'  : 'S',
+    \ 'S'  : 'S-L',
+    \ '' : 'S-B',
+    \ 't'  : 'T',
+    \ }
 
 " vim help
 augroup vimrc_help
