@@ -8,9 +8,11 @@ Plug 'vim-python/python-syntax'
 Plug 'Vimjas/vim-python-pep8-indent'
 
 " Vim-fu
-Plug 'chaoren/vim-wordmotion'
+Plug 'Julian/vim-textobj-variable-segment'
 Plug 'junegunn/vim-easy-align'
+Plug 'kana/vim-textobj-user'
 Plug 'kshenoy/vim-signature'
+Plug 'lambdalisue/reword.vim'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-obsession'
@@ -19,10 +21,10 @@ Plug 'tpope/vim-surround'
 Plug 'wellle/targets.vim'
 
 " Aesthetics
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'ryanoasis/vim-devicons'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'Yggdroot/indentLine'
 
 " Dev tools
@@ -36,13 +38,18 @@ Plug 'voldikss/vim-floaterm'
 " File browsing
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
-Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
+Plug 'tpope/vim-eunuch'
 
 call plug#end()
 
-" Core commands
+" Core settings
 let mapleader = ","
+set inccommand=nosplit
+set termguicolors
+set number
+set cursorline
+set mouse=a
+set shortmess+=c
 
 " Colors
 set background=light
@@ -61,9 +68,6 @@ let g:PaperColor_Theme_Options = {
   \ }
 colorscheme PaperColor
 set colorcolumn=120
-
-" Mouse
-set mouse=a
 
 " Fuzzy finder
 nnoremap <C-p> :Files<CR>
@@ -106,11 +110,12 @@ function! Centered_floating_window(border)
 endfunction
 
 " File browser
-nnoremap <silent> <leader>n :NERDTreeToggle<CR>
-nnoremap <silent> <leader>f :NERDTreeFind<CR>
+nnoremap <silent> <leader>n :CocCommand explorer<CR>
 
-" Line numbers
-set number
+augroup coc_explorer_indentline
+  autocmd!
+  autocmd! FileType coc-explorer :IndentLinesDisable
+augroup END
 
 " Indentation
 set softtabstop=4
@@ -119,9 +124,6 @@ set expandtab
 set smartindent
 let g:indentLine_faster = 1
 let g:indentLine_char = '│'
-
-" Cursor line
-set cursorline
 
 " Easy align
 xmap ga <Plug>(EasyAlign)
@@ -142,7 +144,6 @@ let g:NERDTrimTrailingWhitespace = 1
 
 " Completion
 set updatetime=200
-set shortmess+=c
 
 function! s:check_back_space() abort
     let col = col('.') - 1
@@ -202,7 +203,17 @@ set listchars=tab:→\ ,nbsp:␣,trail:~,precedes:«,extends:»
 set list
 
 " Tabs
-nnoremap <silent> <C-t> :tabnew<CR>
+function! NewTab()
+    let view = winsaveview()
+    " Have to do it this way, since airline's tabline somehow doesn't show the
+    " new tab when using "tabedit %"
+    let file = nvim_get_current_buf()
+    tabnew
+    execute 'buffer' file
+    call winrestview(view)
+endfunction
+
+nnoremap <silent> <C-t> :call NewTab()<CR>
 nnoremap <silent> <C-Tab> :tabnext<CR>
 nnoremap <silent> <C-S-Tab> :tabprevious<CR>
 
@@ -232,6 +243,7 @@ let g:coc_global_extensions = [
   \   "coc-rust-analyzer",
   \   "coc-sh",
   \   "coc-css",
+  \   "coc-explorer",
   \   "coc-json"
   \ ]
 
@@ -243,7 +255,9 @@ let g:airline#extensions#tabline#buffer_min_count = 2
 let g:airline#extensions#tabline#tab_min_count = 2
 
 let g:airline#extensions#fzf#enabled = 1
+
 let g:airline#extensions#obsession#enabled = 1
+let g:airline#extensions#obsession#indicator_text = ' '
 
 let g:airline#extensions#coc#enabled = 1
 let g:airline#extensions#coc#error_symbol = ' '
