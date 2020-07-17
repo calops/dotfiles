@@ -11,7 +11,8 @@
     "rust-analyzer.cargo.loadOutDirsFromCheck": true,
 
     "diagnostic.virtualText": true,
-    "diagnostic.virtualTextPrefix": " ",
+    "diagnostic.virtualTextPrefix": "  ",
+    "diagnostic.virtualTextCurrentLineOnly": false,
 
     "git.realtimeGutters": false,
     "git.gitlab.hosts": ["git.payplug.com"],
@@ -47,5 +48,9 @@
         "reference": "\uf87a",
         "typeParameter": "\uf278",
         "default": "\uf29c"
-    }
+    },
+
+    "explorer.icon.enableVimDevicons": true,
+    "explorer.icon.enableNerdfont": true,
+    "explorer.file.column.indent.indentLine": true
 }
