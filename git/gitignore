@@ -1,3 +1,4 @@
 .venv
 .vim
 Session.vim
+__pycache__
