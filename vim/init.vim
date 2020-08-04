@@ -1,3 +1,8 @@
+if empty(glob('~/.vim/autoload/plug.vim'))
+    silent execute "!curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+    autocmd VimEnter * PlugInstall | source $MYVIMRC
+endif
+
 call plug#begin('~/.config/nvim/plugged')
 
 " Languages
@@ -21,7 +26,7 @@ Plug 'tpope/vim-surround'
 Plug 'wellle/targets.vim'
 
 " Aesthetics
-Plug 'NLKNguyen/papercolor-theme'
+Plug 'sainnhe/edge'
 Plug 'ryanoasis/vim-devicons'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -53,20 +58,7 @@ set shortmess+=c
 
 " Colors
 set background=light
-let g:PaperColor_Theme_Options = {
-  \   'theme': {
-  \     'default.dark': {
-  \       'override' : {
-  \         'cursorline' : ['#080808', '233'],
-  \         'linenumber_bg' : ['#080808', '233'],
-  \         'cursorcolumn' : ['#080808', '233'],
-  \         'visual_fg' : ['NONE', 'NONE'],
-  \         'visual_bg' : ['#8787af', '237']
-  \       }
-  \     }
-  \   }
-  \ }
-colorscheme PaperColor
+colorscheme edge
 set colorcolumn=120
 
 " Fuzzy finder
@@ -244,11 +236,12 @@ let g:coc_global_extensions = [
   \   "coc-sh",
   \   "coc-css",
   \   "coc-explorer",
+  \   "coc-yaml",
   \   "coc-json"
   \ ]
 
 " airline
-let g:airline_theme = 'cool'
+let g:airline_theme = 'edge'
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_min_count = 2
