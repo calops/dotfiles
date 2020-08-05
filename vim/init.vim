@@ -105,8 +105,8 @@ endfunction
 nnoremap <silent> <leader>n :CocCommand explorer<CR>
 
 augroup coc_explorer_indentline
-  autocmd!
-  autocmd! FileType coc-explorer :IndentLinesDisable
+    autocmd!
+    autocmd! FileType coc-explorer :IndentLinesDisable
 augroup END
 
 " Indentation
@@ -116,6 +116,7 @@ set expandtab
 set smartindent
 let g:indentLine_faster = 1
 let g:indentLine_char = '│'
+let g:indentLine_color_gui = '#eeeeee'
 
 " Easy align
 xmap ga <Plug>(EasyAlign)
