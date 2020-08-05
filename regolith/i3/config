@@ -54,12 +54,9 @@ bindsym $mod+Shift+Return exec gtk-launch $(xdg-settings get default-web-browser
 set_from_resource $rofiTheme rofi.theme "regolith-theme"
 
 # rofi app and window launchers
-## Launch // Application // <Super> Space ##
-bindsym $mod+space exec rofi -show drun -theme $rofiTheme
-## Launch // Command // <Super><Shift> Space ##
-bindsym $mod+Shift+space exec rofi -show run -theme $rofiTheme
-## Navigate // Window by Name // <Super><Ctrl> Space ##
-bindsym $mod+Ctrl+space exec rofi -show window -theme $rofiTheme
+bindsym $mod+space exec rofi -no-lazy-grab -show drun -theme ~/.config/rofi/launcher.rasi -matching normal
+bindsym $mod+Shift+space exec rofi -no-lazy-grab -show run -theme ~/.config/rofi/launcher.rasi
+bindsym $mod+Ctrl+space exec rofi -no-lazy-grab -show window -theme ~/.config/rofi/launcher.rasi
 
 ## Navigate // Relative Window // <Super> ↑ ↓ ← →
 bindsym $mod+Left focus left
@@ -286,7 +283,7 @@ set_from_resource $i3-wm.window.border.size i3-wm.window.border.size 1
 set_from_resource $i3-wm.floatingwindow.border.size i3-wm.floatingwindow.border.size 1
 default_border pixel 0
 default_floating_border pixel 0
-border_radius 4
+# border_radius 4
 
 # Specify the distance between windows in pixels. (i3-gaps)
 set_from_resource $i3-wm.gaps.inner.size i3-wm.gaps.inner.size 5
@@ -399,7 +396,7 @@ set_from_resource $i3-wm.i3xrocks.config i3-wm.i3xrocks.config "/etc/regolith/i3
 # The following exec calls run programs in the background when i3 starts.
 
 # Start the installed regolith-compositor
-exec --no-startup-id /usr/bin/compton --dbus -f --config $HOME/.config/regolith/compton/config
+exec --no-startup-id /usr/bin/picom --dbus -f --config $HOME/.config/regolith/compton/config --experimental-backends
 
 # Start Rofication for notifications
 exec --no-startup-id /usr/share/rofication/rofication-daemon.py
