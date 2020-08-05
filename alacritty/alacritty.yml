@@ -1,31 +1,28 @@
-colors:
-    primary:
-        background: '0xeeeeee'
-        foreground: '0x4d4d4c'
+schemes:
+    edge_light: &edge_light
+        primary:
+            background: "0xfafafa"
+            foreground: "0x4b505b"
+        normal:
+            black: "0x4b505b"
+            red: "0xd05858"
+            green: "0x608e32"
+            yellow: "0xbe7e05"
+            blue: "0x5079be"
+            magenta: "0xb05ccc"
+            cyan: "0x3a8b84"
+            white: "0xfafafa"
+        bright:
+            black: "0x4b505b"
+            red: "0xd05858"
+            green: "0x608e32"
+            yellow: "0xbe7e05"
+            blue: "0x5079be"
+            magenta: "0xb05ccc"
+            cyan: "0x3a8b84"
+            white: "0xfafafa"
 
-    cursor:
-        text: '0xf3f3f3'
-        cursor: '0x4d4d4c'
-
-    normal:
-        black:   '0xededed'
-        red:     '0xd7005f'
-        green:   '0x718c00'
-        yellow:  '0xd75f00'
-        blue:    '0x4271ae'
-        magenta: '0x8959a8'
-        cyan:    '0x3e999f'
-        white:   '0x4d4d4c'
-
-    bright:
-        black:   '0x949494'
-        red:     '0xd7005f'
-        green:   '0x718c00'
-        yellow:  '0xd75f00'
-        blue:    '0x4271ae'
-        magenta: '0x8959a8'
-        cyan:    '0x3e999f'
-        white:   '0xf5f5f5'
+colors: *edge_light
 
 font:
     normal:
