@@ -7,31 +7,17 @@ glx-no-rebind-pixmap = true;
 use-damage = true;
 
 # Shadows
-shadow = false;
+shadow = true;
 shadow-radius = 8;
 shadow-offset-x = -8;
 shadow-offset-y = -8;
 shadow-opacity = 0.6;
 shadow-ignore-shaped = false;
 shadow-exclude = [
+    "!focused",
     "! name~=''",
-    "name = 'Notification'",
-    "name = 'Plank'",
-    "name = 'Docky'",
-    "name = 'Kupfer'",
-    "name = 'xfce4-notifyd'",
-    "name *= 'VLC'",
-    "name *= 'compton'",
-    "name *= 'cpt_frame_window'",
-    "name *= 'wrapper-2.0'",
     "name *= 'Polybar tray window'",
-    "class_g = 'Conky'",
-    "class_g = 'Kupfer'",
-    "class_g = 'Synapse'",
-    "class_g ?= 'Notify-osd'",
-    "class_g ?= 'Cairo-dock'",
-    "class_g ?= 'tray'",
-    "_GTK_FRAME_EXTENTS@:c"
+    "class_g ?= 'tray'"
 ];
 
 # Opacity
@@ -39,7 +25,7 @@ inactive-opacity = 1;
 active-opacity = 1;
 frame-opacity = 1;
 inactive-opacity-override = false;
-inactive-dim = 0.05;
+inactive-dim = 0.00;
 inactive-dim-fixed = true;
 
 # Blur
@@ -49,15 +35,16 @@ blur: {
     background = false;
     background-frame = false;
     background-fixed = true;
-    background-exclude = [];
+    background-exclude = [
+        "class_g = 'Firefox' && window_type *= 'menu'"
+    ];
 }
 
 # Fading
 fading = true;
-fade-delta = 5;
-fade-in-step = 0.03;
-fade-out-step = 0.03;
-fade-exclude = [ ];
+fade-delta = 3;
+fade-in-step = 0.015;
+fade-out-step = 0.015;
 
 # Other
 mark-wmwin-focused = true;
@@ -80,10 +67,11 @@ wintypes: {
     tooltip = {
         fade = true;
         shadow = false;
+        blur = false;
         opacity = 0.85;
         focus = true;
     };
-    dock = { shadow = true; }
+    dock = { shadow = false; }
     dnd = { shadow = false; }
     popup_menu = {
         opacity = 1.0;
@@ -97,7 +85,19 @@ wintypes: {
 };
 
 # Corners
-corner-radius = 7.0;
+corner-radius = 0.0;
 rounded-corners-exclude = [
-    "class_g = 'Polybar'"
+    "class_g = 'Polybar'",
+    "class_g = 'Firefox' && window_type *= 'menu'"
 ];
+round-borders = 2;
+round-borders-rule = [
+    "2:window_type = 'normal'",
+    "2:name ~= 'rofi'"
+];
+
+# Animations
+transition: {
+    length = 500
+}
+spawn-center = true;
