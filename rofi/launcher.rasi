@@ -13,7 +13,7 @@ configuration {
 
 * {
     background: #ffffff00;
-    background-color: #bbbbbb33;
+    background-color: #dddddd66;
     background-entry: #000000ff;
     background-alt: #00000011;
     foreground: #000000ff;

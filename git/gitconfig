@@ -1,9 +1,9 @@
 [user]
     name = Rémi Labeyrie
     email = rlabeyrie@payplug.com
+	signingkey = 127E5094CA9EFEFA0F275A2B8DCF76EBFB70E192
 
 [diff]
-    ;tool = vimdiff3
     mnemonicPrefix = true
     renames = true
 
@@ -24,7 +24,8 @@
 [alias]
     st = status
     ci = commit
-    lg = log --graph --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset'
+    lg = log --graph --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset' -n15
+    llg = log --graph --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset'
     oops = commit --amend --no-edit
 
 [fetch]
@@ -72,3 +73,5 @@
 
 [push]
     default = upstream
+[commit]
+	gpgsign = true

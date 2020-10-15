@@ -236,6 +236,9 @@ floating_maximum_size -1 x -1
 for_window [class="Gnome-control-center"] floating enable
 #for_window [window_role="pop-up"] floating enable
 
+# Scratchpad
+for_window [instance="scratchpad"] move scratchpad
+
 ## Resize // Enter Resize Mode // <Super> r ##
 mode "Resize Mode" {
         # These bindings trigger as soon as you enter the resize mode
@@ -283,7 +286,6 @@ set_from_resource $i3-wm.window.border.size i3-wm.window.border.size 1
 set_from_resource $i3-wm.floatingwindow.border.size i3-wm.floatingwindow.border.size 1
 default_border pixel 0
 default_floating_border pixel 0
-# border_radius 4
 
 # Specify the distance between windows in pixels. (i3-gaps)
 set_from_resource $i3-wm.gaps.inner.size i3-wm.gaps.inner.size 5
@@ -321,11 +323,11 @@ set_from_resource $urgent.color.child_border i3-wm.client.urgent.color.child_bor
 
 
 # Window Border color
-# class                 border                             background                         text                               indicator                          child_border
-client.focused          "#eeeeee"              "#eeeeee"          "#eeeeee"                "#eeeeee"           "#eeeeee"
-client.focused_inactive          "#eeeeee"              "#eeeeee"          "#eeeeee"                "#eeeeee"           "#eeeeee"
-client.unfocused "#eeeeee"              "#eeeeee"          "#eeeeee"                "#eeeeee"           "#eeeeee"
-client.urgent "#eeeeee"              "#eeeeee"          "#eeeeee"                "#eeeeee"           "#eeeeee"
+# class                 border    background text     indicator child_border
+client.focused          "#ff0000" "#444444" "#444444" "#444444" "#3a8b84"
+client.focused_inactive "#ff0000" "#444444" "#444444" "#444444" "#3a8b84"
+client.unfocused        "#ff0000" "#444444" "#444444" "#444444" "#fafafa"
+client.urgent           "#ff0000" "#444444" "#444444" "#444444" "#fafafa"
 #client.focused          $focused.color.border              $focused.color.background          $focused.color.text                $focused.color.indicator           $focused.color.child_border
 #client.focused_inactive $focused_inactive.color.border     $focused_inactive.color.background $focused_inactive.color.text       $focused_inactive.color.indicator  $focused_inactive.color.child_border
 #client.unfocused        $unfocused.color.border            $unfocused.color.background        $unfocused.color.text              $unfocused.color.indicator         $unfocused.color.child_border
@@ -396,7 +398,7 @@ set_from_resource $i3-wm.i3xrocks.config i3-wm.i3xrocks.config "/etc/regolith/i3
 # The following exec calls run programs in the background when i3 starts.
 
 # Start the installed regolith-compositor
-exec --no-startup-id /usr/bin/picom --dbus -f --config $HOME/.config/regolith/compton/config --experimental-backends
+exec --no-startup-id picom --dbus -f --config $HOME/.config/regolith/compton/config --experimental-backends
 
 # Start Rofication for notifications
 exec --no-startup-id /usr/share/rofication/rofication-daemon.py
@@ -409,5 +411,6 @@ exec --no-startup-id /usr/bin/unclutter -b
 
 # Polybar
 exec --no-startup-id $HOME/.config/polybar/launch.sh
+exec --no-startup-id $HOME/.config/polybar/scripts/music/now_playing.py
 
 exec --no-startup-id /usr/bin/nm-applet

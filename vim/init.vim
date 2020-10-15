@@ -11,6 +11,7 @@ Plug 'dag/vim-fish'
 Plug 'rust-lang/rust.vim'
 Plug 'vim-python/python-syntax'
 Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'saltstack/salt-vim'
 
 " Vim-fu
 Plug 'Julian/vim-textobj-variable-segment'
@@ -39,6 +40,7 @@ Plug 'neoclide/coc.nvim', { 'do': 'yarnpkg install --frozen-lockfile' }
 Plug 'rhysd/git-messenger.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'voldikss/vim-floaterm'
+Plug 'AndrewRadev/linediff.vim'
 
 " File browsing
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
