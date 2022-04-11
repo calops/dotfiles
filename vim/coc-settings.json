@@ -1,14 +1,13 @@
 {
     "html.enable": true,
 
-    "python.jediEnabled": true,
     "python.venvPath": "~/.virtualenvs",
     "python.linting.flake8Enabled": true,
-    "python.linting.pylintEnabled": false,
-    "python.linting.pylintUseMinimalCheckers": false,
+    "python.analysis.useLibraryCodeForTypes": true,
+    "pyright.enable": true,
+    "python.formatting.provider": "black",
 
     "rust-analyzer.procMacro.enable": true,
-    "rust-analyzer.cargo.loadOutDirsFromCheck": true,
 
     "diagnostic.virtualText": true,
     "diagnostic.virtualTextPrefix": "  ",
@@ -56,10 +55,11 @@
         "default": "\uf29c"
     },
 
-    "explorer.icon.enableVimDevicons": true,
     "explorer.icon.enableNerdfont": true,
+    "explorer.icon.source": "vim-devicons",
+
     "explorer.file.column.indent.indentLine": true,
-    "explorer.keyMappings": {
+    "explorer.keyMappings.global": {
        "<right>": "expand",
        "<left>": "collapse"
     }

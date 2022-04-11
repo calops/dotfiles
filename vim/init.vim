@@ -9,9 +9,10 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'cespare/vim-toml'
 Plug 'dag/vim-fish'
 Plug 'rust-lang/rust.vim'
-Plug 'vim-python/python-syntax'
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'saltstack/salt-vim'
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
 
 " Vim-fu
 Plug 'Julian/vim-textobj-variable-segment'
@@ -26,26 +27,37 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'wellle/targets.vim'
 
-" Aesthetics
-Plug 'sainnhe/edge'
-Plug 'ryanoasis/vim-devicons'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'Yggdroot/indentLine'
-
 " Dev tools
-Plug 'antoinemadec/coc-fzf'
 Plug 'janko-m/vim-test'
-Plug 'neoclide/coc.nvim', { 'do': 'yarnpkg install --frozen-lockfile' }
 Plug 'rhysd/git-messenger.vim'
 Plug 'tpope/vim-fugitive'
-Plug 'voldikss/vim-floaterm'
 Plug 'AndrewRadev/linediff.vim'
 
-" File browsing
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'tpope/vim-eunuch'
+if !exists('g:vscode')
+    Plug 'neoclide/coc.nvim', { 'do': 'yarnpkg install --frozen-lockfile' }
+    Plug 'vim-python/python-syntax'
+
+    " Aesthetics
+    Plug 'sainnhe/edge'
+    Plug 'ryanoasis/vim-devicons'
+    Plug 'kyazdani42/nvim-web-devicons'
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+    Plug 'Yggdroot/indentLine'
+
+    " Dev tools
+    Plug 'voldikss/vim-floaterm'
+    Plug 'tpope/vim-eunuch'
+    Plug 'puremourning/vimspector'
+
+    Plug 'nvim-lua/popup.nvim'
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-telescope/telescope.nvim'
+    Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+    Plug 'nvim-telescope/telescope-symbols.nvim'
+    Plug 'nvim-telescope/telescope-vimspector.nvim'
+    Plug 'fannheyward/telescope-coc.nvim'
+endif
 
 call plug#end()
 
@@ -57,6 +69,8 @@ set number
 set cursorline
 set mouse=a
 set shortmess+=c
+set concealcursor=
+set textwidth=120
 
 " Colors
 set background=light
@@ -64,44 +78,49 @@ colorscheme edge
 set colorcolumn=120
 
 " Fuzzy finder
-nnoremap <C-p> :Files<CR>
-nnoremap <leader><Space> :Files <C-r>=expand("%:h")<CR>/<CR>
-nnoremap <leader>b :Buffers<CR>
-nnoremap <leader>h :History<CR>
-nnoremap <leader>rg :Rg<Space>
 
-let g:fzf_commits_log_options = '--graph --color=always --format="%C(yellow)%h%C(red)%d%C(reset) - %C(bold green)(%ar)%C(reset) %s %C(blue)<%an>%C(reset)"'
-let g:fzf_preview_window = 'right:50%'
-let g:fzf_layout = { 'window': 'call Centered_floating_window(v:true)' }
-let g:coc_fzf_preview = 'right:50%'
-let g:coc_fzf_opts = [ '--preview="bat --line-range :300 {}"' ]
+lua << EOF
+require('telescope').setup({
+    defaults = {
+        layout_strategy = "flex",
+        layout_config = {
+            flex = {
+                flip_columns = 200,
+            },
+        },
+        borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+        winblend = 30,
+    },
+})
 
-function! Centered_floating_window(border)
-    let width = min([&columns - 4, max([120, &columns - 30])])
-    let height = min([&lines - 4, max([20, &lines - 20])])
-    let top = ((&lines - height) / 2) - 1
-    let left = (&columns - width) / 2
-    let opts = {'relative': 'editor', 'row': top, 'col': left, 'width': width, 'height': height, 'style': 'minimal'}
+require('telescope.themes').square_cursor = function()
+    local opts = {
+        borderchars = {
+            prompt = { "─", "│", " ", "│", "┌", "┐", "│", "│" },
+            results = { "─", "│", "─", "│", "├", "┤", "┘", "└" },
+            preview = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+        },
+    }
+    return require('telescope.themes').get_cursor(opts)
+end
 
-    if a:border == v:true
-        let top = "┌" . repeat("─", width - 2) . "┐"
-        let mid = "│" . repeat(" ", width - 2) . "│"
-        let bot = "└" . repeat("─", width - 2) . "┘"
-        let lines = [top] + repeat([mid], height - 2) + [bot]
-        let s:buf = nvim_create_buf(v:false, v:true)
-        call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
-        call nvim_open_win(s:buf, v:true, opts)
-        set winhl=Normal:Normal
-        let opts.row += 1
-        let opts.height -= 2
-        let opts.col += 2
-        let opts.width -= 4
-        call nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
-        au BufWipeout <buffer> exe 'bw '.s:buf
-    else
-        call nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
-    endif
-endfunction
+require('telescope').load_extension('fzf')
+require('telescope').load_extension('coc')
+EOF
+
+nnoremap <silent> <C-p> <cmd>Telescope find_files<cr>
+nnoremap <silent> <leader><Space> <cmd>Telescope live_grep<cr>
+nnoremap <silent> <leader>b <cmd>Telescope buffers<cr>
+nnoremap <silent> <leader>h <cmd>Telescope help_tags<cr>
+
+nnoremap <silent> <leader>e <cmd>Telescope symbols theme=square_cursor<cr>
+
+nnoremap <silent> gd <cmd>Telescope coc definitions<cr>
+nnoremap <silent> gy <cmd>Telescope coc type_definitions<cr>
+nnoremap <silent> gi <cmd>Telescope coc implementations<cr>
+nnoremap <silent> gr <cmd>Telescope coc references<cr>
+nnoremap <silent> <leader>d <cmd>Telescope coc diagnostics<cr>
+nnoremap <silent> <leader>ac <cmd>Telescope coc code_actions theme=square_cursor<cr>
 
 " File browser
 nnoremap <silent> <leader>n :CocCommand explorer<CR>
@@ -155,17 +174,11 @@ inoremap <silent><expr> <c-space> coc#refresh()
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
 nmap <silent> <TAB> <Plug>(coc-range-select)
 xmap <silent> <TAB> <Plug>(coc-range-select)
 
 nmap <leader>rn <Plug>(coc-rename)
-nmap <leader>qf  <Plug>(coc-fix-current)
-nmap <leader>ac  <Plug>(coc-codeaction)
+nmap <leader>qf <Plug>(coc-fix-current)
 
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
@@ -234,13 +247,14 @@ let g:coc_global_extensions = [
   \   "coc-tag",
   \   "coc-html",
   \   "coc-fish",
-  \   "coc-python",
   \   "coc-rust-analyzer",
   \   "coc-sh",
   \   "coc-css",
   \   "coc-explorer",
   \   "coc-yaml",
-  \   "coc-json"
+  \   "coc-json",
+  \   "coc-tabnine",
+  \   "coc-pyright",
   \ ]
 
 " airline
@@ -249,8 +263,6 @@ let g:airline_theme = 'edge'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_min_count = 2
 let g:airline#extensions#tabline#tab_min_count = 2
-
-let g:airline#extensions#fzf#enabled = 1
 
 let g:airline#extensions#obsession#enabled = 1
 let g:airline#extensions#obsession#indicator_text = ' '
@@ -301,3 +313,14 @@ omap ig <Plug>(coc-git-chunk-inner)
 xmap ig <Plug>(coc-git-chunk-inner)
 omap ag <Plug>(coc-git-chunk-outer)
 xmap ag <Plug>(coc-git-chunk-outer)
+
+" file types custom settings
+autocmd FileType typescript setlocal shiftwidth=2 softtabstop=2 expandtab
+autocmd FileType typescriptreact setlocal shiftwidth=2 softtabstop=2 expandtab
+
+if !exists('g:vscode')
+endif
+
+let g:vimspector_install_gadgets = [ 'debugpy' ]
+
+let g:python3_host_prog  = '~/.virtualenvs/neovim/bin/python'
