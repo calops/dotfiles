@@ -15,9 +15,9 @@
 
     "git.realtimeGutters": false,
     "git.gitlab.hosts": ["git.payplug.com"],
-    "git.addedSign.text": "▎",
-    "git.changedSign.text": "▎",
-    "git.removedSign.text": "▎",
+    "git.addedSign.text": "❚",
+    "git.changedSign.text": "❚",
+    "git.removedSign.text": "❚",
     "git.changeRemovedSign.text": "▶",
     "git.topRemovedSign.text": "◥",
 

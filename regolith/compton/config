@@ -1,5 +1,5 @@
 # Backend
-experimental-backends = true;
+experimental-backends = false;
 backend = "glx";
 glx-no-stencil = true;
 glx-copy-from-front = false;
@@ -8,9 +8,9 @@ use-damage = true;
 
 # Shadows
 shadow = true;
-shadow-radius = 8;
-shadow-offset-x = -8;
-shadow-offset-y = -8;
+shadow-radius = 10;
+shadow-offset-x = -10;
+shadow-offset-y = -10;
 shadow-opacity = 0.6;
 shadow-ignore-shaped = false;
 shadow-exclude = [
@@ -85,15 +85,15 @@ wintypes: {
 };
 
 # Corners
-corner-radius = 0.0;
+corner-radius = 7.0;
 rounded-corners-exclude = [
     "class_g = 'Polybar'",
     "class_g = 'Firefox' && window_type *= 'menu'"
 ];
-round-borders = 2;
+round-borders = 4;
 round-borders-rule = [
-    "2:window_type = 'normal'",
-    "2:name ~= 'rofi'"
+    "4:window_type = 'normal'",
+    "4:name ~= 'rofi'"
 ];
 
 # Animations

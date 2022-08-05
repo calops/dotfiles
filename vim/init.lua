@@ -428,12 +428,6 @@ require('packer').startup(function(use)
             local col_inactive = highlights.get_hl('InclineNormalNC')
             local col_active = highlights.get_hl('InclineNormal')
             local col_base = highlights.get_hl('Normal')
-
-            local ERR = 1
-            local WARN = 2
-            local INFO = 3
-            local HINT = 4
-
             local diag_colors = {
                 highlights.get_hl('DiagnosticVirtualTextError'),
                 highlights.get_hl('DiagnosticVirtualTextWarn'),
@@ -468,15 +462,7 @@ require('packer').startup(function(use)
                     local diag_counts = { 0, 0, 0, 0 }
 
                     for _, diag in ipairs(lsp_diagnostics) do
-                        if diag.severity == vim.diagnostic.severity.ERROR then
-                            diag_counts[ERR] = diag_counts[ERR] + 1
-                        elseif diag.severity == vim.diagnostic.severity.WARN then
-                            diag_counts[WARN] = diag_counts[WARN] + 1
-                        elseif diag.severity == vim.diagnostic.severity.INFO then
-                            diag_counts[INFO] = diag_counts[INFO] + 1
-                        elseif diag.severity == vim.diagnostic.severity.HINT then
-                            diag_counts[HINT] = diag_counts[HINT] + 1
-                        end
+                        diag_counts[diag.severity] = diag_counts[diag.severity] + 1
                     end
 
                     local prev_color = color

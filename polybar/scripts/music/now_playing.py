@@ -25,7 +25,7 @@ now_playing_data = {
 }
 
 
-def handle_message(ws, message):
+def handle_message(_, message):
     global now_playing_data
     msg = json.loads(message)
 

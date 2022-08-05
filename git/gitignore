@@ -2,3 +2,7 @@
 .vim
 Session.vim
 __pycache__
+typings
+settings.json
+.yarn
+.yarnrc

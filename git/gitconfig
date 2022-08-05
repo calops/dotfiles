@@ -6,14 +6,20 @@
 [diff]
     mnemonicPrefix = true
     renames = true
+    colorMoved = default
 
 [core]
-    pager = delta --light --hunk-style=plain
+    pager = delta
     whitespace = -trailing-space
     excludesfile = ~/.gitignore
 
 [interactive]
-    diffFilter = delta --light --color-only
+    diffFilter = delta --color-only
+
+[delta]
+    side-by-side = true
+    line-numbers = true
+    decorations = true
 
 [push]
     default = simple
@@ -24,13 +30,11 @@
 [alias]
     st = status
     ci = commit
-    lg = log --graph --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset' -n15
+    lg = log --graph --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset' -n25
     llg = log --graph --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset'
     oops = commit --amend --no-edit
     pushf = push --force-with-lease
-
-[fetch]
-    ;recurseSubmodules = on-demand
+    pushqa = push -o ci.variable="AUTO_DEPLOY=qa"
 
 [grep]
     extendedRegexp = true
@@ -74,5 +78,10 @@
 
 [push]
     default = upstream
+
 [commit]
-	gpgsign = true
+    gpgsign = true
+    cleanup = scissors
+
+[includeIf "gitdir:~/projects"]
+    path = ~/.gitconfig.work
