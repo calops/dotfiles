@@ -1,10 +1,19 @@
+-- Neovide configuration
+if vim.g.neovide then
+    vim.g.neovide_floating_blur_amount_x = 1.5
+    vim.g.neovide_floating_blur_amount_y = 1.5
+    vim.g.neovide_scroll_animation_length = 0.13
+    vim.g.neovide_window_floating_opacity = 1
+    vim.o.guifont = 'FiraCode NF:h10'
+end
+
 -- Install plugin manager
 local fn = vim.fn
 local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 local packer_bootstrap = false
 if fn.empty(fn.glob(install_path)) > 0 then
-    packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
-        install_path })
+    packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    vim.cmd [[packadd packer.nvim]]
 end
 
 ---------- Core settings
@@ -421,7 +430,7 @@ require('packer').startup(function(use)
     -- Window line
     use {
         'b0o/incline.nvim',
-        after = 'tabline-framework.nvim',
+        after = { 'tabline-framework.nvim', 'catppuccin' },
         config = function()
             local highlights = require('tabline_framework.highlights')
             local utils = require('catppuccin.utils.colors')
@@ -707,10 +716,10 @@ require('catppuccin').setup {
             TreesitterContext = { bg = colors.base, style = { 'italic' } },
             TreesitterContextLineNumber = { fg = colors.lavender, style =  { 'italic' } },
 
-            illuminatedWord = { style = { 'underdot', 'bold' } },
-            LspReferenceText = { style = { 'underdot', 'bold' } },
-            LspReferenceWrite = { style = { 'underdot', 'bold' } },
-            LspReferenceRead = { style = { 'underdot', 'bold' } },
+            illuminatedWord = { style = { 'underdotted', 'bold' } },
+            LspReferenceText = { style = { 'underdotted', 'bold' } },
+            LspReferenceWrite = { style = { 'underdotted', 'bold' } },
+            LspReferenceRead = { style = { 'underdotted', 'bold' } },
 
             InclineNormalNC = { bg = colors.surface1, fg = colors.base },
             InclineNormal = { bg = colors.overlay1, fg = colors.base, style = { 'bold' } },
