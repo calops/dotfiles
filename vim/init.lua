@@ -48,7 +48,6 @@ vim.o.winblend = 0
 local packer = require('packer')
 packer.init {
     snapshot_path = fn.stdpath('config') .. '/snapshots',
-    snapshot = 'stable',
 }
 packer.startup(function(use)
     -- Plugin manager
