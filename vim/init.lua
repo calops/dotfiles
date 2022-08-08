@@ -502,7 +502,9 @@ require('packer').startup(function(use)
     -- Session management
     use {
         'rmagatti/auto-session',
-        config = function() require('auto-session').setup {} end,
+        config = function() require('auto-session').setup {
+            cwd_change_handling = false,
+        } end,
     }
 
     -- Modern notification popups
