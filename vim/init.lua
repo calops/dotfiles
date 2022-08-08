@@ -45,7 +45,12 @@ vim.g.catppuccin_flavour = "mocha"
 vim.o.winblend = 0
 
 ---------- Plugins
-require('packer').startup(function(use)
+local packer = require('packer')
+packer.init {
+    snapshot_path = fn.stdpath('config') .. '/snapshots',
+    snapshot = 'stable',
+}
+packer.startup(function(use)
     -- Plugin manager
     use 'wbthomason/packer.nvim'
 
