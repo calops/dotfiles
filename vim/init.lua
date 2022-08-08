@@ -528,13 +528,9 @@ packer.startup(function(use)
         config = function()
             require('catppuccin').setup {
                 integrations = {
-                    indent_blankline = {
-                        enabled = true,
-                        colored_indent_levels = true,
-                    },
                     telescope = true,
                     neotree = {
-                        enabled = false,
+                        enabled = true,
                         show_root = true,
                         transparent_panel = false,
                     },
@@ -752,12 +748,12 @@ require('catppuccin.lib.highlighter').syntax({
     LspReferenceRead = { bg = colors.surface1, style = { 'underdotted', 'bold' } },
 
     InclineNormalNC = { bg = colors.surface1, fg = colors.base },
-    InclineNormal = { bg = colors.overlay1, fg = colors.base, style = { 'bold' } },
+    InclineNormal = { bg = colors.overlay1, fg = colors.base },
 
     DiagnosticUnderlineError = { sp = colors.red, style =  { 'undercurl' } },
     DiagnosticUnderlineWarn = { sp = colors.yellow, style =  { 'undercurl' } },
     DiagnosticUnderlineInfo = { sp = colors.sky, style =  { 'undercurl' } },
-    DiagnosticUndercurlHint = { sp = colors.teal, style =  { 'undercurl' } },
+    DiagnosticUnderlineHint = { sp = colors.teal, style =  { 'undercurl' } },
 
     TelescopeBorder = { fg = colors.peach },
 })
