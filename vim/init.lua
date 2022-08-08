@@ -519,7 +519,34 @@ require('packer').startup(function(use)
     use {
         'catppuccin/nvim',
         as = 'catppuccin',
-        config = function() require('catppuccin').setup {} end,
+        config = function()
+            require('catppuccin').setup {
+                integrations = {
+                    indent_blankline = {
+                        enabled = true,
+                        colored_indent_levels = true,
+                    },
+                    telescope = true,
+                    native_lsp = {
+                        enabled = true,
+                        underlines = {
+                            errors = { "undercurl" },
+                            hints = { "undercurl" },
+                            warnings = { "undercurl" },
+                            information = { "undercurl" },
+                        },
+                    },
+                    neotree = {
+                        enabled = false,
+                        show_root = true,
+                        transparent_panel = false,
+                    },
+                },
+                compile = {
+                    enabled = true,
+                },
+            }
+        end,
         run = ":CatppuccinCompile",
     }
 
@@ -696,44 +723,6 @@ end
 
 nmap('<leader>m', toggle_virtual_lines, 'Toggle full inline diagnostics')
 
--- Custom highlights (need to set them up after everything else)
-local colors = require("catppuccin.palettes").get_palette()
-require('catppuccin').setup {
-    integrations = {
-        indent_blankline = {
-            enabled = true,
-            colored_indent_levels = true,
-        },
-        telescope = true,
-    },
-    compile = {
-        enabled = true,
-    },
-    highlight_overrides = {
-        all = {
-            NormalFloat = {},
-
-            TreesitterContext = { bg = colors.base, style = { 'italic' } },
-            TreesitterContextLineNumber = { fg = colors.lavender, style =  { 'italic' } },
-
-            illuminatedWord = { style = { 'underdotted', 'bold' } },
-            LspReferenceText = { style = { 'underdotted', 'bold' } },
-            LspReferenceWrite = { style = { 'underdotted', 'bold' } },
-            LspReferenceRead = { style = { 'underdotted', 'bold' } },
-
-            InclineNormalNC = { bg = colors.surface1, fg = colors.base },
-            InclineNormal = { bg = colors.overlay1, fg = colors.base, style = { 'bold' } },
-
-            DiagnosticUnderlineError = { style =  { 'undercurl' } },
-            DiagnosticUnderlineWarn = { style =  { 'undercurl' } },
-            DiagnosticUnderlineInfo = { style =  { 'undercurl' } },
-            DiagnosticUnderlineHint = { style =  { 'undercurl' } },
-
-            TelescopeBorder = { fg = colors.peach },
-        }
-    }
-}
-
 -- Native vim commands
 vim.cmd([[
     " Fixed size help panel
@@ -751,3 +740,27 @@ vim.cmd([[
 
     colorscheme catppuccin
 ]])
+
+-- Custom highlights (need to set them up after everything else)
+local colors = require("catppuccin.palettes").get_palette()
+require('catppuccin.lib.highlighter').syntax({
+    NormalFloat = {},
+
+    TreesitterContext = { bg = colors.base, style = { 'italic' } },
+    TreesitterContextLineNumber = { fg = colors.lavender, style =  { 'italic' } },
+
+    illuminatedWord = { bg = colors.surface1, style = { 'underdotted', 'bold' } },
+    LspReferenceText = { bg = colors.surface1, style = { 'underdotted', 'bold' } },
+    LspReferenceWrite = { bg = colors.surface1, style = { 'underdotted', 'bold' } },
+    LspReferenceRead = { bg = colors.surface1, style = { 'underdotted', 'bold' } },
+
+    InclineNormalNC = { bg = colors.surface1, fg = colors.base },
+    InclineNormal = { bg = colors.overlay1, fg = colors.base, style = { 'bold' } },
+
+    DiagnosticUnderlineError = { style =  { 'undercurl' } },
+    DiagnosticUnderlineWarn = { style =  { 'undercurl' } },
+    DiagnosticUnderlineInfo = { style =  { 'undercurl' } },
+    DiagnosticUnderlineHint = { style =  { 'undercurl' } },
+
+    TelescopeBorder = { fg = colors.peach },
+})
