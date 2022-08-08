@@ -533,15 +533,6 @@ packer.startup(function(use)
                         colored_indent_levels = true,
                     },
                     telescope = true,
-                    native_lsp = {
-                        enabled = true,
-                        underlines = {
-                            errors = { "undercurl" },
-                            hints = { "undercurl" },
-                            warnings = { "undercurl" },
-                            information = { "undercurl" },
-                        },
-                    },
                     neotree = {
                         enabled = false,
                         show_root = true,
@@ -763,10 +754,10 @@ require('catppuccin.lib.highlighter').syntax({
     InclineNormalNC = { bg = colors.surface1, fg = colors.base },
     InclineNormal = { bg = colors.overlay1, fg = colors.base, style = { 'bold' } },
 
-    DiagnosticUnderlineError = { style =  { 'undercurl' } },
-    DiagnosticUnderlineWarn = { style =  { 'undercurl' } },
-    DiagnosticUnderlineInfo = { style =  { 'undercurl' } },
-    DiagnosticUnderlineHint = { style =  { 'undercurl' } },
+    DiagnosticUnderlineError = { sp = colors.red, style =  { 'undercurl' } },
+    DiagnosticUnderlineWarn = { sp = colors.yellow, style =  { 'undercurl' } },
+    DiagnosticUnderlineInfo = { sp = colors.sky, style =  { 'undercurl' } },
+    DiagnosticUndercurlHint = { sp = colors.teal, style =  { 'undercurl' } },
 
     TelescopeBorder = { fg = colors.peach },
 })
