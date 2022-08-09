@@ -81,6 +81,7 @@ packer.startup(function(use)
             'hrsh7th/cmp-cmdline',
             'hrsh7th/cmp-git',
             'saadparwaiz1/cmp_luasnip',
+            'davidsierradz/cmp-conventionalcommits',
         },
         config = function()
             local cmp = require 'cmp'
@@ -94,12 +95,13 @@ packer.startup(function(use)
                     ['<S-Tab>'] = cmp.mapping.select_prev_item(),
                     ['<CR>'] = cmp.mapping.confirm({ select = false }),
                 }),
-                sources = cmp.config.sources({
-                    { name = 'nvim_lsp' },
-                    { name = 'luasnip' },
-                }, {
-                    { name = 'buffer' },
-                }),
+                sources = cmp.config.sources(
+                    {
+                        { name = 'nvim_lsp' },
+                        { name = 'luasnip' },
+                    },
+                    {{ name = 'buffer' }}
+                ),
                 snippet = {
                     expand = function(args)
                         require('luasnip').lsp_expand(args.body)
@@ -116,6 +118,7 @@ packer.startup(function(use)
 
             cmp.setup.filetype('gitcommit', {
                 sources = cmp.config.sources(
+                    {{ name = 'conventionalcommits' }},
                     {{ name = 'cmp_git' }},
                     {{ name = 'buffer' }}
                 )
