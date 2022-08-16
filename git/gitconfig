@@ -80,7 +80,7 @@
     default = upstream
 
 [commit]
-    gpgsign = true
+;     gpgsign = true
     cleanup = scissors
 
 [includeIf "gitdir:~/projects"]

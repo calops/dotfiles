@@ -29,6 +29,7 @@ vim.o.list = true
 vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.laststatus = 3
+vim.g.rustfmt_autosave = false -- buggy
 
 vim.o.termguicolors = true
 vim.o.background = 'dark'
@@ -66,6 +67,9 @@ packer.startup(function(use)
 
     -- Highlight symbols
     use 'RRethy/vim-illuminate'
+
+    -- Rust tools
+    use 'simrat39/rust-tools.nvim'
 
     -- Symbols in autocompletion popups
     use 'onsails/lspkind.nvim'
@@ -608,8 +612,17 @@ lspconfig.util.default_config = vim.tbl_extend(
 )
 
 for _, server in ipairs(mason.get_installed_servers()) do
-    lspconfig[server].setup{}
+    if server ~= 'rust_analyzer' then
+        lspconfig[server].setup{}
+    end
 end
+
+require('rust-tools').setup({
+    server = {
+        on_attach = on_attach,
+        capabilities = capabilities,
+    },
+})
 
 require('lspconfig').sumneko_lua.setup {
     settings = {
