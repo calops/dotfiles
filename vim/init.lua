@@ -4,7 +4,8 @@ if vim.g.neovide then
     vim.g.neovide_floating_blur_amount_y = 1.5
     vim.g.neovide_scroll_animation_length = 0.13
     vim.g.neovide_window_floating_opacity = 1
-    vim.o.guifont = 'FiraCode NF:h10'
+    vim.g.neovide_underline_automatic_scaling = 1
+    vim.o.guifont = 'UbuntuMono NF,FiraCode NF, FiraCode Nerd Font:h11'
 end
 
 -- Install plugin manager
