@@ -3,9 +3,8 @@ if vim.g.neovide then
     vim.g.neovide_floating_blur_amount_x = 1.5
     vim.g.neovide_floating_blur_amount_y = 1.5
     vim.g.neovide_scroll_animation_length = 0.13
-    -- vim.g.neovide_window_floating_opacity = 1
-    vim.g.neovide_underline_automatic_scaling = 1
-    vim.o.guifont = 'UbuntuMono NF,FiraCode NF, FiraCode Nerd Font:h11'
+    vim.o.guifont = 'Iosevka:h11'
+    -- vim.o.guifont = 'Ubuntu Mono,FiraCode NF, FiraCode Nerd Font:h11'
 end
 
 -- Install plugin manager
@@ -44,7 +43,8 @@ vim.o.shiftwidth = 4
 vim.o.smartindent = true
 vim.o.autoindent = true
 vim.g.catppuccin_flavour = "mocha"
-vim.o.winblend = 0
+vim.o.winblend = 30
+vim.o.pumblend = 30
 
 ---------- Plugins
 local packer = require('packer')
@@ -248,7 +248,8 @@ packer.startup(function(use)
                     telescope = require('telescope.themes').get_cursor {
                         layout_config = {
                             height = 20,
-                        }
+                        },
+                        winblend = 10,
                     },
                 },
             }
@@ -505,7 +506,7 @@ packer.startup(function(use)
                         end
                     end
 
-                    table.insert(result, { '', guifg = prev_color.bg, guibg = col_base.bg })
+                    table.insert(result, { ' ', guifg = prev_color.bg, guibg = col_base.bg })
 
                     return result
                 end,
@@ -513,7 +514,7 @@ packer.startup(function(use)
                     padding = 0,
                     placement = { horizontal = 'right', vertical = 'top' },
                     margin = {
-                        horizontal = { left = 1, right = 1 },
+                        horizontal = { left = 1, right = 0 },
                         vertical = { bottom = 1, top = 0 },
                     },
                 },
@@ -798,15 +799,15 @@ require('catppuccin.lib.highlighter').syntax({
     NormalFloat = { bg = colors.base },
     TermFloatBorder = { fg = colors.red },
 
-    TreesitterContext = { bg = colors.base, style = { 'italic' } },
+    TreesitterContext = { bg = colors.base, style = { 'italic' }, blend = 0 },
     TreesitterContextLineNumber = { fg = colors.lavender, style =  { 'italic' } },
 
     IlluminatedWordText = { bg = colors.surface1, style = { 'underdotted', 'bold' } },
     IlluminatedWordWrite = { bg = colors.surface1, style = { 'underdotted', 'bold' } },
     IlluminatedWordRead = { bg = colors.surface1, style = { 'underdotted', 'bold' } },
 
-    InclineNormalNC = { bg = colors.surface1, fg = colors.base },
-    InclineNormal = { bg = colors.overlay1, fg = colors.base },
+    InclineNormalNC = { bg = colors.surface1, fg = colors.base, blend = 0 },
+    InclineNormal = { bg = colors.overlay1, fg = colors.base, blend = 0 },
 
     DiagnosticUnderlineError = { sp = colors.red, style =  { 'undercurl' } },
     DiagnosticUnderlineWarn = { sp = colors.yellow, style =  { 'undercurl' } },
