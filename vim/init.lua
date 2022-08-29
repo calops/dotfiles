@@ -174,14 +174,6 @@ packer.startup(function(use)
         config = function() require('trouble').setup {} end,
     }
 
-    use 'weilbith/nvim-code-action-menu'
-
-    -- Incremental rename command
-    use {
-        'smjonas/inc-rename.nvim',
-        config = function() require('inc_rename').setup() end,
-    }
-
     -- Vim verbs to manipulate comments
     use {
         'numToStr/Comment.nvim',
@@ -223,11 +215,13 @@ packer.startup(function(use)
             'nvim-telescope/telescope-media-files.nvim',
             'nvim-telescope/telescope-symbols.nvim',
             'nvim-telescope/telescope-vimspector.nvim',
-            'nvim-telescope/telescope-ui-select.nvim',
             { 'nvim-telescope/telescope-fzf-native.nvim', run = { 'make' } },
         },
         config = function()
-            require('telescope').setup({
+            local telescope = require('telescope')
+            local actions = require('telescope.actions')
+
+            telescope.setup({
                 defaults = {
                     layout_strategy = "flex",
                     layout_config = {
@@ -236,13 +230,29 @@ packer.startup(function(use)
                         },
                     },
                     winblend = 10,
+                    mappings = { i = { ["<esc>"] = actions.close } },
                 },
             })
-            require('telescope').load_extension('fzf')
-            require("telescope").load_extension("ui-select")
-            require("telescope").load_extension("notify")
-            require("telescope").load_extension("media_files")
+            telescope.load_extension('fzf')
+            telescope.load_extension('notify')
+            telescope.load_extension('media_files')
         end,
+    }
+
+    -- Better select and input menus
+    use {
+        'stevearc/dressing.nvim',
+        config = function ()
+            require('dressing').setup {
+                select = {
+                    telescope = require('telescope.themes').get_cursor {
+                        layout_config = {
+                            height = 20,
+                        }
+                    },
+                },
+            }
+        end
     }
 
     -- File browser
@@ -598,10 +608,19 @@ packer.startup(function(use)
                     winblend = 10,
                 },
                 highlights = {
-                    FloatBorder = { link = 'FloatBorder' },
-                    NormalFloat = { link = 'NormalFloat' },
+                    FloatBorder = { link = 'TermFloatBorder' },
                 },
             }
+        end
+    }
+
+    -- Personal wiki
+    use {
+        'phaazon/mind.nvim',
+        branch = 'v2.1',
+        requires = { 'nvim-lua/plenary.nvim' },
+        config = function()
+            require('mind').setup()
         end
     }
 
@@ -679,8 +698,8 @@ nmap('gi', vim.lsp.buf.implementation, "Go to implementation")
 nmap('<C-k>', vim.lsp.buf.signature_help, "Interactive signature help")
 nmap('gr', telescope_builtins.lsp_references, "List references")
 nmap('<space>f', vim.lsp.buf.format, "Format code")
-nmap("<leader>rn", function() return ":IncRename " .. vim.fn.expand("<cword>") end, "Interactive rename", { expr = true, silent = false })
-nmap('<leader>a', ':CodeActionMenu<CR>', "Interactive list of code actions")
+nmap("<leader>rn", vim.lsp.buf.rename, "Interactive rename")
+nmap('<leader>a', vim.lsp.buf.code_action, "Interactive list of code actions")
 
 -- Fuzzy finder (telescope)
 nmap('<C-p>', telescope_builtins.find_files, "Find files")
@@ -776,8 +795,8 @@ vim.cmd([[
 -- Custom highlights (need to set them up after everything else)
 local colors = require("catppuccin.palettes").get_palette()
 require('catppuccin.lib.highlighter').syntax({
-    -- NormalFloat = {},
-    FloatBorder = { fg = colors.red },
+    NormalFloat = { bg = colors.base },
+    TermFloatBorder = { fg = colors.red },
 
     TreesitterContext = { bg = colors.base, style = { 'italic' } },
     TreesitterContextLineNumber = { fg = colors.lavender, style =  { 'italic' } },
