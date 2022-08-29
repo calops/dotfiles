@@ -586,6 +586,25 @@ packer.startup(function(use)
     -- Startup time profiler
     use 'dstein64/vim-startuptime'
 
+    -- Terminal manager
+    use {
+        'akinsho/toggleterm.nvim',
+        tag = 'v2.*',
+        config = function()
+            require("toggleterm").setup{
+                direction = 'float',
+                float_opts = {
+                    border = 'curved',
+                    winblend = 10,
+                },
+                highlights = {
+                    FloatBorder = { link = 'FloatBorder' },
+                    NormalFloat = { link = 'NormalFloat' },
+                },
+            }
+        end
+    }
+
     if packer_bootstrap then
         require('packer').sync()
     end
@@ -747,6 +766,10 @@ vim.cmd([[
     sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo numhl=DiagnosticSignInfo linehl=
     sign define DiagnosticSignHint text= texthl=DiagnosticSignHint numhl=DiagnosticSignHint linehl=
 
+    autocmd TermEnter term://*toggleterm#* tnoremap <silent><c-f> <Cmd>exe v:count1 . "ToggleTerm"<CR>
+    nnoremap <silent><c-f> <Cmd>exe v:count1 . "ToggleTerm"<CR>
+    inoremap <silent><c-f> <Esc><Cmd>exe v:count1 . "ToggleTerm"<CR>
+
     colorscheme catppuccin
 ]])
 
@@ -754,6 +777,7 @@ vim.cmd([[
 local colors = require("catppuccin.palettes").get_palette()
 require('catppuccin.lib.highlighter').syntax({
     -- NormalFloat = {},
+    FloatBorder = { fg = colors.red },
 
     TreesitterContext = { bg = colors.base, style = { 'italic' } },
     TreesitterContextLineNumber = { fg = colors.lavender, style =  { 'italic' } },
