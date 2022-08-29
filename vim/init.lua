@@ -753,7 +753,7 @@ vim.cmd([[
 -- Custom highlights (need to set them up after everything else)
 local colors = require("catppuccin.palettes").get_palette()
 require('catppuccin.lib.highlighter').syntax({
-    NormalFloat = {},
+    -- NormalFloat = {},
 
     TreesitterContext = { bg = colors.base, style = { 'italic' } },
     TreesitterContextLineNumber = { fg = colors.lavender, style =  { 'italic' } },
