@@ -3,7 +3,7 @@ if vim.g.neovide then
     vim.g.neovide_floating_blur_amount_x = 1.5
     vim.g.neovide_floating_blur_amount_y = 1.5
     vim.g.neovide_scroll_animation_length = 0.13
-    vim.g.neovide_window_floating_opacity = 1
+    -- vim.g.neovide_window_floating_opacity = 1
     vim.g.neovide_underline_automatic_scaling = 1
     vim.o.guifont = 'UbuntuMono NF,FiraCode NF, FiraCode Nerd Font:h11'
 end
@@ -597,7 +597,6 @@ mason.setup {
 }
 
 local on_attach = function(client)
-    require('illuminate').on_attach(client)
 end
 
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -759,10 +758,9 @@ require('catppuccin.lib.highlighter').syntax({
     TreesitterContext = { bg = colors.base, style = { 'italic' } },
     TreesitterContextLineNumber = { fg = colors.lavender, style =  { 'italic' } },
 
-    illuminatedWord = { bg = colors.surface1, style = { 'underdotted', 'bold' } },
-    LspReferenceText = { bg = colors.surface1, style = { 'underdotted', 'bold' } },
-    LspReferenceWrite = { bg = colors.surface1, style = { 'underdotted', 'bold' } },
-    LspReferenceRead = { bg = colors.surface1, style = { 'underdotted', 'bold' } },
+    IlluminatedWordText = { bg = colors.surface1, style = { 'underdotted', 'bold' } },
+    IlluminatedWordWrite = { bg = colors.surface1, style = { 'underdotted', 'bold' } },
+    IlluminatedWordRead = { bg = colors.surface1, style = { 'underdotted', 'bold' } },
 
     InclineNormalNC = { bg = colors.surface1, fg = colors.base },
     InclineNormal = { bg = colors.overlay1, fg = colors.base },
