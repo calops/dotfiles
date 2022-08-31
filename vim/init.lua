@@ -4,7 +4,6 @@ if vim.g.neovide then
     vim.g.neovide_floating_blur_amount_y = 1.5
     vim.g.neovide_scroll_animation_length = 0.13
     vim.o.guifont = 'Iosevka:h11'
-    -- vim.o.guifont = 'Ubuntu Mono,FiraCode NF, FiraCode Nerd Font:h11'
 end
 
 -- Install plugin manager
@@ -605,7 +604,7 @@ packer.startup(function(use)
             require("toggleterm").setup{
                 direction = 'float',
                 float_opts = {
-                    border = 'curved',
+                    border = 'rounded',
                     winblend = 10,
                 },
                 highlights = {
@@ -800,7 +799,7 @@ require('catppuccin.lib.highlighter').syntax({
     TermFloatBorder = { fg = colors.red },
 
     TreesitterContext = { bg = colors.base, style = { 'italic' }, blend = 0 },
-    TreesitterContextLineNumber = { fg = colors.lavender, style =  { 'italic' } },
+    TreesitterContextLineNumber = { fg = colors.surface1, bg = colors.crust, style =  { 'italic' }, blend = 0 },
 
     IlluminatedWordText = { bg = colors.surface1, style = { 'underdotted', 'bold' } },
     IlluminatedWordWrite = { bg = colors.surface1, style = { 'underdotted', 'bold' } },
