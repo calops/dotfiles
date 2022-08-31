@@ -470,7 +470,7 @@ packer.startup(function(use)
                 render = function(props)
                     local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ':.')
                     local extension = filename:match("^.+%.(.+)$")
-                    local icon, icon_fg_color = require('nvim-web-devicons').get_icon_colors(filename, extension)
+                    local icon, icon_fg_color = require('nvim-web-devicons').get_icon_colors(filename, extension, { default = true })
 
                     local icon_color = {
                         fg = icon_fg_color,
