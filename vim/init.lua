@@ -630,6 +630,26 @@ packer.startup(function(use)
         config = function () require('impatient') end
     }
 
+    -- Git utilities
+    use {
+        'tanvirtin/vgit.nvim',
+        requires = {
+            'nvim-lua/plenary.nvim'
+        },
+        config = function ()
+            require('vgit').setup {
+                settings = {
+                    live_gutter = {
+                        enabled = false,
+                    },
+                    live_blame = {
+                        enabled = false,
+                    },
+                },
+            }
+        end
+    }
+
     if packer_bootstrap then
         require('packer').sync()
     end
