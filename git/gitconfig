@@ -1,3 +1,5 @@
+#vim: set ft=gitconfig:
+
 [user]
     name = Rémi Labeyrie
     email = rlabeyrie@payplug.com
