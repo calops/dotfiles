@@ -1,10 +1,8 @@
 -- Neovide configuration
-if vim.g.neovide then
-    vim.g.neovide_floating_blur_amount_x = 1.5
-    vim.g.neovide_floating_blur_amount_y = 1.5
-    vim.g.neovide_scroll_animation_length = 0.13
-    vim.o.guifont = 'Iosevka:h11'
-end
+vim.g.neovide_floating_blur_amount_x = 1.5
+vim.g.neovide_floating_blur_amount_y = 1.5
+vim.g.neovide_scroll_animation_length = 0.13
+vim.o.guifont = 'Iosevka:h10'
 
 -- Install plugin manager
 local fn = vim.fn
@@ -28,7 +26,7 @@ vim.o.list = true
 vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.laststatus = 3
-vim.g.rustfmt_autosave = false -- buggy
+vim.g.rustfmt_autosave = false
 
 vim.o.termguicolors = true
 vim.o.background = 'dark'
@@ -38,6 +36,7 @@ vim.o.cursorline = true
 vim.o.smarttab = true
 vim.o.expandtab = true
 vim.o.softtabstop = 4
+vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 vim.o.smartindent = true
 vim.o.autoindent = true
@@ -64,6 +63,8 @@ packer.startup(function(use)
 
     -- Language servers
     use 'neovim/nvim-lspconfig'
+
+    use 'rust-lang/rust.vim'
 
     -- Highlight symbols
     use 'RRethy/vim-illuminate'
@@ -650,6 +651,19 @@ packer.startup(function(use)
         end
     }
 
+    -- Tint unfocused windows
+    -- use {
+    --     'levouh/tint.nvim',
+    --     config = function ()
+    --         require("tint").setup({
+    --             tint = -45,
+    --             saturation = 1,
+    --             tint_background_colors = false,
+    --             highlight_ignore_patterns = { "WinSeparator", "Status.*", "IndentLine.*" },
+    --         })
+    --     end,
+    -- }
+
     if packer_bootstrap then
         require('packer').sync()
     end
@@ -683,6 +697,12 @@ end
 
 require('rust-tools').setup({
     server = {
+        fmt = {
+            extraArgs = {
+                "--config",
+                "comment_width=120,condense_wildcard_suffixes=false,format_code_in_doc_comments=true,format_macro_bodies=true,hex_literal_case=Upper,imports_granularity=One,normalize_doc_attributes=true,wrap_comments=true",
+            },
+        },
         on_attach = on_attach,
         capabilities = capabilities,
     },
@@ -724,7 +744,8 @@ nmap('gi', vim.lsp.buf.implementation, "Go to implementation")
 nmap('<C-k>', vim.lsp.buf.signature_help, "Interactive signature help")
 nmap('gr', telescope_builtins.lsp_references, "List references")
 nmap('<space>f', vim.lsp.buf.format, "Format code")
-nmap("<leader>rn", vim.lsp.buf.rename, "Interactive rename")
+nmap('<leader>rn', vim.lsp.buf.rename, "Interactive rename")
+nmap('<leader>rf', vim.lsp.buf.format, "Format code")
 nmap('<leader>a', vim.lsp.buf.code_action, "Interactive list of code actions")
 
 -- Fuzzy finder (telescope)
