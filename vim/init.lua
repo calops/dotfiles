@@ -748,10 +748,23 @@ nmap('<leader>rn', vim.lsp.buf.rename, "Interactive rename")
 nmap('<leader>rf', vim.lsp.buf.format, "Format code")
 nmap('<leader>a', vim.lsp.buf.code_action, "Interactive list of code actions")
 
+local function live_grep()
+    vim.ui.input(
+        {prompt = 'Grep string: '},
+        function(input)
+            if input == nil or input == '' then
+                telescope_builtins.live_grep()
+            else
+                telescope_builtins.grep_string({search = input})
+            end
+        end
+    )
+end
+
 -- Fuzzy finder (telescope)
 nmap('<C-p>', telescope_builtins.find_files, "Find files")
 nmap('<leader><Space>', telescope_builtins.grep_string, "Grep string under cursor")
-nmap('<leader>s', telescope_builtins.live_grep, "Live grep")
+nmap('<leader>s', live_grep, "Live grep")
 nmap('<leader>b', telescope_builtins.buffers, "Find buffer")
 nmap('<leader>h', telescope_builtins.help_tags, "List help tags")
 nmap('<leader>e', telescope_builtins.symbols, "Select symbol")
