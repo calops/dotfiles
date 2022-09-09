@@ -41,8 +41,9 @@ vim.o.shiftwidth = 4
 vim.o.smartindent = true
 vim.o.autoindent = true
 vim.g.catppuccin_flavour = "mocha"
-vim.o.winblend = 30
-vim.o.pumblend = 30
+vim.o.winblend = 10
+vim.o.pumblend = 10
+vim.o.cmdheight = 1
 
 ---------- Plugins
 local packer = require('packer')
@@ -214,7 +215,6 @@ packer.startup(function(use)
             'nvim-lua/plenary.nvim',
             'nvim-telescope/telescope-media-files.nvim',
             'nvim-telescope/telescope-symbols.nvim',
-            'nvim-telescope/telescope-vimspector.nvim',
             { 'nvim-telescope/telescope-fzf-native.nvim', run = { 'make' } },
         },
         config = function()
@@ -304,15 +304,16 @@ packer.startup(function(use)
                             ["if"] = "@function.inner",
                             ["ac"] = "@class.outer",
                             ["ic"] = "@class.inner",
+                            ["x"] = "@swappable",
                         },
                     },
                     swap = {
                         enable = true,
                         swap_next = {
-                            ["<leader>p"] = "@parameter.inner",
+                            ["<leader>p"] = "@swappable",
                         },
                         swap_previous = {
-                            ["<leader>P"] = "@parameter.inner",
+                            ["<leader>P"] = "@swappable",
                         },
                     },
                     lsp_interop = {
@@ -325,9 +326,18 @@ packer.startup(function(use)
                     },
                 },
                 context_commentstring = { enable = true },
+                playground = {
+                    enable = true,
+                }
+            }
+            require"nvim-treesitter.highlight".set_custom_captures {
+                ["interface"] = "TSInterface",
+                ["implementation"] = "TSInterface",
             }
         end,
     }
+
+    use 'nvim-treesitter/playground'
 
     -- Show current context on top
     use {
@@ -534,7 +544,9 @@ packer.startup(function(use)
     use {
         'rcarriga/nvim-notify',
         config = function()
-            require('notify').setup {}
+            require('notify').setup {
+                top_down = false,
+            }
             vim.notify = require('notify')
         end,
     }
@@ -648,6 +660,15 @@ packer.startup(function(use)
                     },
                 },
             }
+        end
+    }
+
+    -- Merge tool
+    use {
+        'sindrets/diffview.nvim',
+        requires = 'nvim-lua/plenary.nvim',
+        config = function ()
+            require('diffview').setup{}
         end
     }
 
@@ -874,4 +895,7 @@ require('catppuccin.lib.highlighter').syntax({
     DiagnosticUnderlineHint = { sp = colors.teal, style =  { 'undercurl' } },
 
     TelescopeBorder = { fg = colors.peach },
+
+    TSInterface = { fg = colors.red },
+    TSImplementation = { fg = colors.red },
 })
