@@ -1,14 +1,2 @@
 [character]
 symbol = "➜"
-
-[python]
-symbol = "  "
-
-[nodejs]
-symbol = " "
-
-[docker_context]
-symbol = "  "
-
-[rust]
-symbol = " "
