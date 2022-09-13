@@ -690,17 +690,9 @@ packer.startup(function(use)
     }
 
     -- Tint unfocused windows
-    -- use {
-    --     'levouh/tint.nvim',
-    --     config = function ()
-    --         require("tint").setup({
-    --             tint = -45,
-    --             saturation = 1,
-    --             tint_background_colors = false,
-    --             highlight_ignore_patterns = { "WinSeparator", "Status.*", "IndentLine.*" },
-    --         })
-    --     end,
-    -- }
+    use {
+        'levouh/tint.nvim',
+    }
 
     if packer_bootstrap then
         require('packer').sync()
@@ -915,4 +907,11 @@ require('catppuccin.lib.highlighter').syntax({
 
     TSInterface = { fg = colors.red },
     TSImplementation = { fg = colors.red },
+})
+
+require("tint").setup({
+    tint = -45,
+    saturation = 0.6,
+    tint_background_colors = false,
+    highlight_ignore_patterns = { "WinSeparator", "Status.*", "IndentBlankline.*" },
 })
