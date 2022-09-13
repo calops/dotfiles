@@ -910,8 +910,8 @@ require('catppuccin.lib.highlighter').syntax({
 })
 
 require("tint").setup({
-    tint = -45,
-    saturation = 0.6,
+    tint = 10,
+    saturation = 0.5,
     tint_background_colors = false,
     highlight_ignore_patterns = { "WinSeparator", "Status.*", "IndentBlankline.*" },
 })
