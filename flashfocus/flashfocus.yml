@@ -43,8 +43,12 @@ rules:
     default-opacity: 1.0
 
   - window-class: Ulauncher
+    default-opacity: 1.0
     flash-on-focus: True
-    # default-opacity: 0.85
+
+  - window-class: kitty
+    flash-on-focus: True
+    default-opacity: 1.0
 # Defining window-specific flash rules
 #
 # X11-based window managers (e.g i3, bspwm)
