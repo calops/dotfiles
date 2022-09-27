@@ -6,3 +6,6 @@ typings
 settings.json
 .yarn
 .yarnrc
+target
+Cargo.lock
+.lsp.lua

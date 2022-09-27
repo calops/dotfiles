@@ -344,10 +344,10 @@ packer.startup(function(use)
                     enable = true,
                 }
             }
-            require"nvim-treesitter.highlight".set_custom_captures {
-                ["interface"] = "TSInterface",
-                ["implementation"] = "TSInterface",
-            }
+            -- require"nvim-treesitter.highlight".set_custom_captures {
+            --     ["interface"] = "TSInterface",
+            --     ["implementation"] = "TSInterface",
+            -- }
         end,
     }
 
@@ -726,16 +726,32 @@ for _, server in ipairs(mason.get_installed_servers()) do
     end
 end
 
-require('rust-tools').setup({
-    server = {
+local custom_lsp_conf
+if vim.fn.filereadable(".lsp.lua") == true then
+    custom_lsp_conf = dofile(".lsp.lua")
+else
+    custom_lsp_conf = {}
+end
+local rust_lsp_conf = vim.tbl_extend(
+    "force",
+    {
         fmt = {
             extraArgs = {
                 "--config",
                 "comment_width=120,condense_wildcard_suffixes=false,format_code_in_doc_comments=true,format_macro_bodies=true,hex_literal_case=Upper,imports_granularity=One,normalize_doc_attributes=true,wrap_comments=true",
             },
         },
+    },
+    custom_lsp_conf
+)
+
+require('rust-tools').setup({
+    server = {
         on_attach = on_attach,
         capabilities = capabilities,
+        settings = {
+            ["rust-analyzer"] = rust_lsp_conf,
+        },
     },
 })
 
@@ -906,8 +922,9 @@ require('catppuccin.lib.highlighter').syntax({
 
     TelescopeBorder = { fg = colors.peach },
 
-    TSInterface = { fg = colors.red },
-    TSImplementation = { fg = colors.red },
+    TSNamespace = { fg = colors.pink},
+    TSParameter = { fg = colors.red, style = { 'italic' } },
+    TSVariable = { fg = colors.red },
 })
 
 -- require("tint").setup({
