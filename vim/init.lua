@@ -2,7 +2,8 @@
 vim.g.neovide_floating_blur_amount_x = 1.5
 vim.g.neovide_floating_blur_amount_y = 1.5
 vim.g.neovide_scroll_animation_length = 0.13
-vim.o.guifont = 'Iosevka:h10'
+vim.g.neovide_background_color = '#000000aa'
+vim.o.guifont = 'Iosevka Nerd Font:h10'
 
 -- Install plugin manager
 local fn = vim.fn
