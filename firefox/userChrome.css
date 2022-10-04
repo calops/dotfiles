@@ -2,24 +2,15 @@
   visibility: collapse;
 }
 
-#navigator-toolbox:not(:hover):not(:focus-within) #toolbar-menubar > * {
-  background-color: rgb(232, 232, 231);
+tabs {
+  counter-reset: tab-counter;
 }
 
-#main-window[sizemode="maximized"] #content-deck {
-  padding-top: 8px;
+#sidebar-header {
+  display: none;
 }
 
-#sidebar-box:not([sidebarcommand="viewBookmarksSidebar"]):not([sidebarcommand="viewHistorySidebar"]):not([sidebarcommand="viewTabsSidebar"]) 
-  #sidebar-header:not(:hover) {
-    max-height: 5px !important;
-    min-height: 5px !important;
-    padding: 0 !important;
-    background-color: #7ad !important;
-    opacity: 0.5 !important;
-}
-#sidebar-box:not([sidebarcommand="viewBookmarksSidebar"]):not([sidebarcommand="viewHistorySidebar"]):not([sidebarcommand="viewTabsSidebar"]) 
-  #sidebar-header:not(:hover) #sidebar-switcher-target {
-    /* BAD NEWS: display: none !important; */
-    opacity: 0 !important;
+@-moz-document url(chrome://browser/content/browser.xhtml){
+  #browser{ overflow: hidden }
+  #sidebar-box{ box-shadow: 0 0 16px black; position: relative;  z-index: 1 }
 }

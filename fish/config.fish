@@ -12,7 +12,7 @@ set -gx PATH ~/.local/bin $PATH
 set -gx PATH ~/.cargo/bin $PATH
 set -gx PATH ~/.pyenv/bin $PATH
 
-set -gx EDITOR nvim
+set -gx EDITOR neovim --multigrid
 set -gx PAGER less -FRx --mouse
 set -gx BAT_PAGER $PAGER
 
