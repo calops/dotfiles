@@ -96,7 +96,6 @@ packer.startup(function(use)
 	-- Autocompletion engine
 	use({
 		"hrsh7th/nvim-cmp",
-		as = "cmp",
 		requires = {
 			"hrsh7th/cmp-nvim-lua",
 			"hrsh7th/cmp-nvim-lsp",
