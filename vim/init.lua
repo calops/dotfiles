@@ -1012,4 +1012,7 @@ require("catppuccin.lib.highlighter").syntax({
 	["@variable"] = { fg = colors.pink },
 	["@keyword"] = { fg = colors.mauve, style = { "bold" } },
 	["@keyword.function"] = { link = "@keyword" },
+
+	HLSearchLensNear = { fg = colors.sky, style = { "bold" } },
+	HLSearchLens = { fg = colors.surface1 },
 })
