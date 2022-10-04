@@ -10,7 +10,8 @@ local fn = vim.fn
 local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 local packer_bootstrap = false
 if fn.empty(fn.glob(install_path)) > 0 then
-    packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
+        install_path })
     vim.cmd [[packadd packer.nvim]]
 end
 
@@ -59,13 +60,13 @@ packer.startup(function(use)
     -- Installation commands for lspconfig
     use {
         'williamboman/mason.nvim',
-        config = function() require('mason').setup()  end
+        config = function() require('mason').setup() end
     }
     use 'williamboman/mason-lspconfig.nvim'
 
     use {
         'jose-elias-alvarez/null-ls.nvim',
-        config = function ()
+        config = function()
             local nls = require('null-ls')
             nls.setup({
                 sources = {
@@ -120,7 +121,7 @@ packer.startup(function(use)
                         { name = 'nvim_lsp' },
                         { name = 'luasnip' },
                     },
-                    {{ name = 'buffer' }}
+                    { { name = 'buffer' } }
                 ),
                 snippet = {
                     expand = function(args)
@@ -138,9 +139,9 @@ packer.startup(function(use)
 
             cmp.setup.filetype('gitcommit', {
                 sources = cmp.config.sources(
-                    {{ name = 'conventionalcommits' }},
-                    {{ name = 'cmp_git' }},
-                    {{ name = 'buffer' }}
+                    { { name = 'conventionalcommits' } },
+                    { { name = 'cmp_git' } },
+                    { { name = 'buffer' } }
                 )
             })
 
@@ -256,7 +257,7 @@ packer.startup(function(use)
     -- Better select and input menus
     use {
         'stevearc/dressing.nvim',
-        config = function ()
+        config = function()
             require('dressing').setup {
                 select = {
                     telescope = require('telescope.themes').get_cursor {
@@ -392,7 +393,7 @@ packer.startup(function(use)
                         show_root = false,
                         transparent_panel = false,
                     },
-                }
+                },
             }
         end,
     }
@@ -407,7 +408,7 @@ packer.startup(function(use)
         after = 'catppuccin',
         config = function()
             local ctp_feline = require('catppuccin.groups.integrations.feline')
-            ctp_feline.setup{}
+            ctp_feline.setup {}
             require('feline').setup {
                 components = ctp_feline.get(),
             }
@@ -495,7 +496,8 @@ packer.startup(function(use)
                 render = function(props)
                     local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ':.')
                     local extension = filename:match("^.+%.(.+)$")
-                    local icon, icon_fg_color = require('nvim-web-devicons').get_icon_colors(filename, extension, { default = true })
+                    local icon, icon_fg_color = require('nvim-web-devicons').get_icon_colors(filename, extension,
+                        { default = true })
 
                     local icon_color = {
                         fg = icon_fg_color,
@@ -507,7 +509,7 @@ packer.startup(function(use)
                         color = col_active
                     end
 
-                    local result =  {
+                    local result = {
                         { '', guifg = icon_color.bg, guibg = col_base.bg },
                         { icon .. ' ', guifg = icon_color.fg, guibg = icon_color.bg },
                         { '', guifg = color.bg, guibg = icon_color.bg },
@@ -522,10 +524,11 @@ packer.startup(function(use)
                     end
 
                     local prev_color = color
-                    for i=1,4 do
-                        if diag_counts[i]> 0 then
+                    for i = 1, 4 do
+                        if diag_counts[i] > 0 then
                             table.insert(result, { '', guifg = prev_color.bg, guibg = diag_colors[i].bg })
-                            table.insert(result, { ' ' .. diag_counts[i], guifg = diag_colors[i].fg, guibg = diag_colors[i].bg })
+                            table.insert(result,
+                                { ' ' .. diag_counts[i], guifg = diag_colors[i].fg, guibg = diag_colors[i].bg })
                             prev_color = diag_colors[i]
                         end
                     end
@@ -553,7 +556,7 @@ packer.startup(function(use)
             require('auto-session').setup {
                 cwd_change_handling = false,
                 bypass_session_save_file_types = { "neo-tree" },
-                pre_save_cmds = { function () require 'neo-tree.sources.manager'.close_all() end },
+                pre_save_cmds = { function() require 'neo-tree.sources.manager'.close_all() end },
             }
         end,
     }
@@ -582,6 +585,10 @@ packer.startup(function(use)
                         enabled = true,
                         show_root = true,
                         transparent_panel = false,
+                    },
+                    indent_blankline = {
+                        enabled = true,
+                        colored_indent_levels = true,
                     },
                 },
                 compile = {
@@ -632,7 +639,7 @@ packer.startup(function(use)
         'akinsho/toggleterm.nvim',
         tag = 'v2.*',
         config = function()
-            require("toggleterm").setup{
+            require("toggleterm").setup {
                 direction = 'float',
                 float_opts = {
                     border = 'rounded',
@@ -658,7 +665,7 @@ packer.startup(function(use)
     -- Speed-up startup time
     use {
         'lewis6991/impatient.nvim',
-        config = function () require('impatient') end
+        config = function() require('impatient') end
     }
 
     -- Git utilities
@@ -667,7 +674,7 @@ packer.startup(function(use)
         requires = {
             'nvim-lua/plenary.nvim'
         },
-        config = function ()
+        config = function()
             require('vgit').setup {
                 settings = {
                     live_gutter = {
@@ -685,8 +692,16 @@ packer.startup(function(use)
     use {
         'sindrets/diffview.nvim',
         requires = 'nvim-lua/plenary.nvim',
-        config = function ()
-            require('diffview').setup{}
+        config = function()
+            require('diffview').setup {}
+        end
+    }
+
+    -- Colorful cursorline
+    use {
+        'mvllow/modes.nvim',
+        config = function()
+            require('modes').setup()
         end
     }
 
@@ -722,7 +737,7 @@ lspconfig.util.default_config = vim.tbl_extend(
 
 for _, server in ipairs(mason.get_installed_servers()) do
     if server ~= 'rust_analyzer' then
-        lspconfig[server].setup{}
+        lspconfig[server].setup {}
     end
 end
 
@@ -797,12 +812,12 @@ nmap('<leader>a', vim.lsp.buf.code_action, "Interactive list of code actions")
 
 local function live_grep()
     vim.ui.input(
-        {prompt = 'Grep string: '},
+        { prompt = 'Grep string: ' },
         function(input)
             if input == nil or input == '' then
                 telescope_builtins.live_grep()
             else
-                telescope_builtins.grep_string({search = input})
+                telescope_builtins.grep_string({ search = input })
             end
         end
     )
@@ -849,7 +864,8 @@ vim.keymap.set("n", "vd", dot_repeatable("v:lua.STSSwapCurrentNodeNextNormal_Dot
 
 -- Search bindings
 nmap('n', [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]], 'Move to next match')
-nmap('N', [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]], 'Move to previous match')
+nmap('N', [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]],
+    'Move to previous match')
 nmap('*', [[*<Cmd>lua require('hlslens').start()<CR>]], 'Forward search symbol under cursor')
 nmap('g*', [[g*<Cmd>lua require('hlslens').start()<CR>]], 'Forward search symbol under cursor')
 nmap('#', [[#<Cmd>lua require('hlslens').start()<CR>]], 'Backward search symbol under cursor')
@@ -899,6 +915,21 @@ vim.cmd([[
     colorscheme catppuccin
 ]])
 
+-- Auto format on save
+require('core.autocmd').BufWritePost = {
+    '*',
+    function()
+        for _, client in ipairs(vim.lsp.get_active_clients()) do
+            if client.attached_buffers[vim.api.nvim_get_current_buf()] then
+                vim.lsp.buf.format()
+                return
+            else
+                return
+            end
+        end
+    end,
+}
+
 -- Custom highlights (need to set them up after everything else)
 local colors = require("catppuccin.palettes").get_palette()
 require('catppuccin.lib.highlighter').syntax({
@@ -906,7 +937,7 @@ require('catppuccin.lib.highlighter').syntax({
     TermFloatBorder = { fg = colors.red },
 
     TreesitterContext = { bg = colors.base, style = { 'italic' }, blend = 0 },
-    TreesitterContextLineNumber = { fg = colors.surface1, bg = colors.crust, style =  { 'italic' }, blend = 0 },
+    TreesitterContextLineNumber = { fg = colors.surface1, bg = colors.crust, style = { 'italic' }, blend = 0 },
 
     IlluminatedWordText = { bg = colors.surface1, style = { 'underdotted', 'bold' } },
     IlluminatedWordWrite = { bg = colors.surface1, style = { 'underdotted', 'bold' } },
@@ -915,21 +946,19 @@ require('catppuccin.lib.highlighter').syntax({
     InclineNormalNC = { bg = colors.surface1, fg = colors.base, blend = 0 },
     InclineNormal = { bg = colors.overlay1, fg = colors.base, blend = 0 },
 
-    DiagnosticUnderlineError = { sp = colors.red, style =  { 'undercurl' } },
-    DiagnosticUnderlineWarn = { sp = colors.yellow, style =  { 'undercurl' } },
-    DiagnosticUnderlineInfo = { sp = colors.sky, style =  { 'undercurl' } },
-    DiagnosticUnderlineHint = { sp = colors.teal, style =  { 'undercurl' } },
+    DiagnosticUnderlineError = { sp = colors.red, style = { 'undercurl' } },
+    DiagnosticUnderlineWarn = { sp = colors.yellow, style = { 'undercurl' } },
+    DiagnosticUnderlineInfo = { sp = colors.sky, style = { 'undercurl' } },
+    DiagnosticUnderlineHint = { sp = colors.teal, style = { 'undercurl' } },
 
     TelescopeBorder = { fg = colors.peach },
 
-    TSNamespace = { fg = colors.pink},
-    TSParameter = { fg = colors.red, style = { 'italic' } },
-    TSVariable = { fg = colors.red },
-})
+    ModesInsert = { bg = colors.green },
+    ModesVisual = { bg = colors.mauve },
 
--- require("tint").setup({
---     tint = -45,
---     saturation = 0.6,
---     tint_background_colors = false,
---     highlight_ignore_patterns = { "WinSeparator", "Status.*", "IndentBlankline.*" },
--- })
+    ['@namespace'] = { fg = colors.maroon },
+    ['@parameter'] = { fg = colors.pink, style = { 'italic' } },
+    ['@variable'] = { fg = colors.pink },
+    ['@keyword'] = { fg = colors.mauve, style = { 'bold' } },
+    ['@keyword.function'] = { link = '@keyword' },
+})
