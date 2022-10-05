@@ -774,6 +774,10 @@ require("noice").setup({
 			},
 		},
 	},
+	popupmenu = {
+		enabled = true,
+		backend = "cmp",
+	},
 }) -- TODO: move config to packer when it works again
 
 local mason = require("mason-lspconfig")
