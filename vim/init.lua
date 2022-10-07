@@ -588,7 +588,6 @@ packer.startup(function(use)
 			require("notify").setup({
 				top_down = false,
 			})
-			vim.notify = require("notify")
 		end,
 	})
 
@@ -616,7 +615,7 @@ packer.startup(function(use)
 				},
 			})
 		end,
-		run = ":CatppuccinCompile",
+		run = require('catppuccin').compile,
 	})
 
 	-- Firefox
