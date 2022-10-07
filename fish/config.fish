@@ -20,9 +20,6 @@ set -gx FZF_DEFAULT_COMMAND fd --type file --color=always
 set -gx FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
 set -gx FZF_DEFAULT_OPTS "--ansi --preview-window noborder --preview-window 'right:50%' --preview 'bat --line-range :300 {}'"
 
-set -gx GITLAB_PRIVATE_TOKEN "egSAits5ZrMtsFdYWu1q"
-set -gx BW_SESSION "2rYiRw9ufd7PO8XkxOv76cTxVmk9R/tuCmRQ65+Sk3moz0qZJDLTqR6msjXGGTHo5wpj04kBkppqCvVF1ghMtQ=="
-
 set -gx TERM wezterm
 set -gx STOCKLY_MAIN $HOME/stockly/Main
 
