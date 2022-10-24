@@ -627,7 +627,12 @@ packer.startup(function(use)
 	})
 
 	-- Better search highlights
-	use("kevinhwang91/nvim-hlslens")
+	use {
+		"kevinhwang91/nvim-hlslens",
+		config = function ()
+			require('hlslens').setup()
+		end
+	}
 
 	---------- Vim MISC
 	-- Cheat sheet
@@ -732,14 +737,13 @@ packer.startup(function(use)
 
 	use({
 		"folke/noice.nvim",
-		-- event = "VimEnter",
+		event = "VimEnter",
 		requires = {
 			"MunifTanjim/nui.nvim",
 		},
-		-- TODO: lazy loading not working for now
-		-- config = function()
-		--     require("noice").setup {}
-		-- end,
+		config = function ()
+			-- FIXME: lazy loading not working for some reason
+		end
 	})
 
 	if packer_bootstrap then
