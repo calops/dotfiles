@@ -960,20 +960,20 @@ vim.cmd([[
     colorscheme catppuccin
 ]])
 
--- Auto format on save
--- require("core.autocmd").BufWritePost = {
--- 	"*",
--- 	function()
--- 		for _, client in ipairs(vim.lsp.get_active_clients()) do
--- 			if client.attached_buffers[vim.api.nvim_get_current_buf()] then
--- 				vim.lsp.buf.format()
--- 				return
--- 			else
--- 				return
--- 			end
--- 		end
--- 	end,
--- }
+-- Auto format on save, rust files only
+require("core.autocmd").BufWritePost = {
+	"*.rs",
+	function()
+		for _, client in ipairs(vim.lsp.get_active_clients()) do
+			if client.attached_buffers[vim.api.nvim_get_current_buf()] then
+				vim.lsp.buf.format()
+				return
+			else
+				return
+			end
+		end
+	end,
+}
 
 -- Custom highlights (need to set them up after everything else)
 local colors = require("catppuccin.palettes").get_palette()
