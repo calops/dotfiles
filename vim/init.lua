@@ -586,7 +586,7 @@ packer.startup(function(use)
 		"rcarriga/nvim-notify",
 		config = function()
 			require("notify").setup({
-				top_down = false,
+				top_down = true,
 			})
 		end,
 	})
@@ -680,16 +680,6 @@ packer.startup(function(use)
 		end,
 	})
 
-	-- Personal wiki
-	use({
-		"phaazon/mind.nvim",
-		branch = "v2.1",
-		requires = { "nvim-lua/plenary.nvim" },
-		config = function()
-			require("mind").setup()
-		end,
-	})
-
 	-- Speed-up startup time
 	use({
 		"lewis6991/impatient.nvim",
@@ -742,7 +732,29 @@ packer.startup(function(use)
 			"MunifTanjim/nui.nvim",
 		},
 		config = function ()
-			-- FIXME: lazy loading not working for some reason
+			require("noice").setup({
+				-- routes = {
+				-- 	{ -- do not show scroll indicators
+				-- 		filter = {
+				-- 			event = "msg_show",
+				-- 			kind = "",
+				-- 			find = "lines --",
+				-- 		},
+				-- 		opts = { skip = true },
+				-- 	},
+				-- },
+				views = {
+					cmdline_popup = {
+						size = {
+							width = "50%",
+						},
+					},
+				},
+				popupmenu = {
+					enabled = true,
+					backend = "cmp",
+				},
+			}) -- TODO: move config to packer when it works again
 		end
 	})
 
@@ -750,38 +762,6 @@ packer.startup(function(use)
 		require("packer").sync()
 	end
 end)
-
-require("noice").setup({
-	routes = {
-		{ -- do not show "file written" prompts
-			filter = {
-				event = "msg_show",
-				kind = "",
-				find = "written",
-			},
-			opts = { skip = true },
-		},
-		{ -- do not show scroll indicators
-			filter = {
-				event = "msg_show",
-				kind = "",
-				find = "lines --",
-			},
-			opts = { skip = true },
-		},
-	},
-	views = {
-		cmdline_popup = {
-			size = {
-				width = "50%",
-			},
-		},
-	},
-	popupmenu = {
-		enabled = true,
-		backend = "cmp",
-	},
-}) -- TODO: move config to packer when it works again
 
 local mason = require("mason-lspconfig")
 mason.setup({
@@ -811,7 +791,7 @@ else
 	custom_lsp_conf = {}
 end
 local rust_lsp_conf = vim.tbl_extend("force", {
-	fmt = {
+	rustfmt = {
 		extraArgs = {
 			"--config",
 			"comment_width=120,condense_wildcard_suffixes=false,format_code_in_doc_comments=true,format_macro_bodies=true,hex_literal_case=Upper,imports_granularity=One,normalize_doc_attributes=true,wrap_comments=true",
