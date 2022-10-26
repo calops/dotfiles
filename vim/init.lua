@@ -376,7 +376,7 @@ packer.startup(function(use)
 				enable = true,
 				max_lines = 5,
 				trim_scope = "outer",
-				zindex = 20,
+				zindex = 40,
 				mode = "cursor",
 			})
 		end,
@@ -549,7 +549,7 @@ packer.startup(function(use)
 						end
 					end
 
-					table.insert(result, { " ", guifg = prev_color.bg, guibg = col_base.bg })
+					table.insert(result, { "", guifg = prev_color.bg, guibg = col_base.bg })
 
 					return result
 				end,
@@ -557,7 +557,7 @@ packer.startup(function(use)
 					padding = 0,
 					placement = { horizontal = "right", vertical = "top" },
 					margin = {
-						horizontal = { left = 1, right = 0 },
+						horizontal = { left = 1, right = 1 },
 						vertical = { bottom = 1, top = 0 },
 					},
 				},
@@ -733,16 +733,6 @@ packer.startup(function(use)
 		},
 		config = function ()
 			require("noice").setup({
-				-- routes = {
-				-- 	{ -- do not show scroll indicators
-				-- 		filter = {
-				-- 			event = "msg_show",
-				-- 			kind = "",
-				-- 			find = "lines --",
-				-- 		},
-				-- 		opts = { skip = true },
-				-- 	},
-				-- },
 				views = {
 					cmdline_popup = {
 						size = {
@@ -754,9 +744,23 @@ packer.startup(function(use)
 					enabled = true,
 					backend = "cmp",
 				},
-			}) -- TODO: move config to packer when it works again
+			})
 		end
 	})
+
+	-- Code window
+	use {
+		'gorbit99/codewindow.nvim',
+		config = function()
+			local codewindow = require('codewindow')
+			codewindow.setup {
+				window_border = "rounded",
+				show_cursor = false,
+				z_index = 30,
+			}
+			codewindow.apply_default_keybinds()
+		end,
+	}
 
 	if packer_bootstrap then
 		require("packer").sync()
@@ -872,6 +876,9 @@ nmap("<leader>e", telescope_builtins.symbols, "Select symbol")
 -- File browser
 nmap("<leader>nn", ":Neotree toggle reveal_force_cwd<cr>", "Toggle file browser")
 nmap("<leader>ng", ":Neotree float git_status<cr>", "Show git status")
+
+-- Code window
+nmap("<leader>ll", require('codewindow').toggle_minimap, "Toggle code minimap")
 
 -- Tabs
 local function new_tab()
