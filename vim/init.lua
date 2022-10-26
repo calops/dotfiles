@@ -11,7 +11,7 @@ local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 local packer_bootstrap = false
 if fn.empty(fn.glob(install_path)) > 0 then
 	packer_bootstrap =
-		fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
+	fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
 	vim.cmd([[packadd packer.nvim]])
 end
 
@@ -46,6 +46,17 @@ vim.g.catppuccin_flavour = "mocha"
 vim.o.winblend = 10
 vim.o.pumblend = 10
 vim.o.cmdheight = 1
+
+local function nmap(binding, command, description, opts)
+	opts = opts or {}
+
+	vim.keymap.set("n", binding, command, {
+		desc = description,
+		silent = opts.silent or true,
+		expr = opts.expr or false,
+		noremap = opts.noremap or true,
+	})
+end
 
 ---------- Plugins
 local packer = require("packer")
@@ -511,7 +522,7 @@ packer.startup(function(use)
 					local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":.")
 					local extension = filename:match("^.+%.(.+)$")
 					local icon, icon_fg_color =
-						require("nvim-web-devicons").get_icon_colors(filename, extension, { default = true })
+					require("nvim-web-devicons").get_icon_colors(filename, extension, { default = true })
 
 					local icon_color = {
 						fg = icon_fg_color,
@@ -629,7 +640,7 @@ packer.startup(function(use)
 	-- Better search highlights
 	use {
 		"kevinhwang91/nvim-hlslens",
-		config = function ()
+		config = function()
 			require('hlslens').setup()
 		end
 	}
@@ -731,7 +742,7 @@ packer.startup(function(use)
 		requires = {
 			"MunifTanjim/nui.nvim",
 		},
-		config = function ()
+		config = function()
 			require("noice").setup({
 				views = {
 					cmdline_popup = {
@@ -752,13 +763,11 @@ packer.startup(function(use)
 	use {
 		'gorbit99/codewindow.nvim',
 		config = function()
-			local codewindow = require('codewindow')
-			codewindow.setup {
+			require('codewindow').setup {
 				window_border = "rounded",
 				show_cursor = false,
 				z_index = 30,
 			}
-			codewindow.apply_default_keybinds()
 		end,
 	}
 
@@ -828,17 +837,6 @@ require("lspconfig").sumneko_lua.setup({
 
 ---------- Keybindings
 local telescope_builtins = require("telescope.builtin")
-
-local function nmap(binding, command, description, opts)
-	opts = opts or {}
-
-	vim.keymap.set("n", binding, command, {
-		desc = description,
-		silent = opts.silent or true,
-		expr = opts.expr or false,
-		noremap = opts.noremap or true,
-	})
-end
 
 -- Code exploration
 nmap("gD", vim.lsp.buf.declaration, "Go to declaration")
@@ -1016,4 +1014,6 @@ require("catppuccin.lib.highlighter").syntax({
 
 	HLSearchLensNear = { fg = colors.sky, style = { "bold" } },
 	HLSearchLens = { fg = colors.surface1 },
+
+	CodewindowBorder = { fg = colors.surface1 },
 })
