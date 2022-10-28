@@ -170,6 +170,7 @@ packer.startup(function(use)
 					{ name = "cmdline" },
 				}),
 			})
+			require("cmp_git").setup()
 		end,
 	})
 
@@ -767,6 +768,7 @@ packer.startup(function(use)
 				window_border = "rounded",
 				show_cursor = false,
 				z_index = 30,
+				minimap_width = 15,
 			}
 		end,
 	}
