@@ -25,10 +25,14 @@ vim.o.concealcursor = ""
 vim.o.textwidth = 120
 vim.o.listchars = "tab:→ ,nbsp:␣,trail:~,precedes:«,extends:»"
 vim.o.list = true
+vim.o.wrap = false
 vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.laststatus = 3
 vim.g.rustfmt_autosave = false
+vim.o.fillchars = 'diff:╱'
+vim.o.ignorecase = true
+vim.o.smartcase = true
 
 vim.o.termguicolors = true
 vim.o.background = "dark"
@@ -47,15 +51,24 @@ vim.o.winblend = 10
 vim.o.pumblend = 10
 vim.o.cmdheight = 1
 
-local function nmap(binding, command, description, opts)
-	opts = opts or {}
-
-	vim.keymap.set("n", binding, command, {
+local function keymap(mode, binding, command, description, opts)
+	local defaults = {
+		silent = true,
+		expr = false,
+		noremap = true,
 		desc = description,
-		silent = opts.silent or true,
-		expr = opts.expr or false,
-		noremap = opts.noremap or true,
-	})
+	}
+	local options = vim.tbl_extend("force", defaults, opts or {})
+
+	vim.keymap.set(mode, binding, command, options)
+end
+
+function Nmap(binding, command, description, opts)
+	keymap("n", binding, command, description, opts)
+end
+
+function Xmap(binding, command, description, opts)
+	keymap("x", binding, command, description, opts)
 end
 
 ---------- Plugins
@@ -91,7 +104,12 @@ packer.startup(function(use)
 	})
 
 	-- Language servers
-	use("neovim/nvim-lspconfig")
+	use {
+		"neovim/nvim-lspconfig",
+		config = function ()
+			
+		end,
+	}
 
 	use("rust-lang/rust.vim")
 
@@ -179,6 +197,23 @@ packer.startup(function(use)
 		"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
 		config = function()
 			require("lsp_lines").setup()
+
+			vim.diagnostic.config({
+				signs = true,
+				severity_sort = true,
+				virtual_lines = false,
+			})
+
+			local function toggle_virtual_lines()
+				local is_enabled = vim.diagnostic.config().virtual_lines
+
+				vim.diagnostic.config({
+					virtual_lines = not is_enabled,
+					virtual_text = is_enabled,
+				})
+			end
+
+			Nmap("<leader>m", toggle_virtual_lines, "Toggle full inline diagnostics")
 		end,
 	})
 
@@ -201,7 +236,7 @@ packer.startup(function(use)
 	use({
 		"folke/trouble.nvim",
 		config = function()
-			require("trouble").setup({})
+			require("trouble").setup {}
 		end,
 	})
 
@@ -253,6 +288,7 @@ packer.startup(function(use)
 		},
 		config = function()
 			local telescope = require("telescope")
+			local telescope_builtins = require("telescope.builtin")
 			local actions = require("telescope.actions")
 
 			telescope.setup({
@@ -270,6 +306,23 @@ packer.startup(function(use)
 			telescope.load_extension("fzf")
 			telescope.load_extension("notify")
 			telescope.load_extension("media_files")
+			local function live_grep()
+				vim.ui.input({ prompt = "Grep string: " }, function(input)
+					if input == nil or input == "" then
+						telescope_builtins.live_grep()
+					else
+						telescope_builtins.grep_string({ search = input })
+					end
+				end)
+			end
+
+			Nmap("<C-p>", telescope_builtins.find_files, "Find files")
+			Nmap("<leader><Space>", telescope_builtins.grep_string, "Grep string under cursor")
+			Nmap("<leader>s", live_grep, "Live grep")
+			Nmap("<leader>b", telescope_builtins.buffers, "Find buffer")
+			Nmap("<leader>h", telescope_builtins.help_tags, "List help tags")
+			Nmap("<leader>e", telescope_builtins.symbols, "Select symbol")
+			Nmap("<leader>t", require('trouble').toggle, "Open diagnostics window (trouble)")
 		end,
 	})
 
@@ -278,13 +331,11 @@ packer.startup(function(use)
 		"stevearc/dressing.nvim",
 		config = function()
 			require("dressing").setup({
+				input = {
+					enabled = false,
+				},
 				select = {
-					telescope = require("telescope.themes").get_cursor({
-						layout_config = {
-							height = 20,
-						},
-						winblend = 10,
-					}),
+					enabled = true,
 				},
 			})
 		end,
@@ -303,12 +354,14 @@ packer.startup(function(use)
 				popup_border_style = "rounded",
 				filesystem = {
 					filtered_items = {
-						visible = true, -- This is what you want: If you set this to `true`, all "hide" just mean "dimmed out"
+						visible = true,
 						hide_dotfiles = false,
 						hide_gitignored = true,
 					},
 				},
 			})
+			Nmap("<leader>nn", ":Neotree toggle reveal_force_cwd<cr>", "Toggle file browser")
+			Nmap("<leader>ng", ":Neotree float git_status<cr>", "Show git status")
 		end,
 	})
 
@@ -401,7 +454,24 @@ packer.startup(function(use)
 	use("JoosepAlviste/nvim-ts-context-commentstring")
 
 	-- Syntax tree manipulation (TODO: bindings)
-	use("ziontee113/syntax-tree-surfer")
+	use {
+		"ziontee113/syntax-tree-surfer",
+		config = function()
+			require("syntax-tree-surfer")
+
+			local function dot_repeatable(op)
+				return function()
+					vim.opt.opfunc = op
+					return "g@l"
+				end
+			end
+
+			Nmap("vu", dot_repeatable("v:lua.STSSwapUpNormal_Dot"), "Swap object upwards", { expr = true })
+			Nmap("vd", dot_repeatable("v:lua.STSSwapDownNormal_Dot"), "Swap object downwards", { expr = true })
+			Nmap("vU", dot_repeatable("v:lua.STSSwapCurrentNodePrevNormal_Dot"), "Swap node forwards", { expr = true })
+			Nmap("vD", dot_repeatable("v:lua.STSSwapCurrentNodeNextNormal_Dot"), "Swap node backwards", { expr = true })
+		end
+	}
 
 	-- Indentation guides
 	use({
@@ -440,6 +510,18 @@ packer.startup(function(use)
 			})
 		end,
 	})
+	-- use {
+	-- 	"rebelot/heirline.nvim",
+	-- 	config = function()
+	-- 		local conditions = require("heirline.conditions")
+	-- 		local utils = require("heirline.utils")
+	--
+	-- 		local statusline = {}
+	-- 		local winbar = {}
+	-- 		local tabline = {}
+	-- 		require('heirline').setup { statusline, winbar, tabline }
+	-- 	end
+	-- }
 
 	-- Tab line
 	use({
@@ -566,6 +648,7 @@ packer.startup(function(use)
 					return result
 				end,
 				window = {
+					zindex = 100,
 					padding = 0,
 					placement = { horizontal = "right", vertical = "top" },
 					margin = {
@@ -599,6 +682,7 @@ packer.startup(function(use)
 		config = function()
 			require("notify").setup({
 				top_down = true,
+				max_width = 100,
 			})
 		end,
 	})
@@ -643,6 +727,21 @@ packer.startup(function(use)
 		"kevinhwang91/nvim-hlslens",
 		config = function()
 			require('hlslens').setup()
+			Nmap(
+				"n",
+				[[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]],
+				"Move to next match"
+			)
+			Nmap(
+				"N",
+				[[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]],
+				"Move to previous match"
+			)
+			Nmap("*", [[*<Cmd>lua require('hlslens').start()<CR>]], "Forward search symbol under cursor")
+			Nmap("g*", [[g*<Cmd>lua require('hlslens').start()<CR>]], "Forward search symbol under cursor")
+			Nmap("#", [[#<Cmd>lua require('hlslens').start()<CR>]], "Backward search symbol under cursor")
+			Nmap("g#", [[g#<Cmd>lua require('hlslens').start()<CR>]], "Backward search symbol under cursor")
+			Nmap("<leader><leader>", ":noh<CR>", "Hide search highlights")
 		end
 	}
 
@@ -725,7 +824,19 @@ packer.startup(function(use)
 		"sindrets/diffview.nvim",
 		requires = "nvim-lua/plenary.nvim",
 		config = function()
-			require("diffview").setup({})
+			require("diffview").setup({
+				enhanced_diff_hl = true,
+				use_icons = true,
+				view = {
+					default = {
+						layout = "diff2_horizontal",
+					},
+					merge_tool = {
+						layout = "diff4_mixed",
+						disable_diagnostics = true,
+					},
+				},
+			})
 		end,
 	})
 
@@ -745,31 +856,78 @@ packer.startup(function(use)
 		},
 		config = function()
 			require("noice").setup({
+				lsp = {
+					override = {
+						["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+						["vim.lsp.util.stylize_markdown"] = true,
+						["cmp.entry.get_documentation"] = true,
+					},
+				},
+				presets = {
+					bottom_search = false,
+					command_palette = true,
+					long_message_to_split = true,
+					lsp_doc_border = true,
+				},
 				views = {
-					cmdline_popup = {
-						size = {
-							width = "50%",
-						},
+					messages = {
+						backend = "popup",
 					},
 				},
 				popupmenu = {
 					enabled = true,
-					backend = "cmp",
+					backend = "nui",
+				},
+				routes = {
+					{
+						view = "notify",
+						filter = { event = "msg_show", find = "\"*\"*lines --*%--" },
+						opts = { skip = true },
+					},
 				},
 			})
 		end
 	})
 
-	-- Code window
+	-- Clipboard forwarding
 	use {
-		'gorbit99/codewindow.nvim',
+		'ojroques/nvim-osc52',
 		config = function()
-			require('codewindow').setup {
-				window_border = "rounded",
-				show_cursor = false,
-				z_index = 30,
-				minimap_width = 15,
+			local osc52 = require('osc52')
+
+			Nmap('<leader>c', osc52.copy_operator, "Copy to clipboard", { expr = true })
+			Nmap('<leader>cc', '<leader>c_', "Copy line to clipboard", { remap = true })
+			Xmap('<leader>c', osc52.copy_visual, "Copy selection to clipboard")
+
+			local function copy()
+				if vim.v.event.operator == 'y' and vim.v.event.regname == '+' then
+					osc52.copy_register('+')
+				end
+			end
+
+			vim.api.nvim_create_autocmd('TextYankPost', { callback = copy })
+		end
+	}
+
+	-- Better reference window
+	use {
+		"dnlhc/glance.nvim",
+		config = function()
+			local glance = require('glance')
+			glance.setup {
+				height = 25,
+				border = {
+					enable = true,
+				},
+				theme = {
+					enable = true,
+					mode = 'auto',
+				},
 			}
+			Nmap('gd', '<CMD>Glance definitions<CR>', 'Peek definition(s)')
+			Nmap('gr', '<CMD>Glance references<CR>', 'Peek references')
+			Nmap('gD', '<CMD>Glance type_definitions<CR>', 'Peek declarations')
+			Nmap('gi', '<CMD>Glance implementations<CR>', 'Peek implementations')
 		end,
 	}
 
@@ -812,9 +970,18 @@ local rust_lsp_conf = vim.tbl_extend("force", {
 			"comment_width=120,condense_wildcard_suffixes=false,format_code_in_doc_comments=true,format_macro_bodies=true,hex_literal_case=Upper,imports_granularity=One,normalize_doc_attributes=true,wrap_comments=true",
 		},
 	},
+	semanticHighlighting = {
+		["punctuation.enable"] = true,
+		["punctuation.separate.macro.bang"] = true,
+	},
 }, custom_lsp_conf)
 
 require("rust-tools").setup({
+	tools = {
+		inlay_hints = {
+			highlight = "InlayHints",
+		},
+	},
 	server = {
 		on_attach = on_attach,
 		capabilities = capabilities,
@@ -838,47 +1005,15 @@ require("lspconfig").sumneko_lua.setup({
 })
 
 ---------- Keybindings
-local telescope_builtins = require("telescope.builtin")
-
--- Code exploration
-nmap("gD", vim.lsp.buf.declaration, "Go to declaration")
-nmap("gd", telescope_builtins.lsp_definitions, "Go to definition")
-nmap("K", vim.lsp.buf.hover, "Show documentation")
-nmap("H", function()
+Nmap("K", vim.lsp.buf.hover, "Show documentation")
+Nmap("H", function()
 	vim.diagnostic.open_float({ border = "rounded" })
 end, "Show diagnostics")
-nmap("gi", vim.lsp.buf.implementation, "Go to implementation")
-nmap("<C-k>", vim.lsp.buf.signature_help, "Interactive signature help")
-nmap("gr", telescope_builtins.lsp_references, "List references")
-nmap("<space>f", vim.lsp.buf.format, "Format code")
-nmap("<leader>rn", vim.lsp.buf.rename, "Interactive rename")
-nmap("<leader>rf", vim.lsp.buf.format, "Format code")
-nmap("<leader>a", vim.lsp.buf.code_action, "Interactive list of code actions")
-
-local function live_grep()
-	vim.ui.input({ prompt = "Grep string: " }, function(input)
-		if input == nil or input == "" then
-			telescope_builtins.live_grep()
-		else
-			telescope_builtins.grep_string({ search = input })
-		end
-	end)
-end
-
--- Fuzzy finder (telescope)
-nmap("<C-p>", telescope_builtins.find_files, "Find files")
-nmap("<leader><Space>", telescope_builtins.grep_string, "Grep string under cursor")
-nmap("<leader>s", live_grep, "Live grep")
-nmap("<leader>b", telescope_builtins.buffers, "Find buffer")
-nmap("<leader>h", telescope_builtins.help_tags, "List help tags")
-nmap("<leader>e", telescope_builtins.symbols, "Select symbol")
-
--- File browser
-nmap("<leader>nn", ":Neotree toggle reveal_force_cwd<cr>", "Toggle file browser")
-nmap("<leader>ng", ":Neotree float git_status<cr>", "Show git status")
-
--- Code window
-nmap("<leader>ll", require('codewindow').toggle_minimap, "Toggle code minimap")
+Nmap("<C-k>", vim.lsp.buf.signature_help, "Interactive signature help")
+Nmap("<space>f", vim.lsp.buf.format, "Format code")
+Nmap("<leader>rn", vim.lsp.buf.rename, "Interactive rename")
+Nmap("<leader>rf", vim.lsp.buf.format, "Format code")
+Nmap("<leader>a", vim.lsp.buf.code_action, "Interactive list of code actions")
 
 -- Tabs
 local function new_tab()
@@ -889,61 +1024,12 @@ local function new_tab()
     ]])
 end
 
-nmap("<C-t>", new_tab, "Open current buffer in new tab")
-nmap("<C-Tab>", ":tabnext<CR>", "View next tab")
-nmap("<C-S-Tab>", ":tabprevious<CR>", "View previous tab")
-
--- Syntax tree manipulation
-require("syntax-tree-surfer")
-local function dot_repeatable(op)
-	return function()
-		vim.opt.opfunc = op
-		return "g@l"
-	end
-end
-
-vim.keymap.set("n", "vU", dot_repeatable("v:lua.STSSwapUpNormal_Dot"), { silent = true, expr = true })
-vim.keymap.set("n", "vD", dot_repeatable("v:lua.STSSwapDownNormal_Dot"), { silent = true, expr = true })
-vim.keymap.set("n", "vu", dot_repeatable("v:lua.STSSwapCurrentNodePrevNormal_Dot"), { silent = true, expr = true })
-vim.keymap.set("n", "vd", dot_repeatable("v:lua.STSSwapCurrentNodeNextNormal_Dot"), { silent = true, expr = true })
-
--- Search bindings
-nmap(
-	"n",
-	[[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]],
-	"Move to next match"
-)
-nmap(
-	"N",
-	[[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]],
-	"Move to previous match"
-)
-nmap("*", [[*<Cmd>lua require('hlslens').start()<CR>]], "Forward search symbol under cursor")
-nmap("g*", [[g*<Cmd>lua require('hlslens').start()<CR>]], "Forward search symbol under cursor")
-nmap("#", [[#<Cmd>lua require('hlslens').start()<CR>]], "Backward search symbol under cursor")
-nmap("g#", [[g#<Cmd>lua require('hlslens').start()<CR>]], "Backward search symbol under cursor")
-nmap("<leader><leader>", ":noh<CR>", "Hide search highlights")
+Nmap("<C-t>", new_tab, "Open current buffer in new tab")
+Nmap("<C-Tab>", ":tabnext<CR>", "View next tab")
+Nmap("<C-S-Tab>", ":tabprevious<CR>", "View previous tab")
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
-
--- Sort diagnostics by severity
-vim.diagnostic.config({
-	signs = true,
-	severity_sort = true,
-	virtual_lines = false,
-})
-
-local function toggle_virtual_lines()
-	local is_enabled = vim.diagnostic.config().virtual_lines
-
-	vim.diagnostic.config({
-		virtual_lines = not is_enabled,
-		virtual_text = is_enabled,
-	})
-end
-
-nmap("<leader>m", toggle_virtual_lines, "Toggle full inline diagnostics")
 
 -- Native vim commands
 vim.cmd([[
@@ -984,6 +1070,7 @@ require("core.autocmd").BufWritePost = {
 
 -- Custom highlights (need to set them up after everything else)
 local colors = require("catppuccin.palettes").get_palette()
+local utils = require("catppuccin.utils.colors")
 require("catppuccin.lib.highlighter").syntax({
 	NormalFloat = { bg = colors.base },
 	TermFloatBorder = { fg = colors.red },
@@ -1018,4 +1105,13 @@ require("catppuccin.lib.highlighter").syntax({
 	HLSearchLens = { fg = colors.surface1 },
 
 	CodewindowBorder = { fg = colors.surface1 },
+
+	IndentBlanklineChar = { style = { "nocombine" } },
+	IndentBlanklineSpaceChar = { style = { "nocombine" } },
+	IndentBlanklineContextChar = { style = { "nocombine" } },
+	IndentBlanklineContextSpaceChar = { style = { "nocombine" } },
+	IndentBlanklineSpaceCharBlankline = { style = { "nocombine" } },
+
+	InlayHints = { fg = colors.surface1 },
+	Comment = { fg = utils.darken(colors.lavender, 0.6) }
 })
