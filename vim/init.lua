@@ -1030,6 +1030,8 @@ packer.startup(function(use)
         end
     }
 
+    use 'ron-rs/ron.vim'
+
     if packer_bootstrap then
         require("packer").sync()
     end
@@ -1134,8 +1136,6 @@ require("catppuccin.lib.highlighter").syntax({
 
     HLSearchLensNear = { fg = colors.sky, style = { "bold" } },
     HLSearchLens = { fg = colors.surface1 },
-
-    CodewindowBorder = { fg = colors.surface1 },
 
     IndentBlanklineChar = { style = { "nocombine" } },
     IndentBlanklineSpaceChar = { style = { "nocombine" } },
