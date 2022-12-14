@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+leftwm-command "UnloadTheme"
+
+pkill picom
+pkill flashfocus
+pkill nitrogen
+pkill ulauncher
+pkill flameshot
+pkill clipit
+pkill eww

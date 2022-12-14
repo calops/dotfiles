@@ -1,0 +1,75 @@
+#![enable(implicit_some)]
+(
+    modkey: "Mod4",
+    mousekey: "Mod4",
+
+    focus_behaviour: Sloppy,
+    focus_new_windows: true,
+    sloppy_mouse_follows_focus: false,
+
+    layout_mode: Tag,
+    tags: ["", "", "", "", "", "", "", "🗨️", "聆"],
+
+    max_window_width: 1.0,
+
+    window_rules: [
+        (window_class: "Navigator", spawn_on_tag: 1),
+        (window_class: "ulauncher", spawn_floating: true),
+    ],
+
+    scratchpad: [
+        (name: "shell", value: "kitty"),
+    ],
+
+    keybind: [
+        (command: SoftReload, modifier: ["modkey", "Shift"], key: "r"),
+        (command: HardReload, modifier: ["modkey", "Shift", "Control"], key: "r"),
+
+        (command: CloseWindow, modifier: ["modkey", "Shift"], key: "q"),
+        (command: MoveWindowUp, modifier: ["modkey", "Shift"], key: "Up"),
+        (command: MoveWindowDown, modifier: ["modkey", "Shift"], key: "Down"),
+        (command: FocusWindowUp, modifier: ["modkey"], key: "Up"),
+        (command: FocusWindowDown, modifier: ["modkey"], key: "Down"),
+
+        (command: NextLayout, modifier: ["modkey"], key: "l"),
+        (command: PreviousLayout, modifier: ["modkey", "Shift"], key: "l"),
+        (command: RotateTag, modifier: ["modkey"], key: "z"),
+
+        (command: FocusWorkspaceNext, modifier: ["modkey"], key: "Right"),
+        (command: FocusWorkspacePrevious, modifier: ["modkey"], key: "Left"),
+
+        (command: IncreaseMainWidth, value: "5", modifier: ["modkey", "Shift"], key: "Right"),
+        (command: DecreaseMainWidth, value: "5", modifier: ["modkey", "Shift"], key: "Left"),
+
+        (command: ToggleScratchPad, value: "shell", modifier: ["modkey"], key: "p"),
+        (command: ReleaseScratchPad, value: "shell", modifier: ["modkey", "Control", "Shift"], key: "p"),
+        (command: AttachScratchPad, value: "shell", modifier: ["modkey", "Shift"], key: "p"),
+
+        (command: ToggleFloating, modifier: ["modkey", "Shift"], key: "f"),
+        (command: ToggleSticky, modifier: ["modkey"], key: "v"),
+        (command: ToggleFullScreen, modifier: ["modkey"], key: "f"),
+
+        (command: GotoTag, value: "1", modifier: ["modkey"], key: "ampersand"),
+        (command: GotoTag, value: "2", modifier: ["modkey"], key: "eacute"),
+        (command: GotoTag, value: "3", modifier: ["modkey"], key: "quotedbl"),
+        (command: GotoTag, value: "4", modifier: ["modkey"], key: "apostrophe"),
+        (command: GotoTag, value: "5", modifier: ["modkey"], key: "parenleft"),
+        (command: GotoTag, value: "6", modifier: ["modkey"], key: "minus"),
+        (command: GotoTag, value: "7", modifier: ["modkey"], key: "egrave"),
+        (command: GotoTag, value: "8", modifier: ["modkey"], key: "underscore"),
+        (command: GotoTag, value: "9", modifier: ["modkey"], key: "ccedilla"),
+
+        (command: MoveToTag, value: "1", modifier: ["modkey", "Shift"], key: "ampersand"),
+        (command: MoveToTag, value: "2", modifier: ["modkey", "Shift"], key: "eacute"),
+        (command: MoveToTag, value: "3", modifier: ["modkey", "Shift"], key: "quotedbl"),
+        (command: MoveToTag, value: "4", modifier: ["modkey", "Shift"], key: "apostrophe"),
+        (command: MoveToTag, value: "5", modifier: ["modkey", "Shift"], key: "parenleft"),
+        (command: MoveToTag, value: "6", modifier: ["modkey", "Shift"], key: "minus"),
+        (command: MoveToTag, value: "7", modifier: ["modkey", "Shift"], key: "egrave"),
+        (command: MoveToTag, value: "8", modifier: ["modkey", "Shift"], key: "underscore"),
+        (command: MoveToTag, value: "9", modifier: ["modkey", "Shift"], key: "ccedilla"),
+
+        (command: Execute, modifier: ["modkey"], key: "space", value: "ulauncher"),
+        (command: Execute, modifier: ["modkey"], key: "Return", value: "kitty"),
+    ],
+)
