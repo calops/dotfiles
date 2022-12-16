@@ -196,15 +196,16 @@
 (defwindow bar
 	:geometry (geometry :x "0" 
 						:y "0" 
-						:height "80%" 
+						:height "100%" 
 						:width "47px"
 						:anchor "left center")
 	:monitor 1
 	:hexpand "false"
 	:vexpand "false"
 	:exclusive "true"
-	:stacking "overlay"
+	:stacking "fg"
 	:focusable "false"
+	:windowtype "normal"
 (bar))
 
 ;; Calendar Windows ;;
