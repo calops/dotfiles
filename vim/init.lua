@@ -504,9 +504,7 @@ packer.startup(function(use)
         end,
     })
 
-    -- use("nvim-treesitter/playground")
-    -- wait for upstream
-    use("nullchilly/lsp-playground")
+    use("nvim-treesitter/playground")
 
     -- Show current context on top
     use({
