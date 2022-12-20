@@ -870,14 +870,6 @@ packer.startup(function(use)
         end,
     })
 
-    -- Speed-up startup time
-    use({
-        "lewis6991/impatient.nvim",
-        config = function()
-            require("impatient")
-        end,
-    })
-
     -- Git utilities
     use({
         "tanvirtin/vgit.nvim",
