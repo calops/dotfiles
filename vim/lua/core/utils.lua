@@ -28,4 +28,8 @@ function module.vmap(binding, command, description, opts)
 	keymap("v", binding, command, description, opts)
 end
 
+function module.omap(binding, command, description, opts)
+	keymap("o", binding, command, description, opts)
+end
+
 return module

@@ -51,6 +51,10 @@ vim.o.autoindent = true
 vim.o.winblend = 10
 vim.o.pumblend = 10
 vim.o.cmdheight = 1
+vim.wo.foldmethod = "expr"
+vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
+vim.wo.foldenable = false
+vim.o.signcolumn = "yes"
 
 require("lazy").setup("plugins", {
 	ui = {

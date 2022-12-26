@@ -15,6 +15,7 @@ return {
     -- Show rich inline diagnostics
     {
         url = "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+        lazy = true,
         init = function()
             local function toggle_virtual_lines()
                 local is_enabled = vim.diagnostic.config().virtual_lines

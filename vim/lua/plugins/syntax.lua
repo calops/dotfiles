@@ -88,6 +88,7 @@ return {
     -- Syntax-aware text objects and motions
     {
         "ziontee113/syntax-tree-surfer",
+        lazy = true,
         init = function()
             local function dot_repeatable(op)
                 return function()

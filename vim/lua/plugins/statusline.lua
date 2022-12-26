@@ -1,14 +1,12 @@
 -- Status line
 return {
-	"nvim-lualine/lualine.nvim",
-	lazy = false,
-	config = function()
-		require("lualine").setup({
-			options = {
-				theme = "catppuccin",
-				section_separators = { right = "", left = "" },
-				component_separators = { right = "", left = "" },
-			},
-		})
-	end,
+    "feline-nvim/feline.nvim",
+    lazy = false,
+    config = function()
+        local ctp_feline = require('catppuccin.groups.integrations.feline')
+        ctp_feline.setup({})
+        require("feline").setup {
+            components = ctp_feline.get(),
+        }
+    end,
 }

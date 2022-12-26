@@ -14,6 +14,7 @@ return {
                 end,
             },
         },
+        lazy = true,
         init = function()
             local function live_grep()
                 vim.ui.input({ prompt = "Grep string: " }, function(input)
