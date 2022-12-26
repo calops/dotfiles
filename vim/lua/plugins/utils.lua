@@ -74,5 +74,13 @@ return {
             })
             vim.cmd([[autocmd TermEnter term://*toggleterm#* tnoremap <silent><c-f> <Cmd>exe v:count1 . "ToggleTerm"<CR>]])
         end,
-    }
+    },
+    -- Support for local settings
+    {
+        "folke/neoconf.nvim",
+        lazy = false,
+        config = function()
+            require("neoconf").setup {}
+        end,
+    },
 }

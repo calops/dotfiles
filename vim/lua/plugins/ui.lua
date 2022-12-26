@@ -122,5 +122,13 @@ return {
                 },
             })
         end,
+    },
+    -- Highlight todo/fixme/etc.
+    {
+        "folke/todo-comments.nvim",
+        event = "VeryLazy",
+        config = function()
+            require("todo-comments").setup {}
+        end
     }
 }
