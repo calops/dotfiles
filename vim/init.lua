@@ -17,7 +17,7 @@ vim.g.neovide_floating_blur_amount_x = 1.5
 vim.g.neovide_floating_blur_amount_y = 1.5
 vim.g.neovide_scroll_animation_length = 0.13
 vim.g.neovide_background_color = "#000000aa"
-vim.o.guifont = "Iosevka Nerd Font:h10"
+vim.o.guifont = "Iosevka:h10"
 
 ---------- Core settings
 vim.g.mapleader = ","
@@ -64,16 +64,6 @@ require("lazy").setup("plugins", {
 
 ---------- Keybindings
 local nmap = require("core.utils").nmap
-nmap("K", vim.lsp.buf.hover, "Show documentation")
-nmap("H", function()
-	vim.diagnostic.open_float({ border = "rounded" })
-end, "Show diagnostics")
-nmap("<C-k>", vim.lsp.buf.signature_help, "Interactive signature help")
-nmap("<space>f", vim.lsp.buf.format, "Format code")
-nmap("<leader>rn", vim.lsp.buf.rename, "Interactive rename")
-nmap("<leader>rf", vim.lsp.buf.format, "Format code")
-nmap("<leader>a", vim.lsp.buf.code_action, "Interactive list of code actions")
-
 -- Tabs
 local function new_tab()
 	vim.cmd([[
@@ -86,14 +76,6 @@ end
 nmap("<C-t>", new_tab, "Open current buffer in new tab")
 nmap("<C-Tab>", ":tabnext<CR>", "View next tab")
 nmap("<C-S-Tab>", ":tabprevious<CR>", "View previous tab")
-
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
-
-vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError", numhl = "" })
-vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn", numhl = "" })
-vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo", numhl = "" })
-vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint", numhl = "" })
 
 -- Native vim commands
 vim.cmd([[

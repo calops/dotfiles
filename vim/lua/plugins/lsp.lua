@@ -1,3 +1,4 @@
+local nmap = require("core.utils").nmap
 return {
     -- Show icons for LSP completions
     {
@@ -109,5 +110,30 @@ return {
         end,
     },
     -- First-party LSP configurations
-    { "neovim/nvim-lspconfig" }
+    {
+        "neovim/nvim-lspconfig", config = function()
+            nmap("K", vim.lsp.buf.hover, "Show documentation")
+            nmap("H", function()
+                vim.diagnostic.open_float({ border = "rounded" })
+            end, "Show diagnostics")
+            nmap("<C-k>", vim.lsp.buf.signature_help, "Interactive signature help")
+            nmap("<space>f", vim.lsp.buf.format, "Format code")
+            nmap("<leader>rn", vim.lsp.buf.rename, "Interactive rename")
+            nmap("<leader>rf", vim.lsp.buf.format, "Format code")
+            nmap("<leader>a", vim.lsp.buf.code_action, "Interactive list of code actions")
+
+            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+            vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help,
+                { border = "rounded" })
+
+            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+            vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help,
+                { border = "rounded" })
+
+            vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError", numhl = "" })
+            vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn", numhl = "" })
+            vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo", numhl = "" })
+            vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint", numhl = "" })
+        end
+    }
 }

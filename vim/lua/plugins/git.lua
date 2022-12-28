@@ -3,7 +3,7 @@ return {
 	{
 		"sindrets/diffview.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
-		cmd = { "DiffViewOpen", "DiffViewFileHistory" },
+		cmd = { "DiffviewOpen", "DiffviewFileHistory" },
 		config = function()
 			require("diffview").setup({
 				enhanced_diff_hl = true,
