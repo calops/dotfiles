@@ -23,21 +23,21 @@
     "com.github.tchar.ulauncher-albert-calculate-anything": {
         "id": "com.github.tchar.ulauncher-albert-calculate-anything",
         "url": "https://github.com/tchar/ulauncher-albert-calculate-anything",
-        "updated_at": "2022-12-18T01:41:50.140833",
+        "updated_at": "2022-12-22T11:27:03.571486",
         "last_commit": "ee0903174c8b87cd1f7c3b6c1acef10702547507",
         "last_commit_time": "2021-08-12T06:39:56"
     },
     "com.github.jetbug123.ulauncher-ssh": {
         "id": "com.github.jetbug123.ulauncher-ssh",
         "url": "https://github.com/jetbug123/ulauncher-ssh",
-        "updated_at": "2022-12-18T09:44:34.947660",
+        "updated_at": "2022-12-22T11:27:04.993447",
         "last_commit": "dae2cc875b90ae5d625cf177127626e1c8b9719f",
         "last_commit_time": "2020-05-09T21:20:33"
     },
     "com.github.qcasey.ulauncher-homeassistant": {
         "id": "com.github.qcasey.ulauncher-homeassistant",
         "url": "https://github.com/qcasey/ulauncher-homeassistant",
-        "updated_at": "2022-12-18T10:11:31.940086",
+        "updated_at": "2022-12-22T11:27:06.500060",
         "last_commit": "8a187aa6bdff8700cdbfbc0371b98dda33b253d5",
         "last_commit_time": "2021-05-24T23:54:58"
     }
