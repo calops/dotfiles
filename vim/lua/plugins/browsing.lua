@@ -44,7 +44,6 @@ return {
                     layout_config = {
                         flex = { flip_columns = 200 },
                     },
-                    winblend = 10,
                     mappings = { i = { ["<esc>"] = actions.close } },
                 },
             })

@@ -119,7 +119,7 @@ return {
                 window = {
                     border = "rounded",
                     position = "bottom", -- bottom, top
-                    winblend = 20,
+                    margin = {10, 10, 2, 10},
                 },
             })
         end,

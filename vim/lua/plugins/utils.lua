@@ -66,7 +66,6 @@ return {
                 direction = "float",
                 float_opts = {
                     border = "rounded",
-                    winblend = 10,
                 },
                 highlights = {
                     FloatBorder = { link = "TermFloatBorder" },
