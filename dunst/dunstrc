@@ -82,10 +82,7 @@
 
     # Defines width in pixels of frame around the notification window.
     # Set to 0 to disable.
-    frame_width = 0
-
-    # Defines color of the frame around the notification window.
-    frame_color = "#aaaaaa"
+    frame_width = 2
 
     # Define a color for the separator.
     # possible values are:
@@ -424,3 +421,19 @@ highlight = "#CDD6F4"
 #
 # vim: ft=cfg
 #
+[global]
+frame_color = "#89B4FA"
+separator_color= frame
+
+[urgency_low]
+background = "#1E1E2E"
+foreground = "#CDD6F4"
+
+[urgency_normal]
+background = "#1E1E2E"
+foreground = "#CDD6F4"
+
+[urgency_critical]
+background = "#1E1E2E"
+foreground = "#CDD6F4"
+frame_color = "#FAB387"
