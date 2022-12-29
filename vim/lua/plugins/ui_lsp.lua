@@ -54,7 +54,11 @@ return {
         config = function()
             require("glance").setup({
                 height = 25,
-                border = { enable = true },
+                border = {
+                    enable = true,
+                    top_char = '▔',
+                    bottom_char = '▁',
+                },
                 theme = { enable = true, mode = "auto" },
             })
         end,
