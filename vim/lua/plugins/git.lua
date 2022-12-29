@@ -42,7 +42,8 @@ return {
     -- Github integration
 	{
 		"pwntester/octo.nvim",
-		command = "VeryLazy",
+        lazy = true,
+		cmd = "Octo",
 		config = function()
 			require("octo").setup()
 		end,
