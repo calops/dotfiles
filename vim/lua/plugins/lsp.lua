@@ -55,7 +55,11 @@ return {
         config = function()
             local nls = require("null-ls")
             nls.setup({
-                sources = { nls.builtins.formatting.stylua, nls.builtins.diagnostics.buf },
+                sources = {
+                    nls.builtins.formatting.stylua,
+                    nls.builtins.diagnostics.buf,
+                    nls.builtins.formatting.npm_groovy_lint,
+                },
             })
         end,
     },
