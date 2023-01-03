@@ -50,7 +50,6 @@ vim.o.smartindent = true
 vim.o.autoindent = true
 vim.o.winblend = 0
 vim.o.pumblend = 0
-vim.o.cmdheight = 1
 vim.wo.foldmethod = "expr"
 vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
 vim.wo.foldenable = false
