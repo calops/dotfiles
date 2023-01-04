@@ -12,8 +12,6 @@ set -gx PATH ~/.cargo/bin $PATH
 set -gx PATH ~/.pyenv/bin $PATH
 
 set -gx EDITOR nvim
-# set -gx PAGER less -FRx --mouse
-# set -gx BAT_PAGER $PAGER
 
 set -gx FZF_DEFAULT_COMMAND fd --type file --color=always
 set -gx FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND

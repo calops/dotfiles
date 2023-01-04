@@ -1,5 +1,5 @@
 --theme="Catppuccin-mocha"
 --italic-text=always
 --pager="--RAW-CONTROL-CHARS --quit-if-one-screen --mouse"
---style=grid
---color=auto
+--style=plain
+--color=always
