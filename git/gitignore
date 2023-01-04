@@ -9,3 +9,5 @@ settings.json
 target
 Cargo.lock
 .lsp.lua
+.aws
+tmp
