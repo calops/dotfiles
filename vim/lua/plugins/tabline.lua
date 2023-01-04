@@ -1,3 +1,5 @@
+local nmap = require("core.utils").nmap
+
 return {
     -- Tabline
     {
@@ -56,6 +58,18 @@ return {
                     end)
                 end,
             })
+
+            local function new_tab()
+                vim.cmd([[
+                    let view = winsaveview()
+                    tabedit %
+                    call winrestview(view)
+                ]])
+            end
+
+            nmap("<C-t>", new_tab, "Open current buffer in new tab")
+            nmap("<C-Tab>", ":tabnext<CR>", "View next tab")
+            nmap("<C-S-Tab>", ":tabprevious<CR>", "View previous tab")
         end,
     },
 }

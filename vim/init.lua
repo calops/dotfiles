@@ -61,24 +61,8 @@ require("lazy").setup("plugins", {
 	},
 })
 
----------- Keybindings
-local nmap = require("core.utils").nmap
--- Tabs
-local function new_tab()
-	vim.cmd([[
-        let view = winsaveview()
-        tabedit %
-        call winrestview(view)
-    ]])
-end
-
-nmap("<C-t>", new_tab, "Open current buffer in new tab")
-nmap("<C-Tab>", ":tabnext<CR>", "View next tab")
-nmap("<C-S-Tab>", ":tabprevious<CR>", "View previous tab")
-
--- Native vim commands
+-- Fixed size help panel
 vim.cmd([[
-    " Fixed size help panel
     augroup vimrc_help
         autocmd!
         autocmd BufEnter *.txt if &buftype == 'help' | wincmd L | vert resize 80 | set winfixwidth | endif
