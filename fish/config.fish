@@ -27,6 +27,15 @@ function cdr
     end
 end
 
+function cdr_complete
+    set arg (commandline -ct)
+    set saved_pwd $PWD
+    builtin cd $STOCKLY_MAIN
+    and complete -C"cd $arg"
+    builtin cd $saved_pwd
+end
+complete --command cdr -f --arguments '(cdr_complete)'
+
 starship init fish | source
 
 fish_ssh_agent
