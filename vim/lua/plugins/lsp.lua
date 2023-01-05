@@ -31,7 +31,7 @@ return {
             })
 
             for _, server in ipairs(mason.get_installed_servers()) do
-                if server ~= "rust_analyzer" then
+                if server ~= "rust-analyzer" then
                     lspconfig[server].setup({})
                 end
             end
@@ -64,8 +64,10 @@ return {
         end,
     },
     -- Rust-specific utilities and LSP configurations
+    -- TODO: replace with upstream when a fix for inlay hints is merged
     {
-        "simrat39/rust-tools.nvim",
+        -- "simrat39/rust-tools.nvim",
+        "kdarkhan/rust-tools.nvim",
         ft = "rust",
         config = function()
             local custom_lsp_conf
@@ -90,7 +92,9 @@ return {
             local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
             require("rust-tools").setup({
                 tools = {
-                    inlay_hints = { highlight = "InlayHints" },
+                    inlay_hints = {
+                        highlight = "InlayHints",
+                    },
                 },
                 server = {
                     capabilities = capabilities,
