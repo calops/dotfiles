@@ -54,6 +54,7 @@ return {
 					lint_events = { "BufWrite", "CursorHold" },
 				},
 			})
+			nmap("<leader>T", ":Inspect<CR>", "Show highlighting groups and captures")
 		end,
 	},
 	-- Textobjects for treesitter elements
@@ -78,10 +79,7 @@ return {
 	-- Playground treesitter utility
 	{
 		"nvim-treesitter/playground",
-		cmd = "TSHighlightCapturesUnderCursor",
-		init = function()
-			nmap("<leader>T", ":TSHighlightCapturesUnderCursor<CR>", "Show highlighting groups and captures")
-		end,
+		cmd = "TSPlaygroundToggle",
 	},
 	-- RON syntax plugin
 	{

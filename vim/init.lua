@@ -34,7 +34,7 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.laststatus = 3
 vim.g.rustfmt_autosave = false
-vim.o.fillchars = "diff:╱"
+vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:,diff:╱]]
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.termguicolors = true
@@ -54,6 +54,8 @@ vim.wo.foldmethod = "expr"
 vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
 vim.wo.foldenable = false
 vim.o.signcolumn = "yes"
+vim.o.statuscolumn = "%=%l%s%C"
+vim.o.foldcolumn = '0'
 
 require("lazy").setup("plugins", {
 	ui = {

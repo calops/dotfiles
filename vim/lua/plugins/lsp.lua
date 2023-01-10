@@ -1,4 +1,14 @@
 local nmap = require("core.utils").nmap
+
+local function make_capabilities()
+    local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+    capabilities.textDocument.foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true
+    }
+    return capabilities
+end
+
 return {
     -- Show icons for LSP completions
     {
@@ -23,11 +33,10 @@ return {
             local mason = require("mason-lspconfig")
             mason.setup({ automatic_installation = true })
 
-            local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
             local lspconfig = require("lspconfig")
 
             lspconfig.util.default_config = vim.tbl_extend("force", lspconfig.util.default_config, {
-                capabilities = capabilities,
+                capabilities = make_capabilities(),
             })
 
             for _, server in ipairs(mason.get_installed_servers()) do
@@ -64,10 +73,8 @@ return {
         end,
     },
     -- Rust-specific utilities and LSP configurations
-    -- TODO: replace with upstream when a fix for inlay hints is merged
     {
-        -- "simrat39/rust-tools.nvim",
-        "kdarkhan/rust-tools.nvim",
+        "simrat39/rust-tools.nvim",
         ft = "rust",
         config = function()
             local custom_lsp_conf
@@ -87,9 +94,30 @@ return {
                     ["punctuation.enable"] = true,
                     ["punctuation.separate.macro.bang"] = true,
                 },
+                cachePriming = {
+                    enable = false,
+                },
+                cargo = {
+                    buildScripts = {
+                        invocationLocation = "root",
+                        invocationStrategy = "once",
+                        overrideCommand = { "cargo", "check", "--quiet", "--message-format=json", "--all-targets" },
+                    },
+                },
+                checkOnSave = {
+                    invocationLocation = "root",
+                    invocationStrategy = "once",
+                    overrideCommand = { "cargo", "check", "--quiet", "--message-format=json", "--all-targets" },
+                },
+                imports = {
+                    granularity = {
+                        enforce = true,
+                        -- TODO: uncomment when implemented in rust-analyzer
+                        -- group = "One",
+                    },
+                },
             }, custom_lsp_conf)
 
-            local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
             require("rust-tools").setup({
                 tools = {
                     inlay_hints = {
@@ -97,7 +125,7 @@ return {
                     },
                 },
                 server = {
-                    capabilities = capabilities,
+                    capabilities = make_capabilities(),
                     settings = { ["rust-analyzer"] = rust_lsp_conf },
                 },
             })
@@ -129,10 +157,6 @@ return {
             nmap("<leader>rn", vim.lsp.buf.rename, "Interactive rename")
             nmap("<leader>rf", vim.lsp.buf.format, "Format code")
             nmap("<leader>a", vim.lsp.buf.code_action, "Interactive list of code actions")
-
-            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-            vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help,
-                { border = "rounded" })
 
             vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
             vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help,

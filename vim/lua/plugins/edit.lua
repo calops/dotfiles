@@ -78,11 +78,19 @@ return {
 			require("debugprint").setup({})
 		end,
 	},
+	-- Navigate over sets of matching pairs
 	{
 		"andymass/vim-matchup",
-        event = "VeryLazy",
+		event = "VeryLazy",
 		config = function()
 			vim.g.matchup_matchparen_offscreen = { method = "popup" }
 		end,
+	},
+	-- Edit filesystem as a buffer
+	{
+		'stevearc/oil.nvim',
+		config = function()
+			require('oil').setup()
+		end
 	},
 }

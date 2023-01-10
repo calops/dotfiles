@@ -119,7 +119,7 @@ return {
                 window = {
                     border = "rounded",
                     position = "bottom", -- bottom, top
-                    margin = {10, 10, 2, 10},
+                    margin = { 10, 10, 2, 10 },
                 },
             })
         end,
@@ -132,4 +132,33 @@ return {
             require("todo-comments").setup {}
         end
     },
+    -- Modern folds
+    {
+        'kevinhwang91/nvim-ufo',
+        event = 'VeryLazy',
+        dependencies = 'kevinhwang91/promise-async',
+        config = function()
+            vim.o.foldlevel = 99
+            vim.o.foldlevelstart = 99
+            vim.o.foldenable = true
+
+            require('ufo').setup()
+        end
+    },
+    -- Clickable foldcolumn
+    {
+        "luukvbaal/statuscol.nvim",
+        config = function()
+            require("statuscol").setup()
+        end
+    },
+    -- Diagnostic markers on the right of the file
+    -- TODO: uncomment when fixed
+    -- {
+    --     'doums/dmap.nvim',
+    --     event = 'VeryLazy',
+    --     config = function()
+    --         require('dmap').setup()
+    --     end
+    -- },
 }
