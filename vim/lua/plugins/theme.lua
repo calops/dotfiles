@@ -71,8 +71,6 @@ return {
 					["@keyword.function"] = { link = "@keyword" },
 
 					UfoVirtText = { fg = colors.teal, style = { "bold" } },
-
-					GitSignsChangeLn = { bg = utils.darken(colors.yellow, 0.3) },
 				}
 			end,
 		})
