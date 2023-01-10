@@ -24,6 +24,7 @@ vim.g.mapleader = ","
 vim.o.inccmd = "nosplit"
 vim.o.number = true
 vim.o.mouse = "a"
+vim.o.mousemodel = "extend"
 vim.o.shortmess = "c"
 vim.o.concealcursor = ""
 vim.o.textwidth = 120

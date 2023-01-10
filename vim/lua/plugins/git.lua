@@ -20,26 +20,16 @@ return {
     },
     -- Git utilities, gutter signs
     {
-        "tanvirtin/vgit.nvim",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-        },
-        event = "VeryLazy",
-        config = function()
-            require("vgit").setup({
-                settings = {
-                    live_gutter = { enabled = true },
-                    live_blame = { enabled = false },
-                    signs = {
-                        priority = 1,
-                        definitions = {
-                            GitSignsAdd = { numhl = 'GitSignsAddLn' },
-                            GitSignsDelete = { numhl = 'GitSignsDeleteLn' },
-                            GitSignsChange = { numhl = 'GitSignsChangeLn' },
-                        }
-                    }
+        'lewis6991/gitsigns.nvim',
+        event = 'VeryLazy',
+        config = function ()
+            require('gitsigns').setup {
+                numhl = true,
+                sign_priority = 1,
+                preview_config = {
+                    border = 'rounded',
                 },
-            })
+            }
         end,
     },
     -- Git commands
