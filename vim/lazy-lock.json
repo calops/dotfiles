@@ -45,7 +45,7 @@
   "nvim-web-devicons": { "branch": "master", "commit": "6c38926351372ea87034dec26182b62c835ff3bc" },
   "octo.nvim": { "branch": "master", "commit": "cb9314d358dc9f1d50e553a3c8e237ce713cbc57" },
   "oil.nvim": { "branch": "master", "commit": "80f64dd630fe9bf3c56a247e75ef96302a7b6db9" },
-  "persistence.nvim": { "branch": "main", "commit": "8484fdaa284207f77ec69b9627316bf334ad653f" },
+  "persisted.nvim": { "branch": "main", "commit": "558fc4b9f48e16008782240521cb72455d93b835" },
   "playground": { "branch": "master", "commit": "8a887bcf66017bd775a0fb19c9d8b7a4d6759c48" },
   "plenary.nvim": { "branch": "master", "commit": "9d81624fbcedd3dd43b38d7e13a1e7b3f873d8cd" },
   "promise-async": { "branch": "main", "commit": "842dca33e6b1af7bedcefc72cffbc807d54dbfca" },

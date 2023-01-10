@@ -3,37 +3,39 @@ local imap = require("core.utils").imap
 return {
     -- Session management
     {
-        -- "rmagatti/auto-session",
-        -- lazy = false,
-        -- config = function()
-        -- 	require("auto-session").setup({
-        -- 		log_level = "error",
-        -- 		cwd_change_handling = false,
-        -- 		bypass_session_save_file_types = { "neo-tree" },
-        -- 		pre_save_cmds = {
-        -- 			function()
-        -- 				require("neo-tree.sources.manager").close_all()
-        -- 			end,
-        -- 		},
-        -- 	})
-        -- end,
-        {
-            "folke/persistence.nvim",
-            event = "BufReadPre", -- this will only start session saving when an actual file was opened
-            init = function()
-                nmap {
-                    ["<leader>q"] = {
-                        name = "session",
-                        q = { function() require("persistence").load() end, "Restore session for current directory" },
-                        l = { function() require("persistence").load({ last = true }) end, "Restore last session" },
-                        d = { function() require("persistence").stop() end, "Stop persisting session" },
-                    }
-                }
-            end,
-            config = function()
-                require("persistence").setup()
-            end,
-        }
+        "rmagatti/auto-session",
+        lazy = false,
+        config = function()
+        	require("auto-session").setup({
+        		log_level = "error",
+        		cwd_change_handling = false,
+        		bypass_session_save_file_types = { "neo-tree" },
+        		pre_save_cmds = {
+        			function()
+        				require("neo-tree.sources.manager").close_all()
+        			end,
+        		},
+        	})
+        end,
+        -- {
+        --     "olimorris/persisted.nvim",
+        --     lazy = false,
+        --     config = function()
+        --         local persisted = require("persisted")
+        --         persisted.setup {
+        --             autoload = true,
+        --             follow_cwd = false,
+        --         }
+        --         nmap {
+        --             ["<leader>q"] = {
+        --                 name = "session",
+        --                 q = { persisted.load, "Restore session for current directory" },
+        --                 l = { function() persisted.load({ last = true }) end, "Restore last session" },
+        --                 d = { persisted.stop, "Stop persisting session" },
+        --             }
+        --         }
+        --     end,
+        -- }
     },
     -- Firefox integration
     {
