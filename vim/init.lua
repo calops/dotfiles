@@ -1,14 +1,14 @@
 -- Install plugin manager
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"--single-branch",
-		"git@github.com:folke/lazy.nvim.git",
-		lazypath,
-	})
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "--single-branch",
+        "git@github.com:folke/lazy.nvim.git",
+        lazypath,
+    })
 end
 vim.opt.runtimepath:prepend(lazypath)
 
@@ -54,13 +54,12 @@ vim.wo.foldmethod = "expr"
 vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
 vim.wo.foldenable = false
 vim.o.signcolumn = "yes"
-vim.o.statuscolumn = "%=%l%s%C"
 vim.o.foldcolumn = '1'
 
 require("lazy").setup("plugins", {
-	ui = {
-		border = "rounded",
-	},
+    ui = {
+        border = "rounded",
+    },
 })
 
 -- Fixed size help panel

@@ -185,8 +185,12 @@ return {
     -- Clickable foldcolumn
     {
         "luukvbaal/statuscol.nvim",
+        lazy = false,
         config = function()
-            require("statuscol").setup()
+            require("statuscol").setup {
+                setopt = true,
+            }
+            vim.o.statuscolumn = "%@v:lua.ScFa@%C%T%@v:lua.ScLa@%{%v:lua.ScLn()%}%{v:lua.ScSp()}%T%@v:lua.ScSa@%s%T"
         end
     },
     -- Diagnostic markers on the right of the file
