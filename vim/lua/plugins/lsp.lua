@@ -94,9 +94,7 @@ return {
                     ["punctuation.enable"] = true,
                     ["punctuation.separate.macro.bang"] = true,
                 },
-                cachePriming = {
-                    enable = false,
-                },
+                cachePriming = { enable = false },
                 cargo = {
                     buildScripts = {
                         invocationLocation = "root",
@@ -169,6 +167,18 @@ return {
             vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn", numhl = "" })
             vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo", numhl = "" })
             vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint", numhl = "" })
+        end
+    },
+    -- LSP files operations
+    {
+        'antosha417/nvim-lsp-file-operations',
+        event = "VeryLazy",
+        dependencies = {
+            { "nvim-lua/plenary.nvim" },
+            { "kyazdani42/nvim-tree.lua" },
+        },
+        config = function ()
+            require("lsp-file-operations").setup{}
         end
     }
 }
