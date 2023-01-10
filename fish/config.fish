@@ -36,7 +36,13 @@ function cdr_complete
 end
 complete --command cdr -f --arguments '(cdr_complete)'
 
-starship init fish | source
+if test ! -f /tmp/starship.fish
+    starship init fish --print-full-init >/tmp/starship.fish
+end
+source /tmp/starship.fish
 
 fish_ssh_agent
 eval (ssh-agent -c) > /dev/null
+
+source /home/calops/.nix-profile/etc/profile.d/nix.fish
+source ~/.config/fish/hm-session-vars.fish
