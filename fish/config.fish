@@ -2,6 +2,7 @@ set fish_greeting
 
 alias nv="nvim"
 alias ls="exa --icons"
+alias cat="bat"
 alias ll="ls -lH --git --time-style=long-iso"
 alias la="ll -a"
 alias lt="ll -T"
@@ -19,6 +20,14 @@ set -gx FZF_DEFAULT_OPTS "--ansi --preview-window noborder --preview-window 'rig
 
 set -gx STOCKLY_MAIN $HOME/stockly/Main
 
+function smake
+    if test -d "./StocklyContinuousDeployment"
+        make -C './StocklyContinuousDeployment' $argv
+    else
+        make -C './scd' $argv
+    end
+end
+
 function cdr
     if test (count $argv) -gt 0
         cd $STOCKLY_MAIN/$argv[1]
@@ -26,7 +35,6 @@ function cdr
         cd $STOCKLY_MAIN
     end
 end
-
 function cdr_complete
     set arg (commandline -ct)
     set saved_pwd $PWD
@@ -40,6 +48,7 @@ if test ! -f /tmp/starship.fish
     starship init fish --print-full-init >/tmp/starship.fish
 end
 source /tmp/starship.fish
+zoxide init fish --cmd cd | source
 
 fish_ssh_agent
 eval (ssh-agent -c) > /dev/null
