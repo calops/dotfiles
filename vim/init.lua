@@ -53,7 +53,7 @@ vim.o.pumblend = 0
 vim.wo.foldmethod = "expr"
 vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
 vim.wo.foldenable = false
-vim.o.signcolumn = "auto"
+vim.o.signcolumn = "yes"
 vim.o.statuscolumn = "%=%l%s%C"
 vim.o.foldcolumn = '0'
 

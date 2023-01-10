@@ -5,10 +5,10 @@ local omap = require("core.utils").omap
 return {
 	-- Comment commands
 	{
-		"numToStr/Comment.nvim",
+		'echasnovski/mini.comment',
 		event = "VeryLazy",
 		config = function()
-			require("Comment").setup()
+			require('mini.comment').setup()
 		end,
 	},
 	-- Automatically adjust indentation settings depending on the file
@@ -47,32 +47,30 @@ return {
 		"andrewferrier/debugprint.nvim",
 		lazy = true,
 		init = function()
-			nmap("<leader>pp", function()
-				require("debugprint").debugprint()
-			end, "Add simple debug print below")
-			nmap("<leader>pP", function()
-				require("debugprint").debugprint({ above = true })
-			end, "Add simple debug print above")
-			nmap("<leader>pv", function()
-				require("debugprint").debugprint({ variable = true })
-			end, "Add variable debug print below")
-			nmap("<leader>pV", function()
-				require("debugprint").debugprint({ variable = true, above = true })
-			end, "Add variable debug print above")
+			nmap {
+				["<leader>p"] = {
+					name = "debug print",
+					p = { function() require("debugprint").debugprint() end, "Add simple debug print below" },
+					P = { function() require("debugprint").debugprint { above = true } end, "Add simple debug print above" },
+					v = { function() require("debugprint").debugprint { variable = true } end, "Add variable debug print below" },
+					V = { function() require("debugprint").debugprint { variable = true, above = true } end,
+						"Add variable debug print above" },
+				}
+			}
 
-			xmap("<leader>p", function()
-				require("debugprint").debugprint({ variable = true })
-			end, "Add variable debug print below")
-			xmap("<leader>P", function()
-				require("debugprint").debugprint({ variable = true, above = true })
-			end, "Add variable debug print above")
+			xmap {
+				["<leader>p"] = { function() require("debugprint").debugprint { variable = true } end,
+					"Add variable debug print below" },
+				["<leader>P"] = { function() require("debugprint").debugprint { variable = true, above = true } end,
+					"Add variable debug print above" },
+			}
 
-			omap("<leader>p", function()
-				require("debugprint").debugprint({ variable = true })
-			end, "Add variable debug print below")
-			omap("<leader>P", function()
-				require("debugprint").debugprint({ variable = true, above = true })
-			end, "Add variable debug print above")
+			omap {
+				["<leader>p"] = { function() require("debugprint").debugprint { variable = true } end,
+					"Add variable debug print below" },
+				["<leader>P"] = { function() require("debugprint").debugprint { variable = true, above = true } end,
+					"Add variable debug print above" },
+			}
 		end,
 		config = function()
 			require("debugprint").setup({})

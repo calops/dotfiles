@@ -69,6 +69,8 @@ return {
 					["@variable"] = { fg = colors.pink },
 					["@keyword"] = { fg = colors.mauve, style = { "bold" } },
 					["@keyword.function"] = { link = "@keyword" },
+
+					UfoVirtText = { fg = colors.teal, style = { "bold" } },
 				}
 			end,
 		})

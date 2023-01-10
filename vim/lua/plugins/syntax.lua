@@ -54,7 +54,9 @@ return {
 					lint_events = { "BufWrite", "CursorHold" },
 				},
 			})
-			nmap("<leader>T", ":Inspect<CR>", "Show highlighting groups and captures")
+			nmap {
+				["<leader>T"] = { ":Inspect<CR>", "Show highlighting groups and captures" }
+			}
 		end,
 	},
 	-- Textobjects for treesitter elements
@@ -99,10 +101,15 @@ return {
 				end
 			end
 
-			nmap("vu", dot_repeatable("v:lua.STSSwapUpNormal_Dot"), "Swap object upwards", { expr = true })
-			nmap("vd", dot_repeatable("v:lua.STSSwapDownNormal_Dot"), "Swap object downwards", { expr = true })
-			nmap("vD", dot_repeatable("v:lua.STSSwapCurrentNodeNextNormal_Dot"), "Swap node backwards", { expr = true })
-			nmap("vU", dot_repeatable("v:lua.STSSwapCurrentNodePrevNormal_Dot"), "Swap node forwards", { expr = true })
+			nmap {
+				v = {
+					name = "swap",
+					u = { dot_repeatable("v:lua.STSSwapUpNormal_Dot"), "Swap object upwards", expr = true },
+					d = { dot_repeatable("v:lua.STSSwapDownNormal_Dot"), "Swap object downwards", expr = true },
+					D = { dot_repeatable("v:lua.STSSwapCurrentNodeNextNormal_Dot"), "Swap node backwards", expr = true },
+					U = { dot_repeatable("v:lua.STSSwapCurrentNodePrevNormal_Dot"), "Swap node forwards", expr = true },
+				}
+			}
 		end,
 	},
 	-- Syntax-aware comments

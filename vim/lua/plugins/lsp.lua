@@ -148,15 +148,18 @@ return {
     -- First-party LSP configurations
     {
         "neovim/nvim-lspconfig", config = function()
-            nmap("K", vim.lsp.buf.hover, "Show documentation")
-            nmap("H", function()
-                vim.diagnostic.open_float({ border = "rounded" })
-            end, "Show diagnostics")
-            nmap("<C-k>", vim.lsp.buf.signature_help, "Interactive signature help")
-            nmap("<space>f", vim.lsp.buf.format, "Format code")
-            nmap("<leader>rn", vim.lsp.buf.rename, "Interactive rename")
-            nmap("<leader>rf", vim.lsp.buf.format, "Format code")
-            nmap("<leader>a", vim.lsp.buf.code_action, "Interactive list of code actions")
+            nmap {
+                K = { vim.lsp.buf.hover, "Show documentation" },
+                H = { function() vim.diagnostic.open_float({ border = "rounded" }) end, "Show diagnostics" },
+                ["<C-k>"] = { vim.lsp.buf.signature_help, "Interactive signature help" },
+                ["<space>f"] = { vim.lsp.buf.format, "Format code" },
+                ["<leader>r"] = {
+                    name = "refactor",
+                    n = { vim.lsp.buf.rename, "Interactive rename" },
+                    f = { vim.lsp.buf.format, "Format code" },
+                },
+                ["<leader>a"] = { vim.lsp.buf.code_action, "Interactive list of code actions" },
+            }
 
             vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
             vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help,

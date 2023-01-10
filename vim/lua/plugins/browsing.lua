@@ -21,22 +21,16 @@ return {
         cmd = "Telescope",
         lazy = true,
         init = function()
-            nmap("<C-p>", function()
-                require("telescope.builtin").find_files()
-            end, "Find files")
-            nmap("<leader><Space>", function()
-                require("telescope.builtin").grep_string()
-            end, "Grep string under cursor")
-            nmap("<leader>s", function() require("telescope.builtin").live_grep() end, "Live grep")
-            nmap("<leader>b", function()
-                require("telescope.builtin").buffers()
-            end, "Find buffer")
-            nmap("<leader>h", function()
-                require("telescope.builtin").help_tags()
-            end, "List help tags")
-            nmap("<leader>e", function()
-                require("telescope.builtin").symbols()
-            end, "Select symbol")
+            nmap {
+                ["<C-p>"] = { function() require("telescope.builtin").find_files() end, "Find files" },
+                ["<leader>"] = {
+                    ["<Space>"] = { function() require("telescope.builtin").grep_string() end, "Grep string under cursor" },
+                    s = { function() require("telescope.builtin").live_grep() end, "Live grep" },
+                    b = { function() require("telescope.builtin").buffers() end, "Find buffer" },
+                    h = { function() require("telescope.builtin").help_tags() end, "List help tags" },
+                    e = { function() require("telescope.builtin").symbols() end, "Select symbol" },
+                }
+            }
         end,
         config = function()
             require("notify")
@@ -68,8 +62,13 @@ return {
         },
         cmd = "Neotree",
         init = function()
-            nmap("<leader>nn", ":Neotree toggle reveal_force_cwd<cr>", "Toggle file browser")
-            nmap("<leader>ng", ":Neotree float git_status<cr>", "Show git status")
+            nmap {
+                ["<leader>n"] = {
+                    name = "file tree",
+                    n = { ":Neotree toggle reveal_force_cwd<cr>", "Toggle file browser" },
+                    g = { ":Neotree float git_status<cr>", "Show git status" },
+                }
+            }
         end,
         config = function()
             require("neo-tree").setup({

@@ -67,9 +67,11 @@ return {
                 ]])
             end
 
-            nmap("<C-t>", new_tab, "Open current buffer in new tab")
-            nmap("<C-Tab>", ":tabnext<CR>", "View next tab")
-            nmap("<C-S-Tab>", ":tabprevious<CR>", "View previous tab")
+            nmap {
+                ["<C-t>"] = { new_tab, "Open current buffer in new tab" },
+                ["<C-Tab>"] = { ":tabnext<CR>", "View next tab" },
+                ["<C-S-Tab>"] = { ":tabprevious<CR>", "View previous tab" },
+            }
         end,
     },
 }

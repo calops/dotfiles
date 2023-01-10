@@ -26,10 +26,8 @@ return {
                 })
             end
 
-            nmap("<leader>m", function()
-                require("lsp_lines")
-                toggle_virtual_lines()
-            end, "Toggle full inline diagnostics")
+            nmap { ["<leader>m"] = { function() require("lsp_lines") toggle_virtual_lines() end,
+                "Toggle full inline diagnostics" } }
         end,
         config = function()
             require("lsp_lines").setup()
@@ -46,10 +44,14 @@ return {
         "dnlhc/glance.nvim",
         cmd = "Glance",
         init = function()
-            nmap("gd", "<CMD>Glance definitions<CR>", "Peek definition(s)")
-            nmap("gr", "<CMD>Glance references<CR>", "Peek references")
-            nmap("gD", "<CMD>Glance type_definitions<CR>", "Peek declarations")
-            nmap("gi", "<CMD>Glance implementations<CR>", "Peek implementations")
+            nmap {
+                g = {
+                    d = { "<CMD>Glance definitions<CR>", "Peek definition(s)" },
+                    r = { "<CMD>Glance references<CR>", "Peek references" },
+                    D = { "<CMD>Glance type_definitions<CR>", "Peek declarations" },
+                    i = { "<CMD>Glance implementations<CR>", "Peek implementations" },
+                }
+            }
         end,
         config = function()
             require("glance").setup({
@@ -73,9 +75,7 @@ return {
         "folke/trouble.nvim",
         cmd = "Trouble",
         init = function()
-            nmap("<leader>t", function()
-                require("trouble").toggle()
-            end, "Open diagnostics window")
+            nmap { ["<leader>t"] = { function() require("trouble").toggle() end, "Open diagnostics window" } }
         end,
         config = function()
             require("trouble").setup({})
