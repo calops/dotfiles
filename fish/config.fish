@@ -44,14 +44,15 @@ function cdr_complete
 end
 complete --command cdr -f --arguments '(cdr_complete)'
 
-if test ! -f /tmp/starship.fish
-    starship init fish --print-full-init >/tmp/starship.fish
+set SRC "/tmp/source.fish"
+if test ! -f $SRC
+    starship init fish --print-full-init >>$SRC
+    direnv hook fish >>$SRC
+    zoxide init fish --cmd cd >>$SRC
 end
-source /tmp/starship.fish
-zoxide init fish --cmd cd | source
+source $SRC
 
 fish_ssh_agent
 eval (ssh-agent -c) > /dev/null
 
-source /home/calops/.nix-profile/etc/profile.d/nix.fish
 source ~/.config/fish/hm-session-vars.fish
