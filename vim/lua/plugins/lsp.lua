@@ -180,5 +180,13 @@ return {
         config = function ()
             require("lsp-file-operations").setup{}
         end
-    }
+    },
+	-- Neovim lua LSP utilities
+	{
+		'folke/neodev.nvim',
+		ft = 'lua',
+		config = function ()
+			require("neodev").setup{}
+		end
+	},
 }

@@ -29,7 +29,11 @@ return {
 					NormalFloat = { bg = colors.base },
 					FloatBorder = { fg = colors.mauve },
 					TermFloatBorder = { fg = colors.red },
-					TelescopeBorder = { fg = colors.peach },
+
+					TelescopeBorder = { fg = colors.yellow },
+					TelescopePromptBorder = { fg = colors.peach },
+					TelescopePreviewBorder = { fg = colors.teal },
+					TelescopeResultsBorder = { fg = colors.green },
 
 					InclineNormalNC = { bg = colors.surface1, fg = colors.base, blend = 0 },
 					InclineNormal = { bg = colors.overlay1, fg = colors.base, blend = 0 },

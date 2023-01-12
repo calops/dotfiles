@@ -27,6 +27,7 @@ return {
 				}),
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" },
+					{ name = "nvim_lua" },
 					{ name = "luasnip" },
 				}, { { name = "buffer" } }),
 				snippet = {
@@ -73,5 +74,5 @@ return {
 	{
 		"L3MON4D3/LuaSnip",
 		event = "VeryLazy",
-	}
+	},
 }
