@@ -127,8 +127,8 @@ return {
                     settings = { ["rust-analyzer"] = rust_lsp_conf },
                 },
             })
-            -- Auto format on save, rust files only
-            require("core.autocmd").BufWritePost = {
+            -- Auto format on save
+            require("core.autocmd").BufWritePre = {
                 "*.rs",
                 function()
                     for _, client in ipairs(vim.lsp.get_active_clients()) do
@@ -164,9 +164,9 @@ return {
                 { border = "rounded" })
 
             vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError", numhl = "" })
-            vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn", numhl = "" })
-            vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo", numhl = "" })
-            vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint", numhl = "" })
+            vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn", numhl = "" })
+            vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo", numhl = "" })
+            vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint", numhl = "" })
         end
     },
     -- LSP files operations

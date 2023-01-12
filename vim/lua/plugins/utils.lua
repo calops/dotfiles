@@ -89,12 +89,4 @@ return {
             )
         end,
     },
-    -- Support for local settings
-    {
-        "folke/neoconf.nvim",
-        lazy = false,
-        config = function()
-            require("neoconf").setup({})
-        end,
-    },
 }
