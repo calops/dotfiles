@@ -18,6 +18,8 @@ set -gx FZF_DEFAULT_COMMAND fd --type file --color=always
 set -gx FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
 set -gx FZF_DEFAULT_OPTS "--ansi --preview-window noborder --preview-window 'right:50%' --preview 'bat --line-range :300 {}'"
 
+bind \cp 'cd (fd . --type=directory --color=always | fzf)'
+
 set -gx STOCKLY_MAIN $HOME/stockly/Main
 
 function smake
