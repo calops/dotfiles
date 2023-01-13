@@ -1,7 +1,7 @@
 -- Status line
 return {
     "feline-nvim/feline.nvim",
-    lazy = false,
+    event = "UIEnter",
     config = function()
         local ctp_feline = require('catppuccin.groups.integrations.feline')
         ctp_feline.setup({})

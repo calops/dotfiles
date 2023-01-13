@@ -3,7 +3,7 @@ return {
     -- Show LSP code action hint
     {
         "kosayoda/nvim-lightbulb",
-        event = "VeryLazy",
+        event = "LspAttach",
         config = function()
             require("nvim-lightbulb").setup({
                 autocmd = { enabled = true },
@@ -26,8 +26,10 @@ return {
                 })
             end
 
-            nmap { ["<leader>m"] = { function() require("lsp_lines") toggle_virtual_lines() end,
-                "Toggle full inline diagnostics" } }
+            nmap {
+                ["<leader>m"] = { function() require("lsp_lines") toggle_virtual_lines() end,
+                    "Toggle full inline diagnostics" }
+            }
         end,
         config = function()
             require("lsp_lines").setup()
@@ -80,5 +82,14 @@ return {
         config = function()
             require("trouble").setup({})
         end,
-    }
+    },
+    -- Diagnostic markers on the right of the file
+    {
+        'doums/dmap.nvim',
+        event = 'LspAttach',
+        enabled = true,
+        config = function()
+            require('dmap').setup()
+        end
+    },
 }

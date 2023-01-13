@@ -178,14 +178,20 @@ return {
             end
 
             require('ufo').setup {
-                fold_virt_text_handler = handler
+                fold_virt_text_handler = handler,
+                provider_selector = function(_, filetype, _)
+                    if (filetype == 'rust') then
+                        return { 'treesitter', 'indent' }
+                    end
+                end,
             }
         end
     },
     -- Clickable foldcolumn
     {
         "luukvbaal/statuscol.nvim",
-        lazy = false,
+        event = "UIEnter",
+        enabled = true,
         config = function()
             require("statuscol").setup {
                 setopt = true,
@@ -193,13 +199,4 @@ return {
             vim.o.statuscolumn = "%@v:lua.ScFa@%C%T%@v:lua.ScLa@%{%v:lua.ScLn()%}%{v:lua.ScSp()}%T%@v:lua.ScSa@%s%T"
         end
     },
-    -- Diagnostic markers on the right of the file
-    -- TODO: uncomment when fixed
-    -- {
-    --     'doums/dmap.nvim',
-    --     event = 'VeryLazy',
-    --     config = function()
-    --         require('dmap').setup()
-    --     end
-    -- },
 }

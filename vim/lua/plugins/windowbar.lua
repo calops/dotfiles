@@ -1,6 +1,6 @@
 return {
 	"b0o/incline.nvim",
-	lazy = false,
+	event = "UIEnter",
 	config = function()
 		local incline = require("incline")
 		local highlights = require("tabline_framework.highlights")

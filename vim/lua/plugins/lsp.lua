@@ -13,7 +13,7 @@ return {
     -- Show icons for LSP completions
     {
         "onsails/lspkind.nvim",
-        event = "VeryLazy",
+        event = "LspAttach",
     },
     -- Language servers and utilities orchestrator
     {
@@ -76,14 +76,10 @@ return {
     {
         "simrat39/rust-tools.nvim",
         ft = "rust",
+        lazy = true,
+        enabled = true,
         config = function()
-            local custom_lsp_conf
-            if vim.fn.filereadable(".lsp.lua") == true then
-                custom_lsp_conf = dofile(".lsp.lua")
-            else
-                custom_lsp_conf = {}
-            end
-            local rust_lsp_conf = vim.tbl_extend("force", {
+            local rust_lsp_conf = {
                 rustfmt = {
                     extraArgs = {
                         "--config",
@@ -114,7 +110,7 @@ return {
                         -- group = "One",
                     },
                 },
-            }, custom_lsp_conf)
+            }
 
             require("rust-tools").setup({
                 tools = {
@@ -172,7 +168,7 @@ return {
     -- LSP files operations
     {
         'antosha417/nvim-lsp-file-operations',
-        event = "VeryLazy",
+        event = "LspAttach",
         dependencies = {
             { "nvim-lua/plenary.nvim" },
             { "kyazdani42/nvim-tree.lua" },
