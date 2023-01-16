@@ -179,10 +179,8 @@ return {
 
             require('ufo').setup {
                 fold_virt_text_handler = handler,
-                provider_selector = function(_, filetype, _)
-                    if (filetype == 'rust') then
-                        return { 'treesitter', 'indent' }
-                    end
+                provider_selector = function()
+                    return { 'treesitter', 'indent' }
                 end,
             }
         end
@@ -196,6 +194,7 @@ return {
             require("statuscol").setup {
                 setopt = true,
             }
+            vim.o.signcolumn = "yes"
             vim.o.statuscolumn = "%@v:lua.ScFa@%C%T%@v:lua.ScLa@%{%v:lua.ScLn()%}%{v:lua.ScSp()}%T%@v:lua.ScSa@%s%T"
         end
     },
