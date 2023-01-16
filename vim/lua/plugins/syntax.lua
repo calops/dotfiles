@@ -102,13 +102,10 @@ return {
 			end
 
 			nmap {
-				v = {
-					name = "swap",
-					u = { dot_repeatable("v:lua.STSSwapUpNormal_Dot"), "Swap object upwards", expr = true },
-					d = { dot_repeatable("v:lua.STSSwapDownNormal_Dot"), "Swap object downwards", expr = true },
-					D = { dot_repeatable("v:lua.STSSwapCurrentNodeNextNormal_Dot"), "Swap node backwards", expr = true },
-					U = { dot_repeatable("v:lua.STSSwapCurrentNodePrevNormal_Dot"), "Swap node forwards", expr = true },
-				}
+                ["<M-Up>"] = { dot_repeatable("v:lua.STSSwapUpNormal_Dot"), "Swap object upwards", expr = true },
+                ["<M-Down>"] = { dot_repeatable("v:lua.STSSwapDownNormal_Dot"), "Swap object downwards", expr = true },
+                ["<M-Right>"] = { dot_repeatable("v:lua.STSSwapCurrentNodeNextNormal_Dot"), "Swap node backwards", expr = true },
+				["<M-Left>"] = { dot_repeatable("v:lua.STSSwapCurrentNodePrevNormal_Dot"), "Swap node forwards", expr = true },
 			}
 		end,
 	},
