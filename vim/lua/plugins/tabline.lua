@@ -5,6 +5,7 @@ return {
     {
         "rafcamlet/tabline-framework.nvim",
         event = "UIEnter",
+        enabled = false,
         config = function()
             local colors = require("catppuccin.palettes").get_palette()
             local highlights = require("tabline_framework.highlights")

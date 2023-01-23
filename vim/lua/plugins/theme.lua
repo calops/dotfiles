@@ -75,6 +75,14 @@ return {
 					["@keyword.function"] = { link = "@keyword" },
 
 					UfoVirtText = { fg = colors.teal, style = { "bold" } },
+
+					CursorLineSign = { link = "CursorLine" },
+
+					GitSignsAdd = { fg = colors.green, bg = "none" },
+					GitSignsChange = { fg = colors.peach },
+					GitSignsDelete = { fg = colors.red },
+
+					TablineLogo = { fg = colors.base, bg = colors.mauve },
 				}
 			end,
 		})

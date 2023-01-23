@@ -87,7 +87,7 @@ return {
     {
         'doums/dmap.nvim',
         event = 'LspAttach',
-        enabled = true,
+        enabled = false,
         config = function()
             require('dmap').setup()
         end

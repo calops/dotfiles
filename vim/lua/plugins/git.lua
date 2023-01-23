@@ -24,7 +24,7 @@ return {
         event = 'VeryLazy',
         config = function ()
             require('gitsigns').setup {
-                numhl = true,
+                numhl = false,
                 sign_priority = 1,
                 preview_config = {
                     border = 'rounded',

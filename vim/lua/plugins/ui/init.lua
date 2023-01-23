@@ -1,5 +1,29 @@
 local nmap = require("core.utils").nmap
+
+vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError", numhl = "" })
+vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn", numhl = "" })
+vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo", numhl = "" })
+vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint", numhl = "" })
+
 return {
+    -- TUI
+    {
+        "rebelot/heirline.nvim",
+        lazy = false,
+        config = function()
+            require('catppuccin')
+
+            vim.o.signcolumn = "no"
+            vim.o.foldcolumn = '0'
+
+            require("heirline").setup {
+                statuscolumn = require('plugins.ui.statuscolumn'),
+                tabline = require('plugins.ui.tabline'),
+                -- statusline = require('plugins.ui.statusline'),
+            }
+        end,
+    },
+    require('plugins.ui.windowline'),
     -- Colorful modes
     {
         "mvllow/modes.nvim",
@@ -92,6 +116,7 @@ return {
                 show_current_context = true,
                 show_current_context_start = false,
                 use_treesitter = true,
+                use_treesitter_scope = false,
                 max_indent_increase = 1,
                 show_trailing_blankline_indent = false,
                 integrations = {
@@ -183,19 +208,6 @@ return {
                     return { 'treesitter', 'indent' }
                 end,
             }
-        end
-    },
-    -- Clickable foldcolumn
-    {
-        "luukvbaal/statuscol.nvim",
-        event = "UIEnter",
-        enabled = true,
-        config = function()
-            require("statuscol").setup {
-                setopt = true,
-            }
-            vim.o.signcolumn = "yes"
-            vim.o.statuscolumn = "%@v:lua.ScFa@%C%T%@v:lua.ScLa@%{%v:lua.ScLn()%}%{v:lua.ScSp()}%T%@v:lua.ScSa@%s%T"
         end
     },
 }

@@ -110,6 +110,10 @@ return {
                         -- group = "One",
                     },
                 },
+                diagnostics = {
+                    enable = true,
+                    experimental = { enable = true },
+                },
             }
 
             require("rust-tools").setup({
@@ -158,11 +162,6 @@ return {
             vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
             vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help,
                 { border = "rounded" })
-
-            vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError", numhl = "" })
-            vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn", numhl = "" })
-            vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo", numhl = "" })
-            vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint", numhl = "" })
         end
     },
     -- LSP files operations
@@ -185,4 +184,8 @@ return {
 			require("neodev").setup{}
 		end
 	},
+    -- Deep coding
+    {
+        'Exafunction/codeium.vim',
+    }
 }
