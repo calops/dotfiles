@@ -184,8 +184,4 @@ return {
 			require("neodev").setup{}
 		end
 	},
-    -- Deep coding
-    {
-        'Exafunction/codeium.vim',
-    }
 }
