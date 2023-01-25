@@ -21,6 +21,21 @@ return {
                 tabline = require('plugins.ui.tabline'),
                 -- statusline = require('plugins.ui.statusline'),
             }
+
+            local function new_tab()
+                vim.cmd([[
+                    let view = winsaveview()
+                    tabedit %
+                    call winrestview(view)
+                ]])
+            end
+
+            nmap {
+                ["<C-t>"] = { new_tab, "Open current buffer in new tab" },
+                ["<C-g>"] = { ":tabclose<CR>", "Close current tab" },
+                ["<C-Tab>"] = { ":tabnext<CR>", "View next tab" },
+                ["<C-S-Tab>"] = { ":tabprevious<CR>", "View previous tab" },
+            }
         end,
     },
     require('plugins.ui.windowline'),

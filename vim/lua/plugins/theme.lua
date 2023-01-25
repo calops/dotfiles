@@ -68,11 +68,7 @@ return {
 					IlluminatedWordWrite = { bg = colors.surface1, style = { "bold", "underdotted" } },
 					IlluminatedWordRead = { bg = colors.surface1, style = { "bold", "underdotted" } },
 
-					["@namespace"] = { fg = colors.maroon },
 					["@parameter"] = { fg = colors.pink, style = { "italic" } },
-					["@variable"] = { fg = colors.pink },
-					["@keyword"] = { fg = colors.mauve, style = { "bold" } },
-					["@keyword.function"] = { link = "@keyword" },
 
 					UfoVirtText = { fg = colors.teal, style = { "bold" } },
 
@@ -82,7 +78,12 @@ return {
 					GitSignsChange = { fg = colors.peach },
 					GitSignsDelete = { fg = colors.red },
 
+					Tabline = { fg = colors.base, bg = colors.surface1 },
+					TablineSel = { fg = colors.base, bg = colors.overlay1 },
 					TablineLogo = { fg = colors.base, bg = colors.mauve },
+					TablineIconPill = { bg = colors.surface1 },
+					TablineModifiedIcon = { fg = colors.peach },
+					TablineNumber = { style = { "bold" }},
 				}
 			end,
 		})

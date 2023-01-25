@@ -29,6 +29,9 @@ function module.git()
             untracked = {
                 colors = utils.get_highlight('GitSignsAdd'),
             },
+            changedelete = {
+                colors = utils.get_highlight('GitSignsChangedelete'),
+            },
         }
     end
     return module._git_data
@@ -40,6 +43,7 @@ function module.git_signs()
         GitSignsChange = module.git().change,
         GitSignsDelete = module.git().delete,
         GitSignsUntracked = module.git().untracked,
+        GitSignsChangedelete = module.git().changedelete,
     }
 end
 
@@ -103,12 +107,15 @@ function module.build_pill(left, center, right)
     local colors = module.colors()
     local sep = module.separators
     local result = {
-        insert = function(self, item, hl)
-            table.insert(self.content, { provider = item, hl = hl })
+        insert = function(self, item)
+            table.insert(self.content, item)
         end,
         content = {},
     }
     local function bg(color)
+        if not color then
+            color = {}
+        end
         if not color.bg then
             color.bg = module.darken(string.format("#%x", color.fg), 0.3)
         end
@@ -117,24 +124,69 @@ function module.build_pill(left, center, right)
 
     local prev_color = colors.normal
     for _, item in ipairs(left) do
-        result:insert(sep.left, { fg = bg(item.hl), bg = bg(prev_color) })
-        result:insert(item.text, item.hl)
-        prev_color = item.hl
+        if not item.condition or item.condition() then
+            result:insert({ provider = sep.left, hl = { fg = bg(item.hl), bg = bg(prev_color) } })
+            result:insert(item)
+            prev_color = item.hl
+        end
     end
 
-    result:insert(sep.left, { fg = bg(center.hl), bg = bg(prev_color) })
-    result:insert(center.text, center.hl)
+    result:insert({ provider = sep.left, hl = { fg = bg(center.hl), bg = bg(prev_color) } })
+    result:insert(center)
     prev_color = center.hl
 
     for _, item in ipairs(right) do
-        result:insert(sep.right, { fg = bg(prev_color), bg = bg(item.hl) })
-        result:insert(item.text, item.hl)
-        prev_color = item.hl
+        if not item.condition or item.condition() then
+            result:insert({ provider = sep.right, hl = { fg = bg(prev_color), bg = bg(item.hl) } })
+            result:insert(item)
+            prev_color = item.hl
+        end
     end
 
-    result:insert(sep.right, { fg = bg(prev_color), bg = bg(colors.normal) })
+    result:insert({ provider = sep.right, hl = { fg = bg(prev_color), bg = bg(colors.normal) } })
 
     return result.content
+end
+
+function module.diag_count_for_buffer(bufnr, diag_count)
+    if not diag_count then
+        diag_count = { 0, 0, 0, 0 }
+    end
+
+    for _, diag in ipairs(vim.diagnostic.get(bufnr)) do
+        diag_count[diag.severity] = diag_count[diag.severity] + 1
+    end
+
+    return diag_count
+end
+
+function module.make_tablist(tab_component)
+    local tablist = {
+        init = function(self)
+            local tabpages = vim.api.nvim_list_tabpages()
+            for i, tabpage in ipairs(tabpages) do
+                local child = self[i]
+                if not child or child.tabpage ~= tabpage then
+                    self[i] = self:new(tab_component, i)
+                    child = self[i]
+                    child.tabnr = i
+                    child.tabpage = tabpage
+                end
+                if tabpage == vim.api.nvim_get_current_tabpage() then
+                    child.is_active = true
+                    self.active_child = i
+                else
+                    child.is_active = false
+                end
+            end
+            if #self > #tabpages then
+                for i = #self, #tabpages + 1, -1 do
+                    self[i] = nil
+                end
+            end
+        end,
+    }
+    return tablist
 end
 
 return module

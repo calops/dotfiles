@@ -38,13 +38,7 @@ return {
                     { filename },
                 }
 
-                local lsp_diagnostics = vim.diagnostic.get(props.buf)
-                local diag_counts = { 0, 0, 0, 0 }
-
-                for _, diag in ipairs(lsp_diagnostics) do
-                    diag_counts[diag.severity] = diag_counts[diag.severity] + 1
-                end
-
+                local diag_counts = require('plugins.ui.utils').diag_count_for_buffer(props.buf)
                 local prev_color = color
 
                 for i, count in ipairs(diag_counts) do
