@@ -39,7 +39,7 @@ return {
         },
         -- Tabs
         ui_utils.make_tablist({
-            condition = function (self)
+            condition = function(self)
                 return pcall(function()
                     self.wins = vim.api.nvim_tabpage_list_wins(self.tabpage)
                 end)
@@ -63,10 +63,12 @@ return {
                     local file_name = buffer_name:match("^.+/(.+)$")
                     if file_name then
                         local icon, icon_color = devicons.get_icon_color(file_name, file_name:match("^.+%.(.+)$"))
-                        table.insert(icons, {
-                            provider = icon .. " ",
-                            hl = { fg = compute_icon_color(icon_color) },
-                        })
+                        if icon and icon_color then
+                            table.insert(icons, {
+                                provider = icon .. " ",
+                                hl = { fg = compute_icon_color(icon_color) },
+                            })
+                        end
                     end
 
                     diag_count = ui_utils.diag_count_for_buffer(buffer, diag_count)

@@ -59,12 +59,11 @@ return {
             end,
             hide = { cursorline = true },
             window = {
-                zindex = 100,
                 padding = 0,
                 placement = { horizontal = "right", vertical = "top" },
                 margin = {
                     horizontal = { left = 1, right = 1 },
-                    vertical = { bottom = 1, top = 0 },
+                    vertical = { bottom = 1, top = 2 },
                 },
             },
         })

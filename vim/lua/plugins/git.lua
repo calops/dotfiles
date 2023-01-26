@@ -1,3 +1,5 @@
+local nmap = require('core.utils').nmap
+
 return {
     -- Diff viewer and merge tool
     {
@@ -23,11 +25,25 @@ return {
         'lewis6991/gitsigns.nvim',
         event = 'VeryLazy',
         config = function ()
-            require('gitsigns').setup {
+            local gitsigns = require('gitsigns')
+
+            gitsigns.setup {
                 numhl = false,
                 sign_priority = 1,
                 preview_config = {
                     border = 'rounded',
+                },
+            }
+
+            nmap {
+                ['<leader>g'] = {
+                    name = 'git',
+                    s = { gitsigns.stage_hunk, 'Stage hunk' },
+                    u = { gitsigns.undo_stage_hunk, 'Undo "stage hunk"' },
+                    r = { gitsigns.reset_hunk, 'Reset hunk' },
+                    n = { gitsigns.next_hunk, 'Next hunk' },
+                    N = { gitsigns.prev_hunk, 'Previous hunk' },
+                    p = { gitsigns.preview_hunk_inline, 'Preview hunk' },
                 },
             }
         end,
