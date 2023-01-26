@@ -39,11 +39,6 @@ return {
         },
         -- Tabs
         ui_utils.make_tablist({
-            condition = function(self)
-                return pcall(function()
-                    self.wins = vim.api.nvim_tabpage_list_wins(self.tabpage)
-                end)
-            end,
             init = function(self)
                 local devicons = require('nvim-web-devicons')
                 local function compute_icon_color(color)
@@ -57,6 +52,7 @@ return {
                 local diag_count = { 0, 0, 0, 0 }
                 local modified = false
                 self.tab_name = nil
+                self.wins = vim.api.nvim_tabpage_list_wins(self.tabpage)
                 for _, win in ipairs(self.wins) do
                     local buffer = vim.api.nvim_win_get_buf(win)
                     local buffer_name = vim.api.nvim_buf_get_name(buffer) or ""

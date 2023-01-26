@@ -165,11 +165,12 @@ function module.make_tablist(tab_component)
         init = function(self)
             local tabpages = vim.api.nvim_list_tabpages()
             for i, tabpage in ipairs(tabpages) do
+                local tabnr = vim.api.nvim_tabpage_get_number(tabpage)
                 local child = self[i]
-                if not child or child.tabpage ~= tabpage then
+                if not (child and child.tabnr == tabnr) then
                     self[i] = self:new(tab_component, i)
                     child = self[i]
-                    child.tabnr = i
+                    child.tabnr = tabnr
                     child.tabpage = tabpage
                 end
                 if tabpage == vim.api.nvim_get_current_tabpage() then
