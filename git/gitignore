@@ -11,3 +11,4 @@ Cargo.lock
 .lsp.lua
 .aws
 tmp
+.neoconf.json

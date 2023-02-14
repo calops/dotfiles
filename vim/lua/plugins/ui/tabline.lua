@@ -16,7 +16,8 @@ return {
                 logo = hr_utils.get_highlight('TablineLogo'),
                 tab_active = hr_utils.get_highlight('TablineSel'),
                 tab_inactive = hr_utils.get_highlight('Tabline'),
-                icon_pill = hr_utils.get_highlight('TablineIconPill'),
+                icon_pill_inactive = hr_utils.get_highlight('TablinePillIcon'),
+                icon_pill_active = hr_utils.get_highlight('TablinePillIconSel'),
                 icon_modified = hr_utils.get_highlight('TablineModifiedIcon'),
             }
         },
@@ -45,7 +46,7 @@ return {
                     if self.is_active then
                         return color
                     end
-                    return ui_utils.darken(color, 0.4, string.format("#%x", self.colors.icon_pill.bg))
+                    return ui_utils.darken(color, 0.4, string.format("#%x", self.colors.icon_pill_inactive.bg))
                 end
 
                 local icons = {}
@@ -75,8 +76,10 @@ return {
 
                     if self.is_active then
                         self.tab_color = self.colors.tab_active
+                        self.pill_color = self.colors.icon_pill_active
                     else
                         self.tab_color = self.colors.tab_inactive
+                        self.pill_color = self.colors.icon_pill_inactive
                     end
 
                     if vim.api.nvim_buf_get_option(buffer, "modified") then
@@ -106,7 +109,7 @@ return {
                 self[1] = self:new({ provider = "%" .. self.tabnr .. "T" }, 1)
                 self[2] = self:new(ui_utils.build_pill(
                     {
-                        { hl = self.colors.icon_pill, icons },
+                        { hl = self.pill_color, icons },
                     },
                     {
                         hl = self.tab_color,
@@ -117,7 +120,7 @@ return {
                     },
                     {
                         {
-                            hl = self.colors.icon_pill,
+                            hl = self.pill_color,
                             condition = function() return not vim.tbl_isempty(diag_pills) end,
                             diag_pills
                         },

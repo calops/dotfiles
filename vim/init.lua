@@ -51,6 +51,8 @@ vim.o.smartindent = true
 vim.o.autoindent = true
 vim.o.winblend = 0
 vim.o.pumblend = 0
+vim.o.scrolloff = 15
+vim.o.fixendofline = true
 
 require("lazy").setup("plugins", {
     ui = {

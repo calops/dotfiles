@@ -45,7 +45,7 @@ return {
                 end
             end
 
-            require("lspconfig").sumneko_lua.setup({
+            require("lspconfig").lua_ls.setup({
                 settings = {
                     Lua = {
                         runtime = { version = "LuaJIT" },
@@ -79,40 +79,18 @@ return {
         lazy = true,
         enabled = true,
         config = function()
+            -- require('neoconf')
             local rust_lsp_conf = {
-                rustfmt = {
-                    extraArgs = {
-                        "--config",
-                        "comment_width=120,condense_wildcard_suffixes=false,format_code_in_doc_comments=true,format_macro_bodies=true,hex_literal_case=Upper,imports_granularity=One,normalize_doc_attributes=true,wrap_comments=true",
-                    },
-                },
                 semanticHighlighting = {
                     ["punctuation.enable"] = true,
                     ["punctuation.separate.macro.bang"] = true,
                 },
-                cachePriming = { enable = false },
-                cargo = {
-                    buildScripts = {
-                        invocationLocation = "root",
-                        invocationStrategy = "once",
-                        overrideCommand = { "cargo", "check", "--quiet", "--message-format=json", "--all-targets" },
-                    },
-                },
-                checkOnSave = {
-                    invocationLocation = "root",
-                    invocationStrategy = "once",
-                    overrideCommand = { "cargo", "check", "--quiet", "--message-format=json", "--all-targets" },
-                },
-                imports = {
-                    granularity = {
-                        enforce = true,
-                        -- TODO: uncomment when implemented in rust-analyzer
-                        -- group = "One",
-                    },
-                },
                 diagnostics = {
                     enable = true,
-                    experimental = { enable = true },
+                    experimental = { enable = false },
+                },
+                assist = {
+                    emitMustUse = true,
                 },
             }
 
@@ -145,7 +123,9 @@ return {
     },
     -- First-party LSP configurations
     {
-        "neovim/nvim-lspconfig", config = function()
+        "neovim/nvim-lspconfig",
+        config = function()
+            require('neoconf')
             nmap {
                 K = { vim.lsp.buf.hover, "Show documentation" },
                 H = { function() vim.diagnostic.open_float({ border = "rounded" }) end, "Show diagnostics" },
@@ -172,16 +152,16 @@ return {
             { "nvim-lua/plenary.nvim" },
             { "kyazdani42/nvim-tree.lua" },
         },
-        config = function ()
-            require("lsp-file-operations").setup{}
+        config = function()
+            require("lsp-file-operations").setup {}
         end
     },
-	-- Neovim lua LSP utilities
-	{
-		'folke/neodev.nvim',
-		ft = 'lua',
-		config = function ()
-			require("neodev").setup{}
-		end
-	},
+    -- Neovim lua LSP utilities
+    {
+        'folke/neodev.nvim',
+        ft = 'lua',
+        config = function()
+            require("neodev").setup {}
+        end
+    },
 }

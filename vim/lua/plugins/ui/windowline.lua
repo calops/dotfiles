@@ -12,11 +12,13 @@ return {
         local col_inactive = format_color(hr_utils.get_highlight("InclineNormalNC").bg)
         local col_active = format_color(hr_utils.get_highlight("InclineNormal").bg)
         local col_base = format_color(hr_utils.get_highlight("Normal").bg)
+        local col_modified = format_color(hr_utils.get_highlight("TablineModifiedIcon").fg)
         local diags = require('plugins.ui.utils').diags_sorted()
 
         incline.setup({
             render = function(props)
                 local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":.")
+                local modified = vim.api.nvim_buf_get_option(props.buf, "modified")
                 local extension = filename:match("^.+%.(.+)$")
                 local icon, icon_fg_color = require("nvim-web-devicons").get_icon_colors(filename, extension,
                     { default = true })
@@ -32,7 +34,7 @@ return {
                 end
 
                 local result = {
-                    { "", guifg = icon_color.bg, guibg = col_base },
+                    { "", guifg = icon_color.bg, guibg = col_base, blend = 100 },
                     { icon .. " ", guifg = icon_color.fg, guibg = icon_color.bg },
                     { "", guifg = color, guibg = icon_color.bg },
                     { filename },
@@ -53,14 +55,21 @@ return {
                     end
                 end
 
-                table.insert(result, { "", guifg = prev_color, guibg = col_base })
+                if modified then
+                    local bg = color_utils.darken(col_modified, 0.3)
+                    table.insert(result, { "", guifg = prev_color, guibg = bg })
+                    table.insert(result, { "  ", guifg = col_modified, guibg = bg })
+                    prev_color = bg
+                end
+
+                table.insert(result, { "", guifg = prev_color, guibg = col_base, blend = 100 })
 
                 return result
             end,
             hide = { cursorline = true },
             window = {
                 padding = 0,
-                placement = { horizontal = "right", vertical = "top" },
+                placement = { horizontal = "center", vertical = "bottom" },
                 margin = {
                     horizontal = { left = 1, right = 1 },
                     vertical = { bottom = 1, top = 2 },

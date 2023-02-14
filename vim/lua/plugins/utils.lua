@@ -6,36 +6,17 @@ return {
         "rmagatti/auto-session",
         lazy = false,
         config = function()
-        	require("auto-session").setup({
-        		log_level = "error",
-        		cwd_change_handling = false,
-        		bypass_session_save_file_types = { "neo-tree" },
-        		pre_save_cmds = {
-        			function()
-        				require("neo-tree.sources.manager").close_all()
-        			end,
-        		},
-        	})
+            require("auto-session").setup({
+                log_level = "error",
+                cwd_change_handling = false,
+                bypass_session_save_file_types = { "neo-tree" },
+                pre_save_cmds = {
+                    function()
+                        require("neo-tree.sources.manager").close_all()
+                    end,
+                },
+            })
         end,
-        -- {
-        --     "olimorris/persisted.nvim",
-        --     lazy = false,
-        --     config = function()
-        --         local persisted = require("persisted")
-        --         persisted.setup {
-        --             autoload = true,
-        --             follow_cwd = false,
-        --         }
-        --         nmap {
-        --             ["<leader>q"] = {
-        --                 name = "session",
-        --                 q = { persisted.load, "Restore session for current directory" },
-        --                 l = { function() persisted.load({ last = true }) end, "Restore last session" },
-        --                 d = { persisted.stop, "Stop persisting session" },
-        --             }
-        --         }
-        --     end,
-        -- }
     },
     -- Firefox integration
     {
@@ -88,5 +69,14 @@ return {
                 [[autocmd TermEnter term://*toggleterm#* tnoremap <silent><c-f> <Cmd>exe v:count1 . "ToggleTerm"<CR>]]
             )
         end,
+    },
+    -- Project-local configuration
+    {
+        "folke/neoconf.nvim",
+        lazy = false,
+        enabled = true,
+        config = function ()
+            require('neoconf').setup()
+        end
     },
 }

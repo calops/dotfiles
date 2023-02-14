@@ -54,6 +54,7 @@ return {
             "MunifTanjim/nui.nvim",
             "rcarriga/nvim-notify",
         },
+        enabled = true,
         lazy = false,
         config = function()
             require("noice").setup({
@@ -193,7 +194,7 @@ return {
                 local newVirtText = {}
                 local suffix = ('  %d '):format(endLnum - lnum)
                 local sufWidth = vim.fn.strdisplaywidth(suffix)
-                local targetWidth = width - sufWidth
+                local targetWidth = width - sufWidth + 4
                 local curWidth = 0
                 for _, chunk in ipairs(virtText) do
                     local chunkText = chunk[1]
@@ -205,7 +206,6 @@ return {
                         local hlGroup = chunk[2]
                         table.insert(newVirtText, { chunkText, hlGroup })
                         chunkWidth = vim.fn.strdisplaywidth(chunkText)
-                        -- str width returned from truncate() may less than 2nd argument, need padding
                         if curWidth + chunkWidth < targetWidth then
                             suffix = suffix .. (' '):rep(targetWidth - curWidth - chunkWidth)
                         end
@@ -213,7 +213,10 @@ return {
                     end
                     curWidth = curWidth + chunkWidth
                 end
+                table.insert(newVirtText,
+                    { ' ' .. ('┄'):rep(targetWidth - curWidth - sufWidth - 2) .. '', 'UfoVirtTextPill' })
                 table.insert(newVirtText, { suffix, 'UfoVirtText' })
+                table.insert(newVirtText, { '', 'UfoVirtTextPill' })
                 return newVirtText
             end
 
@@ -222,6 +225,28 @@ return {
                 provider_selector = function()
                     return { 'treesitter', 'indent' }
                 end,
+            }
+        end
+    },
+    {
+        "lukas-reineke/virt-column.nvim",
+        event = "UIEnter",
+        enabled = false,
+        config = function()
+            require("virt-column").setup()
+        end
+    },
+    {
+        dir = "~/github/cuicui/",
+        name = "charcolumn",
+        enabled = false,
+        event = "VeryLazy",
+        config = function()
+            require("charcolumn").setup {
+                columns = {
+                    { col = 42 },
+                    { col = 50 },
+                },
             }
         end
     },
