@@ -17,6 +17,10 @@ return {
                     enabled = false,
                     colored_indent_levels = false,
                 },
+                cmp = true,
+                gitsigns = true,
+                notify = true,
+                mini = true,
             },
             compile = {
                 enabled = true,
@@ -68,8 +72,6 @@ return {
                     IlluminatedWordWrite = { bg = colors.surface1, style = { "bold", "underdotted" } },
                     IlluminatedWordRead = { bg = colors.surface1, style = { "bold", "underdotted" } },
 
-                    ["@parameter"] = { fg = colors.pink, style = { "italic" } },
-
                     UfoVirtText = { fg = colors.base, bg = colors.teal, style = { "bold" } },
                     UfoVirtTextPill = { fg = colors.teal },
                     UfoFoldedBg = { bg = utils.darken(colors.teal, 0.3) },
@@ -93,10 +95,40 @@ return {
                     CursorLine = { bg = colors.mantle },
                     VirtColumn = { fg = colors.surface0 },
 
-                    CuicuiCharColumn = { fg = colors.surface0 },
+                    CuicuiCharColumn1 = { fg = utils.darken(colors.surface0, 0.8) },
+                    CuicuiCharColumn2 = { fg = colors.surface0 },
+
+                    -- Syntax
+                    ["@parameter"] = { fg = colors.text, style = { "nocombine" } },
+                    ["@namespace"] = { fg = colors.pink, style = { "nocombine" } },
+                    ["@number"] = { fg = colors.green },
+                    ["@boolean"] = { fg = colors.green, style = { "bold" } },
+                    ["@type.qualifier"] = { fg = colors.mauve, style = { "bold" } },
+                    ["@function.macro"] = { fg = colors.blue },
+                    ["@constant.builtin"] = { fg = colors.green },
+                    ["@property"] = { fg = utils.brighten(colors.yellow, 0.7) },
+
+                    ["@lsp.type.struct"] = { fg = colors.yellow },
+                    ["@lsp.type.property"] = { fg = utils.brighten(colors.yellow, 0.7) },
+                    ["@lsp.type.interface"] = { fg = colors.peach },
+                    ["@lsp.type.builtinType"] = { fg = colors.yellow, style = { "bold" } },
+                    ["@lsp.type.enum"] = { fg = colors.teal },
+                    ["@lsp.type.enumMember"] = { fg = colors.green },
+                    ["@lsp.type.variable"] = { fg = colors.text },
+                    ["@lsp.type.parameter"] = { fg = colors.text },
+                    ["@lsp.type.namespace"] = { fg = colors.pink },
+                    ["@lsp.type.number"] = { fg = colors.green },
+                    ["@lsp.type.boolean"] = { fg = colors.green, style = { "bold" } },
+                    ["@lsp.type.keyword"] = { fg = colors.mauve },
+                    ["@lsp.type.decorator"] = { fg = colors.blue },
+                    ["@lsp.type.unresolvedReference"] = { sp = colors.peach, style = { "undercurl" } },
+
+                    ["@lsp.mod.reference"] = { style = { "italic" } },
+                    ["@lsp.mod.mutable"] = { style = { "bold" } },
+                    ["@lsp.mod.trait"] = { fg = colors.sapphire },
                 }
             end,
         })
-        vim.cmd("colorscheme catppuccin")
+        vim.cmd.colorscheme("catppuccin")
     end,
 }

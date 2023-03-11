@@ -6,19 +6,17 @@ return {
         "sindrets/diffview.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
         cmd = { "DiffviewOpen", "DiffviewFileHistory" },
-        config = function()
-            require("diffview").setup({
-                enhanced_diff_hl = true,
-                use_icons = true,
-                view = {
-                    default = { layout = "diff2_horizontal" },
-                    merge_tool = {
-                        layout = "diff4_mixed",
-                        disable_diagnostics = true,
-                    },
+        opts = {
+            enhanced_diff_hl = true,
+            use_icons = true,
+            view = {
+                default = { layout = "diff2_horizontal" },
+                merge_tool = {
+                    layout = "diff4_mixed",
+                    disable_diagnostics = true,
                 },
-            })
-        end,
+            },
+        },
     },
     -- Git utilities, gutter signs
     {
@@ -36,7 +34,7 @@ return {
             }
 
             nmap {
-                ['<leader>g'] = {
+                    ['<leader>g'] = {
                     name = 'git',
                     s = { gitsigns.stage_hunk, 'Stage hunk' },
                     u = { gitsigns.undo_stage_hunk, 'Undo "stage hunk"' },
@@ -58,8 +56,6 @@ return {
         "pwntester/octo.nvim",
         lazy = true,
         cmd = "Octo",
-        config = function()
-            require("octo").setup()
-        end,
+        config = true,
     },
 }

@@ -103,6 +103,10 @@ function module.darken(color, amount, bg)
     return require('catppuccin.utils.colors').darken(color, amount, bg)
 end
 
+function module.brighten(color, amount, bg)
+    return require('catppuccin.utils.colors').brighten(color, amount, bg)
+end
+
 function module.build_pill(left, center, right)
     local colors = module.colors()
     local sep = module.separators

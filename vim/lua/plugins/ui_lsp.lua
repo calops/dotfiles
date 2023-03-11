@@ -1,17 +1,5 @@
 local nmap = require("core.utils").nmap
 return {
-    -- Show LSP code action hint
-    {
-        "kosayoda/nvim-lightbulb",
-        event = "LspAttach",
-        config = function()
-            require("nvim-lightbulb").setup({
-                autocmd = { enabled = true },
-                sign = { enabled = false },
-                virtual_text = { enabled = true, text = "" },
-            })
-        end,
-    },
     -- Show rich inline diagnostics
     {
         url = "https://git.sr.ht/~whynothugo/lsp_lines.nvim",

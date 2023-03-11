@@ -87,6 +87,7 @@ return {
                 },
                 diagnostics = {
                     enable = true,
+                    disabled = { "unresolved-method", "unresolved-field" },
                     experimental = { enable = false },
                 },
                 assist = {

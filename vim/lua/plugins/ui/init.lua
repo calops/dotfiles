@@ -31,10 +31,10 @@ return {
             end
 
             nmap {
-                ["<C-t>"] = { new_tab, "Open current buffer in new tab" },
-                ["<C-g>"] = { ":tabclose<CR>", "Close current tab" },
-                ["<C-Tab>"] = { ":tabnext<CR>", "View next tab" },
-                ["<C-S-Tab>"] = { ":tabprevious<CR>", "View previous tab" },
+                    ["<C-t>"] = { new_tab, "Open current buffer in new tab" },
+                    ["<C-g>"] = { ":tabclose<CR>", "Close current tab" },
+                    ["<C-Tab>"] = { ":tabnext<CR>", "View next tab" },
+                    ["<C-S-Tab>"] = { ":tabprevious<CR>", "View previous tab" },
             }
         end,
     },
@@ -43,9 +43,7 @@ return {
     {
         "mvllow/modes.nvim",
         event = "VeryLazy",
-        config = function()
-            require("modes").setup()
-        end,
+        config = true,
     },
     -- CMD line replacement and other UI niceties
     {
@@ -56,35 +54,35 @@ return {
         },
         enabled = true,
         lazy = false,
-        config = function()
-            require("noice").setup({
-                lsp = {
-                    override = {
+        init = function()
+            nmap { ["<leader><leader>"] = { ":noh<CR>", "Hide search highlights" } }
+        end,
+        opts = {
+            lsp = {
+                override = {
                         ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
                         ["vim.lsp.util.stylize_markdown"] = true,
                         ["cmp.entry.get_documentation"] = true,
-                    },
                 },
-                presets = {
-                    bottom_search = false,
-                    command_palette = true,
-                    long_message_to_split = true,
-                    lsp_doc_border = true,
+            },
+            presets = {
+                bottom_search = false,
+                command_palette = true,
+                long_message_to_split = true,
+                lsp_doc_border = true,
+            },
+            views = {
+                messages = { backend = "popup" },
+            },
+            popupmenu = { enabled = true, backend = "nui" },
+            routes = {
+                {
+                    view = "notify",
+                    filter = { event = "msg_show", find = '"*"*lines --*%--' },
+                    opts = { skip = true },
                 },
-                views = {
-                    messages = { backend = "popup" },
-                },
-                popupmenu = { enabled = true, backend = "nui" },
-                routes = {
-                    {
-                        view = "notify",
-                        filter = { event = "msg_show", find = '"*"*lines --*%--' },
-                        opts = { skip = true },
-                    },
-                },
-            })
-            nmap { ["<leader><leader>"] = { ":noh<CR>", "Hide search highlights" } }
-        end,
+            },
+        }
     },
     -- IDE panels
     {
@@ -92,69 +90,61 @@ return {
         cmd = "Workspace",
         init = function()
             nmap {
-                ["<leader>w"] = {
+                    ["<leader>w"] = {
                     name = "ide",
                     l = { ":Workspace LeftPanelToggle<CR>", "Toggle git panels" },
                     r = { ":Workspace RightPanelToggle<CR>", "Toggle IDE panels" },
                 }
             }
         end,
-        config = function()
-            require("ide").setup({
-                workspaces = {
-                    auto_open = "none",
-                },
-                panel_sizes = {
-                    left = 60,
-                    right = 60,
-                    bottom = 15,
-                },
-            })
-        end,
+        opts = {
+            workspaces = {
+                auto_open = "none",
+            },
+            panel_sizes = {
+                left = 60,
+                right = 60,
+                bottom = 15,
+            },
+        },
     },
     -- Better select dialog
     {
         "stevearc/dressing.nvim",
         event = "VeryLazy",
-        config = function()
-            require("dressing").setup({
-                input = { enabled = false },
-                select = { enabled = true },
-            })
-        end,
+        opts = {
+            input = { enabled = false },
+            select = { enabled = true },
+        },
     },
     -- Context-aware indentation lines
     {
         "lukas-reineke/indent-blankline.nvim",
         event = "VeryLazy",
-        config = function()
-            require("indent_blankline").setup({
-                show_current_context = true,
-                show_current_context_start = false,
-                use_treesitter = true,
-                use_treesitter_scope = false,
-                max_indent_increase = 1,
-                show_trailing_blankline_indent = false,
-                integrations = {
-                    neotree = {
-                        enabled = true,
-                        show_root = false,
-                        transparent_panel = false,
-                    },
+        opts = {
+            show_current_context = true,
+            show_current_context_start = false,
+            use_treesitter = true,
+            use_treesitter_scope = false,
+            max_indent_increase = 1,
+            show_trailing_blankline_indent = false,
+            integrations = {
+                neotree = {
+                    enabled = true,
+                    show_root = false,
+                    transparent_panel = false,
                 },
-            })
-        end,
+            },
+        },
     },
     -- Notification handler
     {
         "rcarriga/nvim-notify",
         lazy = false,
-        config = function()
-            require("notify").setup({
-                top_down = true,
-                max_width = 100,
-            })
-        end,
+        opts = {
+            top_down = true,
+            max_width = 100,
+        },
     },
     -- Keymaps cheat sheet and tooltips
     {
@@ -176,9 +166,7 @@ return {
     {
         "folke/todo-comments.nvim",
         event = "VeryLazy",
-        config = function()
-            require("todo-comments").setup {}
-        end
+        config = true,
     },
     -- Modern folds
     {
@@ -229,23 +217,15 @@ return {
         end
     },
     {
-        "lukas-reineke/virt-column.nvim",
-        event = "UIEnter",
-        enabled = false,
-        config = function()
-            require("virt-column").setup()
-        end
-    },
-    {
-        dir = "~/github/cuicui/",
+        dir = "~/github/cuicui",
         name = "charcolumn",
-        enabled = false,
+        enabled = true,
         event = "VeryLazy",
         config = function()
             require("charcolumn").setup {
                 columns = {
-                    { col = 42 },
-                    { col = 50 },
+                    { col = 100, hl = "CuicuiCharColumn1" },
+                    { col = 120, hl = "CuicuiCharColumn2", hl_overflow = "Error" },
                 },
             }
         end
