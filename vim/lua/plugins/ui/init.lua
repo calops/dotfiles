@@ -219,7 +219,7 @@ return {
     {
         dir = "~/github/cuicui",
         name = "charcolumn",
-        enabled = true,
+        enabled = false,
         event = "VeryLazy",
         config = function()
             require("charcolumn").setup {

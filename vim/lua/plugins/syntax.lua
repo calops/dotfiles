@@ -114,4 +114,9 @@ return {
 		"JoosepAlviste/nvim-ts-context-commentstring",
 		event = "VeryLazy",
 	},
+	-- Yuck support
+	{
+		"elkowar/yuck.vim",
+		ft = "yuck",
+	},
 }

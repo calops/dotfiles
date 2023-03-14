@@ -11,16 +11,13 @@ return {
     },
     -- Split/join
     {
-        'echasnovski/mini.splitjoin',
-        version = false,
-        event = "VeryLazy",
+        'Wansmer/treesj',
+        lazy = true,
+        init = function ()
+            nmap { ["gs"] = { function() require("treesj").toggle() end, "Toggle split" } }
+        end,
         config = function()
-            local gen_hook = require('mini.splitjoin').gen_hook
-            local brackets = { brackets = { '%b{}', '%b[]' } }
-            require('mini.splitjoin').setup {
-                split = { hooks_post = { gen_hook.add_trailing_separator(brackets) } },
-                join  = { hooks_post = { gen_hook.del_trailing_separator(brackets), gen_hook.pad_brackets(brackets) } },
-            }
+            require('treesj').setup{}
         end,
     },
     -- Automatically adjust indentation settings depending on the file
