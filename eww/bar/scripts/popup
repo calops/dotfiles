@@ -25,11 +25,11 @@ calendar(){
 }
 
 if [ "$1" = "launcher" ]; then
-$HOME/.local/bin/launcher
+    $HOME/.local/bin/launcher
 elif [ "$1" = "wifi" ]; then
-kitty -e nmtui
+    kitty -e nmtui
 elif [ "$1" = "audio" ]; then
-pavucontrol
+    pavucontrol
 elif [ "$1" = "calendar" ]; then
-calendar
+    calendar
 fi
