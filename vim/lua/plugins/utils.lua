@@ -82,6 +82,7 @@ return {
     -- Handle nested neovim sessions
     {
         'willothy/flatten.nvim',
+        event = "VeryLazy",
         opts = {
             callbacks = {
                 pre_open = function()

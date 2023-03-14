@@ -1,6 +1,6 @@
 -- Status line
 return {
-    "feline-nvim/feline.nvim",
+    "freddiehaddad/feline.nvim",
     event = "UIEnter",
     enabled = true,
     config = function()
