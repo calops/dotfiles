@@ -41,7 +41,7 @@ $foreground: $text;
 
 // EWW BAR
 .eww_bar{
-    background-color: $background;
+    background-color: rgba($background, 0);
     padding: .3rem;
 }
 
