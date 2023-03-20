@@ -93,6 +93,9 @@ return {
                 assist = {
                     emitMustUse = true,
                 },
+                procMacro = {
+                    enable = true,
+                }
             }
 
             require("rust-tools").setup({
