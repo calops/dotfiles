@@ -126,7 +126,7 @@ return {
                     ["@lsp.mod.reference"] = { style = { "italic" } },
                     ["@lsp.mod.mutable"] = { style = { "bold" } },
                     ["@lsp.mod.trait"] = { fg = colors.sapphire },
-                    ["@lsp.typemod.variable.static"] = { style = { "underline" } },
+                    ["@lsp.typemod.variable.static"] = { style = { "underdashed" } },
                     ["@lsp.typemod.method.defaultLibrary"] = {},
                 }
             end,

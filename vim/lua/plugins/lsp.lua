@@ -1,4 +1,5 @@
 local nmap = require("core.utils").nmap
+local xmap = require("core.utils").xmap
 
 local function make_capabilities()
     local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -76,8 +77,6 @@ return {
     {
         "simrat39/rust-tools.nvim",
         ft = "rust",
-        lazy = true,
-        enabled = true,
         config = function()
             -- require('neoconf')
             local rust_lsp_conf = {
@@ -95,16 +94,34 @@ return {
                 },
                 procMacro = {
                     enable = true,
-                }
+                },
+                -- checkOnSave = {
+                --     overrideCommand = {
+                --         "cargo",
+                --         "clippy",
+                --         "--quiet",
+                --         "--message-format=json",
+                --         "--all-targets"
+                --     },
+                -- },
             }
 
-            require("rust-tools").setup({
+            local rt = require("rust-tools")
+            rt.setup({
                 tools = {
                     inlay_hints = {
                         highlight = "InlayHints",
                     },
                 },
                 server = {
+                    on_attach = function(_, bufnr)
+                        nmap {
+                            ["<leader>h"] = { rt.hover_actions.hover_actions, "Hover actions", { buffer = bufnr } },
+                        }
+                        xmap {
+                            K = { rt.hover_range.hover_range, "Hover information", { buffer = bufnr } },
+                        }
+                    end,
                     capabilities = make_capabilities(),
                     settings = { ["rust-analyzer"] = rust_lsp_conf },
                 },

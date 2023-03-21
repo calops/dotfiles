@@ -16,17 +16,13 @@ return {
         init = function ()
             nmap { ["gs"] = { function() require("treesj").toggle() end, "Toggle split" } }
         end,
-        config = function()
-            require('treesj').setup{}
-        end,
+        config = true,
     },
     -- Automatically adjust indentation settings depending on the file
     {
         "nmac427/guess-indent.nvim",
         event = "InsertEnter",
-        config = function()
-            require("guess-indent").setup({})
-        end,
+        config = true,
     },
     -- Structural replace
     {
