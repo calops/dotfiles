@@ -40,7 +40,7 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.termguicolors = true
 vim.o.background = "dark"
--- vim.o.colorcolumn = "120"
+vim.o.colorcolumn = "120"
 vim.o.cursorline = true
 vim.o.smarttab = true
 vim.o.expandtab = true
@@ -51,7 +51,7 @@ vim.o.smartindent = true
 vim.o.autoindent = true
 vim.o.winblend = 0
 vim.o.pumblend = 0
-vim.o.scrolloff = 15
+vim.o.scrolloff = 10
 vim.o.fixendofline = true
 
 require("lazy").setup("plugins", {
@@ -67,3 +67,67 @@ vim.cmd([[
         autocmd BufEnter *.txt if &buftype == 'help' | wincmd L | vert resize 80 | set winfixwidth | endif
     augroup END
 ]])
+
+-- Full line error highlights
+local utils = require('plugins.ui.utils')
+local lines_ns = vim.api.nvim_create_namespace("diag_lines")
+local underlines_ns = vim.api.nvim_create_namespace("diag_underlines")
+
+local function clear_highlights(buf)
+    vim.api.nvim_buf_clear_namespace(buf, lines_ns, 0, -1)
+end
+
+local function clear_underlines(buf)
+    vim.api.nvim_buf_clear_namespace(buf, underlines_ns, 0, -1)
+end
+
+local function update_underlines(buf, diagnostics)
+    clear_underlines(buf)
+
+    for _, diagnostic in ipairs(diagnostics) do
+        if diagnostic.col ~= 0 and diagnostic.end_col ~= vim.fn.col({diagnostic.lnum + 1, '$'}) then
+            vim.api.nvim_buf_set_extmark(buf, underlines_ns, diagnostic.lnum, diagnostic.col, {
+                hl_mode = 'combine',
+                hl_group = utils.diags_underlines()[diagnostic.severity],
+                end_col = diagnostic.end_col,
+                priority = 4 - diagnostic.severity,
+            })
+        end
+    end
+end
+
+local function update_highlights(buf, diagnostics)
+    clear_highlights(buf)
+
+    for _, diagnostic in ipairs(diagnostics) do
+        vim.api.nvim_buf_set_extmark(buf, lines_ns, diagnostic.lnum, 0, {
+            hl_mode = 'combine',
+            hl_eol = true,
+            hl_group = utils.diags_lines()[diagnostic.severity],
+            end_row = (diagnostic.end_lnum or diagnostic.lnum) + 1,
+            priority = 4 - diagnostic.severity,
+        })
+    end
+end
+
+vim.diagnostic.handlers.diagnostic_lines = {
+    show = function(_, bufnr, diagnostics, _)
+        update_highlights(bufnr, diagnostics)
+    end,
+    hide = function(_, bufnr)
+        clear_highlights(bufnr)
+    end,
+}
+
+vim.diagnostic.handlers.underline = {
+    show = function(_, bufnr, diagnostics, _)
+        update_underlines(bufnr, diagnostics)
+    end,
+    hide = function(_, bufnr)
+        clear_underlines(bufnr)
+    end,
+}
+
+vim.cmd [[
+    autocmd FileType rust setlocal textwidth=120
+]]

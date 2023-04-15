@@ -43,18 +43,18 @@ return {
                     InclineNormal = { bg = colors.overlay1, fg = colors.base, blend = 0 },
 
                     TreesitterContext = { bg = colors.base, style = { "italic" }, blend = 0 },
-                    TreesitterContextLineNumber = {
-                        fg = colors.surface1,
-                        bg = colors.mantle,
-                        style = { "italic" },
-                        blend = 0,
-                    },
-                    TreesitterContextBottom = { sp = colors.crust, style = { "underline" } },
+                    TreesitterContextLineNumber = { fg = colors.base, bg = colors.surface1, blend = 0 },
+                    TreesitterContextBottom = { sp = colors.surface1, style = { "underline" } },
 
                     DiagnosticUnderlineError = { sp = colors.red, style = { "undercurl" } },
                     DiagnosticUnderlineWarn = { sp = colors.yellow, style = { "undercurl" } },
                     DiagnosticUnderlineInfo = { sp = colors.sky, style = { "undercurl" } },
                     DiagnosticUnderlineHint = { sp = colors.teal, style = { "undercurl" } },
+
+                    DiagnosticLineError = { bg = utils.darken(colors.red, 0.095, colors.base) },
+                    DiagnosticLineWarn = { bg = utils.darken(colors.yellow, 0.095, colors.base) },
+                    DiagnosticLineInfo = { bg = utils.darken(colors.sky, 0.095, colors.base) },
+                    DiagnosticLineHint = { bg = utils.darken(colors.teal, 0.095, colors.base) },
 
                     IndentBlanklineChar = { style = { "nocombine" } },
                     IndentBlanklineSpaceChar = { style = { "nocombine" } },
@@ -121,7 +121,7 @@ return {
                     ["@lsp.type.boolean"] = { fg = colors.green, style = { "bold" } },
                     ["@lsp.type.keyword"] = { fg = colors.mauve },
                     ["@lsp.type.decorator"] = { fg = colors.blue },
-                    ["@lsp.type.unresolvedReference"] = { sp = colors.peach, style = { "undercurl" } },
+                    ["@lsp.type.unresolvedReference"] = { sp = colors.surface2, style = { "undercurl" } },
 
                     ["@lsp.mod.reference"] = { style = { "italic" } },
                     ["@lsp.mod.mutable"] = { style = { "bold" } },

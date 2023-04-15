@@ -13,9 +13,12 @@ return {
     {
         'Wansmer/treesj',
         lazy = true,
-        init = function ()
+        init = function()
             nmap { ["gs"] = { function() require("treesj").toggle() end, "Toggle split" } }
         end,
+        opt = {
+            max_join_length = 300,
+        },
         config = true,
     },
     -- Automatically adjust indentation settings depending on the file

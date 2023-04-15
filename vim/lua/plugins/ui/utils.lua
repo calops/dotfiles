@@ -1,5 +1,6 @@
 local module = {}
 
+require('catppuccin') -- Make sure the theme is loaded first
 local utils = require('heirline.utils')
 
 module._colors_data = nil
@@ -91,6 +92,24 @@ function module.diags_sorted()
         module.diags().warn,
         module.diags().info,
         module.diags().hint,
+    }
+end
+
+function module.diags_lines()
+    return {
+        'DiagnosticLineError',
+        'DiagnosticLineWarn',
+        'DiagnosticLineInfo',
+        'DiagnosticLineHint',
+    }
+end
+
+function module.diags_underlines()
+    return {
+        'DiagnosticUnderlineError',
+        'DiagnosticUnderlineWarn',
+        'DiagnosticUnderlineInfo',
+        'DiagnosticUnderlineHint',
     }
 end
 

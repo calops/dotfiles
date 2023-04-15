@@ -11,11 +11,15 @@ return {
                 vim.diagnostic.config({
                     virtual_lines = not is_enabled,
                     virtual_text = is_enabled,
+                    severity_sort = true,
                 })
             end
 
             nmap {
-                ["<leader>m"] = { function() require("lsp_lines") toggle_virtual_lines() end,
+                ["<leader>m"] = { function()
+                    require("lsp_lines")
+                    toggle_virtual_lines()
+                end,
                     "Toggle full inline diagnostics" }
             }
         end,

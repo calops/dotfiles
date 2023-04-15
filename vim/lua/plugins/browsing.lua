@@ -27,8 +27,8 @@ return {
                     ["<Space>"] = { function() require("telescope.builtin").grep_string() end, "Grep string under cursor" },
                     s = { function() require("telescope.builtin").live_grep() end, "Live grep" },
                     b = { function() require("telescope.builtin").buffers() end, "Find buffer" },
-                    h = { function() require("telescope.builtin").help_tags() end, "List help tags" },
                     e = { function() require("telescope.builtin").symbols() end, "Select symbol" },
+                    R = { function() require("telescope.builtin").resume() end, "Resume selection" },
                 }
             }
         end,
