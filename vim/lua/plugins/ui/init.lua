@@ -152,7 +152,7 @@ return {
         event = "VeryLazy",
         config = function()
             vim.o.timeout = true
-            vim.o.timeoutlen = 300
+            vim.o.timeoutlen = 150
             require("which-key").setup({
                 window = {
                     border = "rounded",
@@ -231,3 +231,4 @@ return {
         end
     },
 }
+

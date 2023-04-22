@@ -56,6 +56,8 @@ return {
                     DiagnosticLineInfo = { bg = utils.darken(colors.sky, 0.095, colors.base) },
                     DiagnosticLineHint = { bg = utils.darken(colors.teal, 0.095, colors.base) },
 
+                    DiagnosticUnnecessary = { sp = colors.mauve, style = { "undercurl" } },
+
                     IndentBlanklineChar = { style = { "nocombine" } },
                     IndentBlanklineSpaceChar = { style = { "nocombine" } },
                     IndentBlanklineContextChar = { fg = colors.mauve, style = { "nocombine" } },
@@ -98,6 +100,8 @@ return {
                     CuicuiCharColumn1 = { fg = utils.darken(colors.surface0, 0.8) },
                     CuicuiCharColumn2 = { fg = colors.surface0 },
 
+                    CopilotSuggestion = { fg = utils.darken(colors.peach, 0.8), style = { "italic" } },
+
                     -- Syntax
                     ["@parameter"] = { fg = colors.text, style = { "nocombine" } },
                     ["@namespace"] = { fg = colors.pink, style = { "nocombine" } },
@@ -128,9 +132,11 @@ return {
                     ["@lsp.mod.trait"] = { fg = colors.sapphire },
                     ["@lsp.typemod.variable.static"] = { style = { "underdashed" } },
                     ["@lsp.typemod.method.defaultLibrary"] = {},
+                    ["@lsp.typemod.variable.callable"] = { fg = colors.teal },
                 }
             end,
         })
         vim.cmd.colorscheme("catppuccin")
     end,
 }
+

@@ -76,9 +76,9 @@ return {
 	-- Rust-specific utilities and LSP configurations
 	{
 		"simrat39/rust-tools.nvim",
+        enabled = true,
 		ft = "rust",
 		config = function()
-			-- require('neoconf')
 			local rust_lsp_conf = {
 				semanticHighlighting = {
 					["punctuation.enable"] = true,
@@ -212,3 +212,4 @@ return {
 		end,
 	},
 }
+

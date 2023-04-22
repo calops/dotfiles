@@ -90,7 +90,7 @@ local function update_underlines(buf, diagnostics)
                 hl_mode = 'combine',
                 hl_group = utils.diags_underlines()[diagnostic.severity],
                 end_col = diagnostic.end_col,
-                priority = 4 - diagnostic.severity,
+                priority = 14 - diagnostic.severity,
             })
         end
     end
@@ -104,8 +104,8 @@ local function update_highlights(buf, diagnostics)
             hl_mode = 'combine',
             hl_eol = true,
             hl_group = utils.diags_lines()[diagnostic.severity],
-            end_row = (diagnostic.end_lnum or diagnostic.lnum) + 1,
-            priority = 4 - diagnostic.severity,
+            end_row = diagnostic.lnum + 1,
+            priority = 14 - diagnostic.severity,
         })
     end
 end
@@ -119,15 +119,16 @@ vim.diagnostic.handlers.diagnostic_lines = {
     end,
 }
 
-vim.diagnostic.handlers.underline = {
-    show = function(_, bufnr, diagnostics, _)
-        update_underlines(bufnr, diagnostics)
-    end,
-    hide = function(_, bufnr)
-        clear_underlines(bufnr)
-    end,
-}
+-- vim.diagnostic.handlers.underline = {
+--     show = function(_, bufnr, diagnostics, _)
+--         update_underlines(bufnr, diagnostics)
+--     end,
+--     hide = function(_, bufnr)
+--         clear_underlines(bufnr)
+--     end,
+-- }
 
 vim.cmd [[
     autocmd FileType rust setlocal textwidth=120
 ]]
+

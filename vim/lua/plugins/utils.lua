@@ -82,6 +82,7 @@ return {
     -- Handle nested neovim sessions
     {
         'willothy/flatten.nvim',
+        enabled = false,
         event = "VeryLazy",
         opts = {
             callbacks = {
@@ -117,3 +118,4 @@ return {
         }
     }
 }
+
