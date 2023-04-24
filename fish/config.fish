@@ -65,7 +65,7 @@ end
 
 function eol
     echo "adding missing EOLs"
-    git status --short | choose 1 | rargs sed -i '$a\\\\' {0}
+    git status --short | choose 1 | rargs sed -i '$a\\' {0}
 end
 
 fish_ssh_agent

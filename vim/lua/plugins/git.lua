@@ -62,7 +62,7 @@ return {
     {
         dir = '~/github/gitroutine.nvim',
         name = 'gitroutine',
-        enabled = true,
+        enabled = false,
         event = "VeryLazy",
         config = function()
             require('gitroutine').setup { foo = "bar" }
