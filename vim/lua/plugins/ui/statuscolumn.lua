@@ -52,13 +52,13 @@ return {
 		-- LSP diagnostics
 		{
 			condition = function()
-				return vim.v.virtnum == 0 and conditions.has_diagnostics()
+				return vim.v.virtnum == 0
 			end,
 			provider = function(self)
 				if self.diagsign then
 					return self.diagsign.sign .. " "
 				else
-					return "  "
+					return "   "
 				end
 			end,
 			hl = function(self)

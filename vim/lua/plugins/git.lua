@@ -34,7 +34,7 @@ return {
             }
 
             nmap {
-                    ['<leader>g'] = {
+                ['<leader>g'] = {
                     name = 'git',
                     s = { gitsigns.stage_hunk, 'Stage hunk' },
                     u = { gitsigns.undo_stage_hunk, 'Undo "stage hunk"' },
@@ -58,4 +58,14 @@ return {
         cmd = "Octo",
         config = true,
     },
+
+    {
+        dir = '~/github/gitroutine.nvim',
+        name = 'gitroutine',
+        enabled = true,
+        event = "VeryLazy",
+        config = function()
+            require('gitroutine').setup { foo = "bar" }
+        end
+    }
 }

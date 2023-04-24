@@ -136,14 +136,20 @@ return {
 					"Insert below top-level node",
 				},
 				["gh"] = { "<CMD>STSSwapOrHold<CR>", "Hold or swap with held node" },
+				["<Tab>"] = { "<CMD>STSSelectCurrentNode<CR>", "Select current node" },
 			}
 
-			-- These are not working for some reason
 			xmap {
-				["<M-Up>"] = { ":STSSwapPrevVisual<CR>", "Swap with previous node" },
-				["<M-Down>"] = { ":STSSwapNextVisual<CR>", "Swap with next node" },
-				["<M-Left>"] = { ":STSSwapPrevVisual<CR>", "Swap with previous node" },
-				["<M-Right>"] = { ":STSSwapNextVisual<CR>", "Swap with next node" },
+				["<M-Up>"] = { "<CMD>STSSwapPrevVisual<CR>", "Swap with previous node" },
+				["<M-Down>"] = { "<CMD>STSSwapNextVisual<CR>", "Swap with next node" },
+				["<M-Left>"] = { "<CMD>STSSwapPrevVisual<CR>", "Swap with previous node" },
+				["<M-Right>"] = { "<CMD>STSSwapNextVisual<CR>", "Swap with next node" },
+				["<C-Up>"] = { "<CMD>STSSelectPrevSiblingNode<CR>", "Select previous sibling" },
+				["<C-Down>"] = { "<CMD>STSSelectNextSiblingNode<CR>", "Select next sibling" },
+				["<C-Left>"] = { "<CMD>STSSelectPrevSiblingNode<CR>", "Select previous sibling" },
+				["<C-Right>"] = { "<CMD>STSSelectNextSiblingNode<CR>", "Select next sibling" },
+				["<Tab>"] = { "<CMD>STSSelectParentNode<CR>", "Select parent node" },
+				["<S-Tab>"] = { "<CMD>STSSelectChildNode<CR>", "Select child node" },
 				["gh"] = { "<CMD>STSSwapOrHold<CR>", "Hold or swap with held node" },
 			}
 		end,
