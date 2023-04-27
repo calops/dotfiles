@@ -19,7 +19,7 @@ return {
 					additional_vim_regex_highlighting = false,
 				},
 				incremental_selection = {
-					enable = true,
+					enable = false,
 					keymaps = {
 						init_selection = "<CR>",
 						scope_incremental = "<CR>",
@@ -136,7 +136,7 @@ return {
 					"Insert below top-level node",
 				},
 				["gh"] = { "<CMD>STSSwapOrHold<CR>", "Hold or swap with held node" },
-				["<Tab>"] = { "<CMD>STSSelectCurrentNode<CR>", "Select current node" },
+				["<Cr>"] = { "<CMD>STSSelectCurrentNode<CR>", "Select current node" },
 			}
 
 			xmap {
@@ -148,8 +148,8 @@ return {
 				["<C-Down>"] = { "<CMD>STSSelectNextSiblingNode<CR>", "Select next sibling" },
 				["<C-Left>"] = { "<CMD>STSSelectPrevSiblingNode<CR>", "Select previous sibling" },
 				["<C-Right>"] = { "<CMD>STSSelectNextSiblingNode<CR>", "Select next sibling" },
-				["<Tab>"] = { "<CMD>STSSelectParentNode<CR>", "Select parent node" },
-				["<S-Tab>"] = { "<CMD>STSSelectChildNode<CR>", "Select child node" },
+				["<Cr>"] = { "<CMD>STSSelectParentNode<CR>", "Select parent node" },
+				["<S-Cr>"] = { "<CMD>STSSelectChildNode<CR>", "Select child node" },
 				["gh"] = { "<CMD>STSSwapOrHold<CR>", "Hold or swap with held node" },
 			}
 		end,
