@@ -86,15 +86,14 @@ return {
                     GitSignsDelete = { fg = colors.red },
                     DiffDeleteVirtLn = { fg = utils.darken(colors.red, 0.3) },
 
-                    Tabline = { fg = colors.base, bg = colors.surface1 },
-                    TablineSel = { fg = colors.base, bg = colors.overlay1 },
-                    TablineLogo = { fg = colors.base, bg = colors.mauve },
-                    TablinePillIcon = { bg = colors.surface1 },
-                    TablinePillIconSel = { bg = colors.surface2 },
-                    TablineModifiedIcon = { fg = colors.peach },
-                    TablineNumber = { style = { "bold" } },
+                    CustomTabline = { fg = colors.base, bg = colors.surface1 },
+                    CustomTablineSel = { fg = colors.base, bg = colors.overlay1 },
+                    CustomTablineLogo = { fg = colors.base, bg = colors.mauve },
+                    CustomTablinePillIcon = { bg = colors.surface1 },
+                    CustomTablinePillIconSel = { bg = colors.surface2 },
+                    CustomTablineModifiedIcon = { fg = colors.peach },
+                    CustomTablineNumber = { style = { "bold" } },
 
-                    CursorLine = { bg = colors.mantle },
                     VirtColumn = { fg = colors.surface0 },
 
                     CuicuiCharColumn1 = { fg = utils.darken(colors.surface0, 0.8) },

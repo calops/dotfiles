@@ -13,12 +13,12 @@ return {
             sep = ui_utils.separators,
             diags = ui_utils.diags_sorted(),
             colors = {
-                logo = hr_utils.get_highlight('TablineLogo'),
-                tab_active = hr_utils.get_highlight('TablineSel'),
-                tab_inactive = hr_utils.get_highlight('Tabline'),
-                icon_pill_inactive = hr_utils.get_highlight('TablinePillIcon'),
-                icon_pill_active = hr_utils.get_highlight('TablinePillIconSel'),
-                icon_modified = hr_utils.get_highlight('TablineModifiedIcon'),
+                logo = hr_utils.get_highlight('CustomTablineLogo'),
+                tab_active = hr_utils.get_highlight('CustomTablineSel'),
+                tab_inactive = hr_utils.get_highlight('CustomTabline'),
+                icon_pill_inactive = hr_utils.get_highlight('CustomTablinePillIcon'),
+                icon_pill_active = hr_utils.get_highlight('CustomTablinePillIconSel'),
+                icon_modified = hr_utils.get_highlight('CustomTablineModifiedIcon'),
             }
         },
         {
@@ -34,7 +34,7 @@ return {
                 function(self) return self.colors.logo.bg end,
                 {
                     provider = " Tabs",
-                    hl = 'TablineLogo',
+                    hl = 'CustomTablineLogo',
                 }
             )
         },
@@ -114,7 +114,7 @@ return {
                     {
                         hl = self.tab_color,
                         {
-                            { provider = self.tabpage .. " ", hl = "TablineNumber" },
+                            { provider = self.tabpage .. " ", hl = "CustomTablineNumber" },
                             { provider = self.tab_name },
                         }
                     },

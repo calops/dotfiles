@@ -12,7 +12,7 @@ return {
 		local col_inactive = format_color(hr_utils.get_highlight("InclineNormalNC").bg)
 		local col_active = format_color(hr_utils.get_highlight("InclineNormal").bg)
 		local col_base = format_color(hr_utils.get_highlight("Normal").bg)
-		local col_modified = format_color(hr_utils.get_highlight("TablineModifiedIcon").fg)
+		local col_modified = format_color(hr_utils.get_highlight("CustomTablineModifiedIcon").fg)
 		local diags = require("plugins.ui.utils").diags_sorted()
 
 		incline.setup {
