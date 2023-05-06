@@ -110,6 +110,7 @@ return {
                     ["@function.macro"] = { fg = colors.blue },
                     ["@constant.builtin"] = { fg = colors.green },
                     ["@property"] = { fg = utils.brighten(colors.yellow, 0.7) },
+                    ["@field"] = { fg = utils.brighten(colors.yellow, 0.7) },
 
                     ["@lsp.type.struct"] = { fg = colors.yellow },
                     ["@lsp.type.property"] = { fg = utils.brighten(colors.yellow, 0.7) },
