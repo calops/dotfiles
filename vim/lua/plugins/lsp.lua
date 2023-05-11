@@ -69,6 +69,7 @@ return {
 					nls.builtins.formatting.stylua,
 					nls.builtins.diagnostics.buf,
 					nls.builtins.formatting.npm_groovy_lint,
+					nls.builtins.formatting.alejandra,
 				},
 			}
 		end,
@@ -76,7 +77,7 @@ return {
 	-- Rust-specific utilities and LSP configurations
 	{
 		"simrat39/rust-tools.nvim",
-        enabled = true,
+		enabled = true,
 		ft = "rust",
 		config = function()
 			local rust_lsp_conf = {
@@ -212,4 +213,3 @@ return {
 		end,
 	},
 }
-
