@@ -96,15 +96,6 @@ return {
 				procMacro = {
 					enable = true,
 				},
-				-- checkOnSave = {
-				--     overrideCommand = {
-				--         "cargo",
-				--         "clippy",
-				--         "--quiet",
-				--         "--message-format=json",
-				--         "--all-targets"
-				--     },
-				-- },
 			}
 
 			local rt = require("rust-tools")
@@ -126,20 +117,6 @@ return {
 					capabilities = make_capabilities(),
 					settings = { ["rust-analyzer"] = rust_lsp_conf },
 				},
-			}
-			-- Auto format on save
-			require("core.autocmd").BufWritePre = {
-				"*.rs",
-				function()
-					for _, client in ipairs(vim.lsp.get_active_clients()) do
-						if client.attached_buffers[vim.api.nvim_get_current_buf()] then
-							vim.lsp.buf.format()
-							return
-						else
-							return
-						end
-					end
-				end,
 			}
 		end,
 	},
@@ -169,6 +146,21 @@ return {
 			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 			vim.lsp.handlers["textDocument/signatureHelp"] =
 				vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
+
+			-- Auto format on save
+			require("core.autocmd").BufWritePre = {
+				"*.rs,*.nix,*.lua",
+				function()
+					for _, client in ipairs(vim.lsp.get_active_clients()) do
+						if client.attached_buffers[vim.api.nvim_get_current_buf()] then
+							vim.lsp.buf.format()
+							return
+						else
+							return
+						end
+					end
+				end,
+			}
 		end,
 	},
 	-- LSP files operations
