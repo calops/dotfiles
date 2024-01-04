@@ -23,6 +23,8 @@ if command -vq exa
     alias lt="ll -T"
 end
 
+alias hm="home-manager"
+
 bind \cp 'cd (fd . --type=directory | sk --color=always)'
 
 set -gx STOCKLY_MAIN $HOME/stockly/Main
@@ -58,6 +60,7 @@ if test ! -f $SRC
     zoxide init fish --cmd cd >>$SRC
 end
 source $SRC
+source ~/.nix-profile/etc/profile.d/nix.fish
 
 function s
     cargo run --manifest-path "$STOCKLY_MAIN/.cargo/workspace/Cargo.toml" -p "stockly_cli" --release -- $argv
